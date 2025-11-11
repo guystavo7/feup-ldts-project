@@ -1,7 +1,8 @@
 package com.framework;
 
 public class BoxCollider extends Node {
-    private int width, height;
+    private int width;
+    private int height;
 
     public BoxCollider(Vector2d vector2d, int width, int height) {
         super(vector2d);
@@ -9,8 +10,33 @@ public class BoxCollider extends Node {
         this.height = height;
     }
 
-    //Todo - takes a other boxCollider and check if there is intersection
     private boolean isColliding(BoxCollider other) {
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
+
+        //Check if topLeft is inside
+        if (other.getPosition().getX() > x && other.getPosition().getY() < (x + width)) {
+            if (other.getPosition().getY() > y && other.getPosition().getY() < (y + height)) {
+                return true;
+            }
+        }
+
+        //Check if bottomRight is inside
+        if (other.getPosition().getX() + other.getWidth() > x && other.getPosition().getX() < (x + width)) {
+            if (other.getPosition().getY() + other.getHeight() > y && other.getPosition().getY() < (y + height)) {
+                return true;
+            }
+        }
+
         return false;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
+
