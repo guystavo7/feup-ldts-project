@@ -1,15 +1,22 @@
 package com.framework;
 
 public abstract class Node {
-    private Vector2d vector2d;
+    private Vector2d position;
 
-    public Node(Vector2d vector2d) {
-        this.vector2d = vector2d;
+    protected Node(Vector2d vector2d) {
+        this.position = vector2d;
     }
 
     public void update(Vector2d newPos) {
-        this.vector2d = newPos;
+        this.position = newPos;
     }
 
-    //Todo - setter and getters
+    //Getters and Setters
+    public Vector2d getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2d position) {
+        this.position = position;
+    }
 }
