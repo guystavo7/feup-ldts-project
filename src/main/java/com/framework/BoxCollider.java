@@ -10,25 +10,33 @@ public class BoxCollider extends Node {
         this.height = height;
     }
 
-    private boolean isColliding(BoxCollider other) {
+    private boolean checkTopleftCollision(BoxCollider other) {
         int x = this.getPosition().getX();
         int y = this.getPosition().getY();
 
+        int otherX = other.getPosition().getX();
+        int otherY = other.getPosition().getY();
+
         //Check if topLeft is inside
-        if (other.getPosition().getX() > x && other.getPosition().getY() < (x + width)) {
-            if (other.getPosition().getY() > y && other.getPosition().getY() < (y + height)) {
-                return true;
-            }
-        }
+        return (otherX > x && otherX < (x + width) && otherY > y && otherY < (y + height));
+    }
 
-        //Check if bottomRight is inside
-        if (other.getPosition().getX() + other.getWidth() > x && other.getPosition().getX() < (x + width)) {
-            if (other.getPosition().getY() + other.getHeight() > y && other.getPosition().getY() < (y + height)) {
-                return true;
-            }
-        }
+    private boolean checkBotLeftCollision(BoxCollider other) {
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
 
-        return false;
+        int otherX = other.getPosition().getX();
+        int otherY = other.getPosition().getY();
+        int otherWidth = other.getWidth();
+        int otherHeight = other.getHeight();
+
+        return ((otherX + otherWidth) > x && otherX < (x + width) && (otherY + otherHeight) > y && otherY < (y + height));
+    }
+
+
+
+    public boolean isColliding(BoxCollider other) {
+        return checkBotLeftCollision(other) || checkTopleftCollision(other);
     }
 
     public int getWidth() {
