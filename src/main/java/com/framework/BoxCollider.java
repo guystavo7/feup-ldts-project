@@ -10,7 +10,15 @@ public class BoxCollider extends Node {
     }
 
     //Todo - takes a other boxCollider and check if there is intersection
-    private boolean isColliding(BoxCollider other) {
+    public boolean isColliding(BoxCollider other) {
         return false;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
