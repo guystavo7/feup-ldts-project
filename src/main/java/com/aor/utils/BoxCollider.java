@@ -1,4 +1,4 @@
-package com.framework;
+package com.aor.utils;
 
 public class BoxCollider extends Node {
     private int width, height;

@@ -1,6 +1,4 @@
-package com.framework;
-
-import javax.swing.text.Position;
+package com.aor.utils;
 
 public class RigidBody extends Node {
     Vector2d velocity;
