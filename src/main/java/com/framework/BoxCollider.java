@@ -16,21 +16,23 @@ public class BoxCollider extends Node {
 
         int otherX = other.getPosition().getX();
         int otherY = other.getPosition().getY();
+        int otherWidth = other.getWidth();
+        int otherHeight = other.getHeight();
 
         //Check if topLeft is inside
-        return (otherX > x && otherX < (x + width) && otherY > y && otherY < (y + height));
+        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }
 
     private boolean checkBotLeftCollision(BoxCollider other) {
-        int x = this.getPosition().getX();
-        int y = this.getPosition().getY();
+        int x = this.getPosition().getX() + width;
+        int y = this.getPosition().getY() + height;
 
         int otherX = other.getPosition().getX();
         int otherY = other.getPosition().getY();
         int otherWidth = other.getWidth();
         int otherHeight = other.getHeight();
 
-        return ((otherX + otherWidth) > x && otherX < (x + width) && (otherY + otherHeight) > y && otherY < (y + height));
+        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }
 
 
