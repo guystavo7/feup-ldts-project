@@ -1,0 +1,34 @@
+package com.aor.utils;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+//A class that holds some useful methods
+public class Utils {
+    private Utils() {}
+
+    public static List<List<Pixel>> loadImage(String path) throws IOException {
+        File file = new File(path);
+        BufferedImage image = ImageIO.read(file);
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        List<List<Pixel>> pixels = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            List<Pixel> line = new ArrayList<>();
+            for (int x = 0; x < width; x++) {
+                line.add(new Pixel(image.getRGB(x, y)));
+            }
+
+            pixels.add(line);
+        }
+
+        return pixels;
+    }
+
+}
