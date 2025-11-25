@@ -7,7 +7,6 @@ public class GameDataFeature {
     private static GameDataFeature instance;
 
 
-
     //Physics settings
     private float gravity;
     private float jumpvelocity;
