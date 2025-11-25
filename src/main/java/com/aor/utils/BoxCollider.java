@@ -4,15 +4,15 @@ public class BoxCollider extends Node {
     private int width;
     private int height;
 
-    public BoxCollider(Vector2d vector2d, int width, int height) {
-        super(vector2d);
+    public BoxCollider(Vector2d position, int width, int height) {
+        super(position);
         this.width = width;
         this.height = height;
     }
 
-    private boolean checkTopleftCollision(BoxCollider other) {
-        int x = this.getPosition().getX();
-        int y = this.getPosition().getY();
+    private boolean checkTopLeftCollision(Vector2d newPos, BoxCollider other) {
+        int x = newPos.getX();
+        int y = newPos.getY();
 
         int otherX = other.getPosition().getX();
         int otherY = other.getPosition().getY();
@@ -23,9 +23,9 @@ public class BoxCollider extends Node {
         return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }
 
-    private boolean checkBotLeftCollision(BoxCollider other) {
-        int x = this.getPosition().getX() + width;
-        int y = this.getPosition().getY() + height;
+    private boolean checkBotRightCollision(Vector2d newPos, BoxCollider other) {
+        int x = newPos.getX() + width;
+        int y = newPos.getY() + height;
 
         int otherX = other.getPosition().getX();
         int otherY = other.getPosition().getY();
@@ -35,10 +35,9 @@ public class BoxCollider extends Node {
         return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }
 
-
-
-    public boolean isColliding(BoxCollider other) {
-        return checkBotLeftCollision(other) || checkTopleftCollision(other);
+    public boolean isColliding(Vector2d newPos, BoxCollider other) {
+        if (other.equals(this)) return false;
+        return checkBotRightCollision(newPos, other) || checkTopLeftCollision(newPos, other);
     }
 
     public int getWidth() {

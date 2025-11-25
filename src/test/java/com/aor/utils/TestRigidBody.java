@@ -10,7 +10,6 @@ import org.mockito.Mockito;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 class TestRigidBody {
     RigidBody rb;
@@ -31,22 +30,22 @@ class TestRigidBody {
     @Test
     void testMove1() {
         //There is no collisions - with positive velocity
-        Mockito.when(stubArena.detectCollision(Mockito.any(BoxCollider.class))).thenReturn(new ArrayList<>());
+        Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class))).thenReturn(new ArrayList<>());
         Vector2d newVelocity = new Vector2d(5, 5);
         rb.setVelocity(newVelocity);
 
-        Vector2d newPos = rb.move(initialPos);
+        Vector2d newPos = rb.move();
         Assertions.assertEquals(newPos, new Vector2d(10, 10));
     }
 
     @Test
     void testMove2() {
         //There is no collisions - with negative velocity
-        Mockito.when(stubArena.detectCollision(Mockito.any(BoxCollider.class))).thenReturn(new ArrayList<>());
+        Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class))).thenReturn(new ArrayList<>());
         Vector2d newVelocity = new Vector2d(-5, -5);
         rb.setVelocity(newVelocity);
 
-        Vector2d newPos = rb.move(initialPos);
+        Vector2d newPos = rb.move();
         Assertions.assertEquals(newPos, new Vector2d(0, 0));
     }
 
@@ -57,11 +56,11 @@ class TestRigidBody {
         List<BoxCollider> colliders = new ArrayList<>();
         colliders.add(new BoxCollider(wallPosition, 5, 10));
 
-        Mockito.when(stubArena.detectCollision(Mockito.any(BoxCollider.class))).thenReturn(colliders);
+        Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class))).thenReturn(colliders);
         Vector2d newVelocity = new Vector2d(3, 0);
         rb.setVelocity(newVelocity);
 
-        Vector2d newPos = rb.move(initialPos);
+        Vector2d newPos = rb.move();
         Assertions.assertEquals(newPos, new Vector2d(7, 5));
     }
 }

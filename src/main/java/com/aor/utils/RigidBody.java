@@ -2,9 +2,7 @@ package com.aor.utils;
 
 import com.aor.game.Arena;
 
-import javax.swing.text.Position;
 import java.util.List;
-import java.util.Vector;
 
 public class RigidBody extends Node {
     private final Arena arena;
@@ -19,32 +17,47 @@ public class RigidBody extends Node {
         this.boxCollider = boxCollider;
     }
 
-    public Vector2d move(Vector2d currentPos) {
-        Vector2d newPos = Utils.vectorSum(currentPos, velocity);
-        List<BoxCollider> boxColliders = arena.detectCollision(this.boxCollider);
+    public int moveX(Vector2d pos) {
+        Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX(), 0), pos);
+        List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
         for (BoxCollider collider : boxColliders) {
-            //x-axis adjustment
             if (velocity.getX() > 0 && (newPos.getX() + this.boxCollider.getWidth()) > collider.getPosition().getX()) {
-                newPos.setX(collider.getPosition().getX());
+                newPos.setX(collider.getPosition().getX() - this.boxCollider.getWidth());
             } else if (velocity.getX() < 0 && newPos.getX() < (collider.getPosition().getX() + collider.getWidth())) {
                 newPos.setX(collider.getPosition().getX() + collider.getWidth());
             }
+        }
 
-            //After adjusting x-position, check if is still colliding
-            if (!collider.isColliding(this.boxCollider)) continue;
+        return newPos.getX();
+    }
 
-            //y-axis adjustment
+    public int moveY(Vector2d pos) {
+        Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY()), pos);
+        List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
+
+        for (BoxCollider collider : boxColliders) {
             if (velocity.getY() > 0 && (newPos.getY() + this.boxCollider.getHeight()) > collider.getPosition().getY()) {
-                newPos.setY(collider.getPosition().getY());
+                newPos.setY(collider.getPosition().getY() - this.boxCollider.getHeight());
             } else if (velocity.getY() < 0 && newPos.getY() < (collider.getPosition().getY() + collider.getHeight())) {
                 newPos.setY(collider.getPosition().getY() + collider.getHeight());
             }
-
-            boxCollider.update(newPos);
         }
 
-        return newPos;
+        return newPos.getY();
+    }
+
+
+    public Vector2d move() {
+        int x = moveX(getPosition());
+        int y = moveY(new Vector2d(x, getPosition().getY()));
+        return new Vector2d(x, y);
+    }
+
+    @Override
+    public void update(Vector2d position) {
+        super.update(position);
+        boxCollider.update(position);
     }
 
     public Vector2d getVelocity() {
