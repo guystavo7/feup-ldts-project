@@ -30,18 +30,18 @@ public class HeroController extends GenericController {
     }
 
     private void jump() {
-        getModel().getVelocity().setY(-3);
+        getModel().getVelocity().setY(-1);
     }
 
-    private void getVelocity(long delta) {
+    private void getVelocity(float delta) {
         Vector2d direction = getModel().getDirection();
-        int xVelocity = 1 * direction.getX();
-        int yVelocity = Math.min(getModel().getVelocity().getY() + 1, 3);
+        float xVelocity = 30f * delta * direction.getX();
+        float yVelocity = Math.min(getModel().getVelocity().getY() + 2f * delta, 2);
 
         getModel().setVelocity(new Vector2d(xVelocity, yVelocity));
     }
 
-    public void update(long delta) {
+    public void update(float delta) {
         getInputs();
         getVelocity(delta);
 

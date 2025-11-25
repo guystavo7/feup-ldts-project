@@ -25,6 +25,7 @@ public class Game {
     private int screenHeight = 100;
 
     private boolean isRunning;
+    private long previousTime;
 
     public Game() {
         try {
@@ -57,23 +58,17 @@ public class Game {
             });
 
 
-
-            new Thread() {
+            ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
                 @Override
-                public void run() {
-                    ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
-                        @Override
-                        public void keyPressed(KeyEvent e) {
-                            InputHandler.getInstance().readKeys(e.getKeyCode(), true);
-                        }
-
-                        @Override
-                        public void keyReleased(KeyEvent e) {
-                            InputHandler.getInstance().readKeys(e.getKeyCode(), false);
-                        }
-                    });
+                public void keyPressed(KeyEvent e) {
+                    InputHandler.getInstance().readKeys(e.getKeyCode(), true);
                 }
-            }.start();
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    InputHandler.getInstance().readKeys(e.getKeyCode(), false);
+                }
+            });
 
             screen = new TerminalScreen(terminal);
 
@@ -95,17 +90,20 @@ public class Game {
         new Thread() {
             @Override
             public void run() {
-                int i = 0;
+                previousTime = System.currentTimeMillis();
 
                 while (isRunning) {
                     try {
-                        System.out.println(i);
-                        i++;
+                        long currentTime = System.currentTimeMillis();
+                        long delta = currentTime - previousTime;
+                        System.out.println((float) delta / 1000);
+
                         screen.clear();
-                        arena.update(screen.newTextGraphics(), 1);
+                        arena.update(screen.newTextGraphics(), (float) delta / 1000);
                         screen.refresh(Screen.RefreshType.DELTA);
 
-                        Thread.sleep(60 / 1000);
+                        previousTime = System.currentTimeMillis();
+                        Thread.sleep(1000 / 60);
                     } catch (Exception e) {
 
                     }

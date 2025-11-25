@@ -34,7 +34,7 @@ public class Utils {
             for (int x = 0; x < width; x++) {
                 graphics.setBackgroundColor(TextColor.Factory.fromString(new Pixel(image.getRGB(x, y)).toString()));
                 Vector2d pixelPos = new Vector2d(x, y);
-                graphics.setCharacter(new TerminalPosition(pixelPos.getX(), pixelPos.getY()), ' ');
+                graphics.setCharacter(new TerminalPosition((int) pixelPos.getX(), (int) pixelPos.getY()), ' ');
             }
         }
 
