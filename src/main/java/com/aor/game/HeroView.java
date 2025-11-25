@@ -2,7 +2,6 @@ package com.aor.game;
 
 import com.aor.utils.GenericModel;
 import com.aor.utils.GenericView;
-import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class HeroView extends GenericView {

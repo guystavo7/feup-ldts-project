@@ -15,14 +15,14 @@ public class Arena {
 
     public Arena() {
         try {
-            hero = new Hero(new Vector2d(100, 10), "src/main/resources/Images/walk_test/walk_1.png", this);
+            hero = new Hero(new Vector2d(20, 20), "src/main/resources/Hero/tile000.png", this);
             walls = new ArrayList<>();
 
-            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 400), 1000, 100);
+            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 100), 100, 100);
             walls.add(wall1);
-            BoxCollider wall2 = new BoxCollider(new Vector2d(-20, 0), 20, 1000);
+            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000);
             walls.add(wall2);
-            BoxCollider wall3 = new BoxCollider(new Vector2d(500, 0), 20, 1000);
+            BoxCollider wall3 = new BoxCollider(new Vector2d(90, 0), 10, 1000);
             walls.add(wall3);
 
         } catch (Exception e) {

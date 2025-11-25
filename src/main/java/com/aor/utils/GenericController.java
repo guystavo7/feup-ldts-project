@@ -2,8 +2,6 @@ package com.aor.utils;
 
 import com.aor.game.Arena;
 
-import javax.swing.*;
-
 public class GenericController {
     private GenericModel model;
     private RigidBody rigidBody;

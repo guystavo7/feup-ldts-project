@@ -21,8 +21,8 @@ public class Game {
     private Screen screen;
     private Arena arena;
 
-    private int screenWidth = 500;
-    private int screenHeight = 500;
+    private int screenWidth = 100;
+    private int screenHeight = 100;
 
     private boolean isRunning;
 
@@ -39,7 +39,7 @@ public class Game {
             TerminalSize terminalSize = new TerminalSize(screenWidth, screenHeight);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 
-            Font loadedFont = font.deriveFont(Font.PLAIN, 1);
+            Font loadedFont = font.deriveFont(Font.PLAIN, 5);
             AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
             terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
             terminalFactory.setForceAWTOverSwing(true);
