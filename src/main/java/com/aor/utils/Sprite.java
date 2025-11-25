@@ -21,7 +21,7 @@ public class Sprite extends Node {
     }
 
     public final void draw(TextGraphics graphics){
-        graphics.drawImage(new TerminalPosition(getPosition().getX(), getPosition().getY()), pixels);
+        graphics.drawImage(new TerminalPosition((int)getPosition().getX(), (int)getPosition().getY()), pixels);
     }
 
     public String toString(){

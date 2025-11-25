@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("Application")
+    mainClass.set("com/aor/game/Application")
 }
 
 group = 'com.aor'
