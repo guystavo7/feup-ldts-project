@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 //A class that holds some useful methods
 public class Utils {
@@ -29,6 +30,10 @@ public class Utils {
         }
 
         return pixels;
+    }
+
+    public static Vector2d vectorSum(Vector2d v1, Vector2d v2) {
+        return new Vector2d(v1.getX() + v2.getX(), v1.getY() + v2.getY());
     }
 
 }

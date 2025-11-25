@@ -10,20 +10,22 @@ import org.mockito.Mockito;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 class TestRigidBody {
     RigidBody rb;
+    Vector2d initialPos;
     Arena stubArena;
 
     @BeforeEach
     void setUp() {
         //Rectangle with topLeft (5, 5) and size (3, 10)
-        Vector2d position = new Vector2d(5, 5);
+        initialPos = new Vector2d(5, 5);
         Vector2d velocity = new Vector2d(0, 0);
         stubArena = Mockito.mock(Arena.class);
-        BoxCollider boxCollider = new BoxCollider(position, 3, 10);
+        BoxCollider boxCollider = new BoxCollider(new Vector2d(0, 0), 3, 10);
 
-        rb = new RigidBody(position, velocity, stubArena, boxCollider);
+        rb = new RigidBody(new Vector2d(0, 0), velocity, stubArena, boxCollider);
     }
 
     @Test
@@ -33,8 +35,8 @@ class TestRigidBody {
         Vector2d newVelocity = new Vector2d(5, 5);
         rb.setVelocity(newVelocity);
 
-        rb.move();
-        Assertions.assertEquals(rb.getPosition(), new Vector2d(10, 10));
+        Vector2d newPos = rb.move(initialPos);
+        Assertions.assertEquals(newPos, new Vector2d(10, 10));
     }
 
     @Test
@@ -44,8 +46,8 @@ class TestRigidBody {
         Vector2d newVelocity = new Vector2d(-5, -5);
         rb.setVelocity(newVelocity);
 
-        rb.move();
-        Assertions.assertEquals(rb.getPosition(), new Vector2d(0, 0));
+        Vector2d newPos = rb.move(initialPos);
+        Assertions.assertEquals(newPos, new Vector2d(0, 0));
     }
 
     @Test
@@ -59,7 +61,7 @@ class TestRigidBody {
         Vector2d newVelocity = new Vector2d(3, 0);
         rb.setVelocity(newVelocity);
 
-        rb.move();
-        Assertions.assertEquals(rb.getPosition(), new Vector2d(7, 5));
+        Vector2d newPos = rb.move(initialPos);
+        Assertions.assertEquals(newPos, new Vector2d(7, 5));
     }
 }
