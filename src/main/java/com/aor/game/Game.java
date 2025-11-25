@@ -30,6 +30,8 @@ public class Game {
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
+            assert resource != null;
+
             File fontFile = new File(resource.toURI());
             Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
@@ -46,7 +48,6 @@ public class Game {
             terminalFactory.setForceAWTOverSwing(true);
             terminalFactory.setInitialTerminalSize(terminalSize);
 
-
             //Terminal Setup
             Terminal terminal = terminalFactory.createTerminal();
 
@@ -56,8 +57,7 @@ public class Game {
                     e.getWindow().dispose();
                 }
             });
-
-
+            
             ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
@@ -87,30 +87,28 @@ public class Game {
     }
 
     public void start() {
-        new Thread() {
-            @Override
-            public void run() {
-                previousTime = System.currentTimeMillis();
+        Thread.ofVirtual().start(() -> {
+            previousTime = 0;
 
-                while (isRunning) {
-                    try {
-                        long currentTime = System.currentTimeMillis();
-                        long delta = currentTime - previousTime;
-                        System.out.println((float) delta / 1000);
+            while (isRunning) {
+                try {
+                    long currentTime = System.currentTimeMillis();
 
-                        screen.clear();
-                        arena.update(screen.newTextGraphics(), (float) delta / 1000);
-                        screen.refresh(Screen.RefreshType.DELTA);
+                    if (previousTime == 0) currentTime = 0;
+                    long delta = currentTime - previousTime;
 
-                        previousTime = System.currentTimeMillis();
-                        Thread.sleep(1000 / 60);
-                    } catch (Exception e) {
+                    screen.clear();
+                    arena.update(screen.newTextGraphics(), (float) delta / 1000);
+                    screen.refresh(Screen.RefreshType.DELTA);
 
-                    }
+                    previousTime = System.currentTimeMillis();
 
+                    Thread.sleep(1000 / 60);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
-        }.start();
+        });
     }
-
 }

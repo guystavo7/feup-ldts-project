@@ -15,7 +15,7 @@ public class HeroController extends GenericController {
         super(model, initialVelocity, width, height, arena);
     }
 
-    private void getInputs() {
+    private void getInputs(float delta) {
         if (InputHandler.getInstance().isPressed(KeyEvent.VK_LEFT)) {
             getModel().setDirectionX(-1);
         } else if (InputHandler.getInstance().isPressed(KeyEvent.VK_RIGHT)) {
@@ -25,24 +25,24 @@ public class HeroController extends GenericController {
         }
 
         if (InputHandler.getInstance().isPressed(KeyEvent.VK_UP) && canJump) {
-            jump();
+            jump(delta);
         }
     }
 
-    private void jump() {
-        getModel().getVelocity().setY(-1);
+    private void jump(float delta) {
+        getModel().getVelocity().setY(-100 * delta);
     }
 
     private void getVelocity(float delta) {
         Vector2d direction = getModel().getDirection();
-        float xVelocity = 30f * delta * direction.getX();
-        float yVelocity = Math.min(getModel().getVelocity().getY() + 2f * delta, 2);
+        float xVelocity = 60 * delta * direction.getX();
+        float yVelocity = Math.min(getModel().getVelocity().getY() + 10f * delta, 100 * delta);
 
         getModel().setVelocity(new Vector2d(xVelocity, yVelocity));
     }
 
     public void update(float delta) {
-        getInputs();
+        getInputs(delta);
         getVelocity(delta);
 
         getRigidBody().getBoxCollider().update(getModel().getPosition());

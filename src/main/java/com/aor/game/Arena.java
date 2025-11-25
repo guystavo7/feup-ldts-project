@@ -1,11 +1,9 @@
 package com.aor.game;
 
 import com.aor.utils.BoxCollider;
-import com.aor.utils.Sprite;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class Arena {
 
     public Arena() {
         try {
-            hero = new Hero(new Vector2d(20, 20), "src/main/resources/Hero/tile000.png", this);
+            hero = new Hero(new Vector2d(25, 0), this);
             walls = new ArrayList<>();
 
             BoxCollider wall1 = new BoxCollider(new Vector2d(0, 100), 100, 100);
@@ -26,7 +24,7 @@ public class Arena {
             walls.add(wall3);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 

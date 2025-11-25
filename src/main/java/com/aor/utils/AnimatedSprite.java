@@ -3,49 +3,42 @@ package com.aor.utils;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AnimatedSprite extends Node {
-    private List<Sprite> frames;
-    private int curFrame=0;
-    private float switchDelta;//tempo de tela de cada frame em millisegundos
-    private float counter=0;
-    private float animationDuration;
-    AnimatedSprite(Vector2d pos,List<String> imgPaths,float switchDelta) throws IOException {
-        super(pos);
-        assert (imgPaths.size()!=0);
+    private List<Sprite> frames=new ArrayList<>();
+    private float currentFrame;
+    private float frameSpeed;
+
+    public AnimatedSprite(Vector2d position, List<String> imgPaths, float frameSpeed) throws IOException {
+        super(position);
         for(String ip:imgPaths){
-            frames.add(new Sprite(pos,ip));
+            frames.add(new Sprite(position, ip));
         }
-        this.switchDelta=switchDelta;
-        this.animationDuration=frames.size()*switchDelta;
+
+        currentFrame = 0;
+        this.frameSpeed = frameSpeed;
     }
 
     public final void draw(TextGraphics graphics){
-        frames.get(curFrame).draw(graphics);
+        frames.get((int) currentFrame).draw(graphics);
     }
 
     public void update(Vector2d newPos,float timeDelta){
-        counter+=timeDelta*1000;
-        if(counter>animationDuration){
-            counter=0;
-        }
-        else {
-            curFrame=(int)((counter)/switchDelta)+1;
-        }
+        currentFrame += frameSpeed * timeDelta;
+        if(currentFrame > frames.size()) currentFrame = 0;
 
-
-        frames.get(curFrame).update(newPos);
         super.update(newPos);
+        frames.get((int) currentFrame).update(newPos);
     }
-
 
     public int getWidth(){
-        return frames.get(curFrame).getWidth();
+        return frames.get((int) currentFrame).getWidth();
     }
     public int getHeight(){
-        return frames.get(curFrame).getHeight();
+        return frames.get((int) currentFrame).getHeight();
     }
 
     @Override
