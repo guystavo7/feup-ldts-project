@@ -17,7 +17,7 @@ public class RigidBody extends Node {
         this.boxCollider = boxCollider;
     }
 
-    public int moveX(Vector2d pos) {
+    public float moveX(Vector2d pos) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX(), 0), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
@@ -32,7 +32,7 @@ public class RigidBody extends Node {
         return newPos.getX();
     }
 
-    public int moveY(Vector2d pos) {
+    public float moveY(Vector2d pos) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY()), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
@@ -49,8 +49,8 @@ public class RigidBody extends Node {
 
 
     public Vector2d move() {
-        int x = moveX(getPosition());
-        int y = moveY(new Vector2d(x, getPosition().getY()));
+        float x = moveX(getPosition());
+        float y = moveY(new Vector2d(x, getPosition().getY()));
         return new Vector2d(x, y);
     }
 

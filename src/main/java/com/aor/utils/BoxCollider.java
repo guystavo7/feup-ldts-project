@@ -11,11 +11,11 @@ public class BoxCollider extends Node {
     }
 
     private boolean checkTopLeftCollision(Vector2d newPos, BoxCollider other) {
-        int x = newPos.getX();
-        int y = newPos.getY();
+        float x = newPos.getX();
+        float y = newPos.getY();
 
-        int otherX = other.getPosition().getX();
-        int otherY = other.getPosition().getY();
+        float otherX = other.getPosition().getX();
+        float otherY = other.getPosition().getY();
         int otherWidth = other.getWidth();
         int otherHeight = other.getHeight();
 
@@ -24,13 +24,13 @@ public class BoxCollider extends Node {
     }
 
     private boolean checkBotRightCollision(Vector2d newPos, BoxCollider other) {
-        int x = newPos.getX() + width;
-        int y = newPos.getY() + height;
+        float x = newPos.getX() + width;
+        float y = newPos.getY() + height;
 
-        int otherX = other.getPosition().getX();
-        int otherY = other.getPosition().getY();
-        int otherWidth = other.getWidth();
-        int otherHeight = other.getHeight();
+        float otherX = other.getPosition().getX();
+        float otherY = other.getPosition().getY();
+        float otherWidth = other.getWidth();
+        float otherHeight = other.getHeight();
 
         return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }

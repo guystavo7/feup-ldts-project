@@ -25,10 +25,13 @@ public class Game {
     private int screenHeight = 100;
 
     private boolean isRunning;
+    private long previousTime;
 
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
+            assert resource != null;
+
             File fontFile = new File(resource.toURI());
             Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
@@ -45,7 +48,6 @@ public class Game {
             terminalFactory.setForceAWTOverSwing(true);
             terminalFactory.setInitialTerminalSize(terminalSize);
 
-
             //Terminal Setup
             Terminal terminal = terminalFactory.createTerminal();
 
@@ -55,25 +57,18 @@ public class Game {
                     e.getWindow().dispose();
                 }
             });
-
-
-
-            new Thread() {
+            
+            ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
                 @Override
-                public void run() {
-                    ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
-                        @Override
-                        public void keyPressed(KeyEvent e) {
-                            InputHandler.getInstance().readKeys(e.getKeyCode(), true);
-                        }
-
-                        @Override
-                        public void keyReleased(KeyEvent e) {
-                            InputHandler.getInstance().readKeys(e.getKeyCode(), false);
-                        }
-                    });
+                public void keyPressed(KeyEvent e) {
+                    InputHandler.getInstance().readKeys(e.getKeyCode(), true);
                 }
-            }.start();
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    InputHandler.getInstance().readKeys(e.getKeyCode(), false);
+                }
+            });
 
             screen = new TerminalScreen(terminal);
 
@@ -92,27 +87,28 @@ public class Game {
     }
 
     public void start() {
-        new Thread() {
-            @Override
-            public void run() {
-                int i = 0;
+        Thread.ofVirtual().start(() -> {
+            previousTime = 0;
 
-                while (isRunning) {
-                    try {
-                        System.out.println(i);
-                        i++;
-                        screen.clear();
-                        arena.update(screen.newTextGraphics(), 1);
-                        screen.refresh(Screen.RefreshType.DELTA);
+            while (isRunning) {
+                try {
+                    long currentTime = System.currentTimeMillis();
 
-                        Thread.sleep(60 / 1000);
-                    } catch (Exception e) {
+                    if (previousTime == 0) currentTime = 0;
+                    long delta = currentTime - previousTime;
 
-                    }
+                    screen.clear();
+                    arena.update(screen.newTextGraphics(), (float) delta / 1000);
+                    screen.refresh(Screen.RefreshType.DELTA);
 
+                    previousTime = System.currentTimeMillis();
+
+                    Thread.sleep(1000 / 60);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
-        }.start();
+        });
     }
-
 }

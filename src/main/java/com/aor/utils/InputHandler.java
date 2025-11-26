@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class InputHandler {
     private static InputHandler instance;
-    private static HashMap<Integer, Boolean> keys;
+    private HashMap<Integer, Boolean> keys;
 
     private InputHandler() {
         keys = new HashMap<>();
@@ -19,6 +19,7 @@ public class InputHandler {
     }
 
     public boolean isPressed(int key) {
-        return keys.get(key);
+        if (Boolean.TRUE.equals(keys.get(key))) return keys.get(key);
+        return false;
     }
 }
