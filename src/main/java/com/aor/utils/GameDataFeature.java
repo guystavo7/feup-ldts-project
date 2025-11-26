@@ -6,6 +6,8 @@ import java.util.List;
 public class GameDataFeature {
     private static GameDataFeature instance;
 
+    private int collectedstrawberries = 0;
+    private int totalstrawberries = 0;
 
     //Physics settings
     private float gravity;
@@ -36,6 +38,12 @@ public class GameDataFeature {
         }
         return instance;
     }
+
+    public int getCollectedstrawberries() {return collectedstrawberries;}
+    public void setCollectedstrawberries(int count) {this.collectedstrawberries = count;}
+
+    public int getTotalstrawberries() {return totalstrawberries;}
+    public void setTotalstrawberries(int count) {this.totalstrawberries = count;}
 
     public int getWidth() {return windowwidth;}
     public void setWidth(int width) {this.windowwidth = width;}
