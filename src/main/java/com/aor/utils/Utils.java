@@ -1,5 +1,6 @@
 package com.aor.utils;
 
+import com.aor.components.Pixel;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.BasicTextImage;
@@ -39,5 +40,4 @@ public class Utils {
     public static Vector2d vectorSum(Vector2d v1, Vector2d v2) {
         return new Vector2d(v1.getX() + v2.getX(), v1.getY() + v2.getY());
     }
-
 }

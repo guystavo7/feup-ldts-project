@@ -1,4 +1,6 @@
-package com.aor.utils;
+package com.aor.components;
+
+import com.aor.utils.Vector2d;
 
 public class BoxCollider extends Node {
     private int width;
@@ -10,9 +12,9 @@ public class BoxCollider extends Node {
         this.height = height;
     }
 
-    private boolean checkTopLeftCollision(Vector2d newPos, BoxCollider other) {
-        float x = newPos.getX();
-        float y = newPos.getY();
+    private boolean checkTopLeftCollision(BoxCollider other) {
+        float x = getPosition().getX();
+        float y = getPosition().getY();
 
         float otherX = other.getPosition().getX();
         float otherY = other.getPosition().getY();
@@ -23,9 +25,9 @@ public class BoxCollider extends Node {
         return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }
 
-    private boolean checkBotRightCollision(Vector2d newPos, BoxCollider other) {
-        float x = newPos.getX() + width;
-        float y = newPos.getY() + height;
+    private boolean checkBotRightCollision(BoxCollider other) {
+        float x = getPosition().getX() + width;
+        float y = getPosition().getY() + height;
 
         float otherX = other.getPosition().getX();
         float otherY = other.getPosition().getY();
@@ -35,17 +37,15 @@ public class BoxCollider extends Node {
         return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
     }
 
-    public boolean isColliding(Vector2d newPos, BoxCollider other) {
+    public boolean isColliding(BoxCollider other) {
         if (other.equals(this)) return false;
-        return checkBotRightCollision(newPos, other) || checkTopLeftCollision(newPos, other);
+        return checkBotRightCollision(other) || checkTopLeftCollision(other);
     }
 
     public int getWidth() {
         return width;
     }
-
     public int getHeight() {
         return height;
     }
 }
-

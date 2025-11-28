@@ -1,12 +1,14 @@
-package com.aor.utils;
+package com.aor.components;
 
 import com.aor.game.Arena;
+import com.aor.utils.Utils;
+import com.aor.utils.Vector2d;
 
 import java.util.List;
 
 public class RigidBody extends Node {
     private final Arena arena;
-    private BoxCollider boxCollider;
+    private final BoxCollider boxCollider;
 
     private Vector2d velocity;
 
@@ -17,7 +19,7 @@ public class RigidBody extends Node {
         this.boxCollider = boxCollider;
     }
 
-    public float moveX(Vector2d pos) {
+    private float moveX(Vector2d pos) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX(), 0), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
@@ -32,7 +34,7 @@ public class RigidBody extends Node {
         return newPos.getX();
     }
 
-    public float moveY(Vector2d pos) {
+    private float moveY(Vector2d pos) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY()), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
@@ -71,6 +73,4 @@ public class RigidBody extends Node {
     public void setVelocity(Vector2d velocity) {
         this.velocity = velocity;
     }
-
-
 }

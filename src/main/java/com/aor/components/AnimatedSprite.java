@@ -1,5 +1,6 @@
-package com.aor.utils;
+package com.aor.components;
 
+import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AnimatedSprite extends Node {
-    private List<Sprite> frames=new ArrayList<>();
+    private List<Sprite> frames = new ArrayList<>();
     private float currentFrame;
     private float frameSpeed;
 
@@ -54,7 +55,4 @@ public class AnimatedSprite extends Node {
         AnimatedSprite p = (AnimatedSprite) o;
         return this.hashCode() == p.hashCode();
     }
-
-
-
 }

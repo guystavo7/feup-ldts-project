@@ -1,5 +1,7 @@
-package com.aor.utils;
+package com.aor.components;
 
+import com.aor.utils.Utils;
+import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
@@ -22,10 +24,7 @@ public class Sprite extends Node {
     public final void draw(TextGraphics graphics){
         graphics.drawImage(new TerminalPosition((int) getPosition().getX(), (int) getPosition().getY()), pixels);
     }
-
-    public String toString(){
-        return pixels.toString();
-    }
+    
     public int getWidth(){
         return width;
     }

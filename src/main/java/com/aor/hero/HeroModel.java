@@ -1,11 +1,14 @@
-package com.aor.utils;
+package com.aor.hero;
 
-public class GenericModel {
+import com.aor.mvc.GenericModel;
+import com.aor.utils.Vector2d;
+
+public class HeroModel implements GenericModel {
     private Vector2d position;
     private Vector2d velocity;
     private Vector2d direction;
 
-    public GenericModel(Vector2d position, Vector2d velocity, Vector2d direction) {
+    public HeroModel(Vector2d position, Vector2d velocity, Vector2d direction) {
         this.position = position;
         this.velocity = velocity;
         this.direction = direction;

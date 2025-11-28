@@ -1,6 +1,7 @@
 package com.aor.game;
 
-import com.aor.utils.BoxCollider;
+import com.aor.hero.Hero;
+import com.aor.components.BoxCollider;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -34,11 +35,14 @@ public class Arena {
 
     public List<BoxCollider> detectCollision(Vector2d newPos, BoxCollider boxCollider) {
         List<BoxCollider> colliders = new ArrayList<>();
+        Vector2d oldPos = new Vector2d(boxCollider.getPosition().getX(), boxCollider.getPosition().getY());
+        boxCollider.setPosition(newPos);
 
         for (BoxCollider box : walls) {
-            if (boxCollider.isColliding(newPos, box)) colliders.add(box);
+            if (boxCollider.isColliding(box)) colliders.add(box);
         }
 
+        boxCollider.setPosition(oldPos);
         return colliders;
     }
 

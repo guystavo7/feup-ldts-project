@@ -1,8 +1,8 @@
-package com.aor.game;
+package com.aor.hero;
 
-import com.aor.utils.AnimatedSprite;
-import com.aor.utils.GenericModel;
-import com.aor.utils.GenericView;
+import com.aor.components.AnimatedSprite;
+import com.aor.mvc.GenericModel;
+import com.aor.mvc.GenericView;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class HeroView implements GenericView {
     public HeroView(GenericModel model, List<String> filePaths) {
         try {
             this.model = (HeroModel) model;
-            animatedSprite = new AnimatedSprite(model.getPosition(), filePaths, 2);
+            animatedSprite = new AnimatedSprite(this.model.getPosition(), filePaths, 2);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,6 +25,7 @@ public class HeroView implements GenericView {
         return animatedSprite;
     }
 
+    @Override
     public void update(TextGraphics graphics, float delta) {
         animatedSprite.update(model.getPosition(), delta);
         animatedSprite.draw(graphics);

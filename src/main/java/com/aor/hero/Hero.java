@@ -1,5 +1,6 @@
-package com.aor.game;
+package com.aor.hero;
 
+import com.aor.game.Arena;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 

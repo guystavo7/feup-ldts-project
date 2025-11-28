@@ -1,4 +1,6 @@
-package com.aor.utils;
+package com.aor.components;
+
+import com.aor.utils.Vector2d;
 
 public abstract class Node {
     private Vector2d position;
