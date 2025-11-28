@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class TestAnimatedSprite {
 
-        Sprite spriteStub;
+        GenericSprite spriteStub;
         AnimatedSprite animatedSprite;
         TextGraphics graphicsStub;
 
@@ -75,9 +75,9 @@ public class TestAnimatedSprite {
           //  Mockito.verify(graphicsStub, Mockito.times(1)).drawImage(Mockito.any(TerminalPosition.class), Mockito.any(TextImage.class));
             //consertar
 
-          //  Mockito.when(spriteStub.draw( Mockito.any(TextGraphics.class))).thenReturn(null);
+            //Mockito.when(spriteStub.draw( Mockito.any(TextGraphics.class))).thenReturn(null);
 
-          //  Mockito.verify(spriteStub,Mockito.times(1)).draw(Mockito.any(TextGraphics.class));
+           Mockito.verify(spriteStub,Mockito.times(1)).draw(Mockito.any(TextGraphics.class));
         }
 
 

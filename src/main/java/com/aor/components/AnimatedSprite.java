@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AnimatedSprite extends Node {
-    private List<Sprite> frames = new ArrayList<>();
+    private List<GenericSprite> frames = new ArrayList<>();
     private float currentFrame;
     private float frameSpeed;
 
