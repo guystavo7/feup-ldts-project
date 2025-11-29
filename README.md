@@ -188,14 +188,13 @@ Só foi testado as classes nas package *components* e *utils*.
   <img src="misc/Coverage1.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 6 Test Coverage</i></b>
+  <b><i>Fig. 7 Test Coverage</i></b>
 </p>
 
 Link para o relatório do *pitest*:
-[Mutation Test](build/reports/pitest/index.html)
+[Mutation Test](misc/pitestReport1/index.html)
 
 ### SELF-EVALUATION
-
 
 - Gustavo Pereira da Cunha Bastos: 33.3%
 - Pedro Manuel Cerqueira Gonçalves: 33.3%
