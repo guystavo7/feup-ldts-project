@@ -3,31 +3,40 @@
 O projeto pretende recriar o jogo de plataforma Celeste na versão feita no Pico 8 (uma engine de jogos 8 bits).
 O objetivo do jogo é controlar Madeline (personagem principal) a escalar a montanha Celeste enquanto coleta morangos. O personagem consegue andar, pular e dar *dashes* para ultrapassar obstáculos e chegar no pico da montanha. 
 
-Este projeto foi desenvolvido pelo ..., Gustavo Pereira da Cunha Bastos (up202403874@up.pt) e pelo *Tiago Su* (up202403468@up.pt) para a cadeira LDTS 2025/2026
+Este projeto foi desenvolvido pelo Pedro Manuel Cerqueira Gonçalves (up202305057@up.pt), Gustavo Pereira da Cunha Bastos (up202403874@up.pt) e pelo *Tiago Su* (up202403468@up.pt) para a cadeira LDTS 2025/2026
 
 ### IMPLEMENTED FEATURES
 
-- **Player Controller** - O *user* consegue mover o personagem utilizando as setas do teclado e pular com a seta para cima
-- **Gravidade** - O *player* é afetado por uma gravidade básica
-- **Animações** - O personagem tem um sprite animado.
+- **Player Controller** - O *user* consegue mover o personagem utilizando as setas do teclado e pular com a seta para cima;
+- **Gravidade** - O *player* é afetado por uma gravidade básica;
+- **Animações** - O personagem tem um *sprite* animado;
 - **Colisões** - O personagem consegue colidir com objetos, assim, impedindo de ter *overlaps* entre objetos.
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+### GIF demonstrando a física básica
+<p align="center" justify="center">
+  <img src="misc/FisicaBasica.gif"/>
+</p>
+<p align="center">
+  <b><i>Fig. 1 Demonstração da gravidade e do pulo</i></b>
+</p>
+
 
 ### PLANNED FEATURES
 
-- **Tiles** - Planejamos criar *tiles* para serem paredes e o chão
-- **Morangos** - Planejamos adicionar os colecionaveis/moedas do jogo
-- **Levels** - Planejamos recriar alguns *levels* do jogo original
-- **Dash** - Planejamos adicionar o dash clássico do personagem
-- **Better movement** - Planejamos melhor o movimento do personagem como melhorar a física e adicionar algumas funcionalidades para facilitar na jogabilidade como *inputs buffers*
-- **Machine state** - Máquina de estados para representar o estado do *player* e do jogo
+- **Tiles** - Planeamos criar *tiles* para serem paredes e o chão;
+- **Morangos** - Planeamos adicionar os colecionáveis/moedas do jogo;
+- **Levels** - Planeamos recriar alguns *levels* do jogo original;
+- **Dash** - Planeamos adicionar o dash clássico do personagem;
+- **Better movement** - Planeamos melhorar o movimento do personagem e a física do jogo;
+- **Machine state** - Máquina de estados para representar o estado do *player* e do jogo.
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg) //Input buffer
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg) //UML machine state do player
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg) //Dash
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg) //Morangos
+### Mockup do estado proposto final do projeto
+<p align="center" justify="center">
+  <img src="misc/Mockup.jpeg"/>
+</p>
+<p align="center">
+  <b><i>Fig. 2 Estado final do jogo</i></b>
+</p>
 
 ### DESIGN
 
@@ -35,25 +44,32 @@ Este projeto foi desenvolvido pelo ..., Gustavo Pereira da Cunha Bastos (up20240
 
 **Problem in Context**
 
-Um jogo é composto por muitos objetos com funcionalidades semelhantes como desenhar uma imagem ou checar colisões e entre outros. Dessa forma, o problema em questão é como podemos implementar essas funcionalidades específicas de forma eficiente e de modo a evitar repetir implementações desnecessárias.
+Um jogo é composto por muitos objetos com funcionalidades semelhantes, como desenhar uma imagem ou checar colisões e entre outros. Dessa forma, o problema em questão é como podemos implementar essas funcionalidades específicas, de forma eficiente e de modo a evitar repetir implementações desnecessárias.
 
 **The Pattern**
 
 Para resolver isso, decidimos usar como referência componentes das engines como Unity e Godot, ou seja, utilizamos o *Composite Pattern*, de modo, a criar componentes básicos capazes de executar uma única funcionalidade, e devem ser independentes do objeto que os contêm.
 Assim, qualquer objeto é composto por esses componentes, facilitando a implementação de vários objetos com comportamentos parecidos e evitando repetir o mesmo código.
+Este *design* tem como ideia de promover ao máximo o *Single Responsibility Principle*.
 
 **Implementation**
 
-Para implementar, criamos uma classe abstrata Node em que contêm, por enquanto, uma posição e um método *update* de posições. E a partir dessa classe, todos componentes vão extender dela.
-As funcionalidades necessárias são:
-- Sprite e AnimatedSprite: um componente capaz de desenhar uma imagem ou animação
+Para implementar, criamos uma classe abstrata *Node* que contêm, por enquanto, uma posição e um método *update* para atualizar a sua posição. E a partir dessa classe será criada subclasses que serão os componentes.
+Os componentes necessários são:
+- Sprite e AnimatedSprite: um componente capaz de desenhar uma imagem ou animação, respetivamente
 - BoxCollider: um componente que representa um *collider*
 - RigidBody: um componente responsável por calcular a próxima posição válida dada uma velocidade
 
-![img](misc/ComponentsUML.png)
+<p align="center" justify="center">
+  <img src="misc/ComponentsUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 3 UML dos componentes</i></b>
+</p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
+- [Node](src/main/java/com/aor/components/Node.java)
 - [Sprite](src/main/java/com/aor/components/Sprite.java)
 - [AnimatedSprite](src/main/java/com/aor/components/AnimatedSprite.java)
 - [BoxCollider](src/main/java/com/aor/components/BoxCollider.java)
@@ -62,35 +78,46 @@ As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 **Consequences**
 
 O uso dessa estratégia teve os seguintes benefícios:
-- Uma vez implementado a classe não será necessária preocupar-se com implementar de novo
-- Facilidade em criar objetos como, por exemplo, a classe Hero em que é composto por um RigidBody, AnimatedSprite e BoxCollider
-- O *design* de blackbox ajuda em não se preocupar com detalhes particulares do funcionamento
+- Uma vez implementado a funcionalidade não será necessária preocupar-se com a implementação de novo;
+- Facilidade em criar objetos como, por exemplo, a classe Hero em que é composto por um RigidBody, AnimatedSprite e BoxCollider;
+- O *design* de blackbox ajuda em não se preocupar com detalhes particulares do funcionamento;
+- Boa organização respeitando o *Single Responsibility Principle*.
 
 ------
-
 
 #### Como estruturar o projeto
 
 **Problem in Context**
 
-Um grande problema no projeto, é como organizamos de forma estruturada as nossas classes, de forma, a evitar incongruencia de dados e melhor a capacidade de manutenção do código.
+Um grande problema no projeto, é como organizamos de forma estruturada as nossas classes, de forma, a evitar incongruências nos dados e melhor a capacidade de manutenção do código.
 
 **The Pattern**
 
-Para organizar, o código decidimos estruturar o projeto seguindo os principios do modelo MVC.
-Esse modelo possibilita ter centralização de dados do objeto ao ter uma única classe para armazenar e na separação da parte visual e lógica ao ter um view e um controller, respetivamente.
+Para organizar, o código decidimos estruturar o projeto seguindo os princípios do modelo MVC.
+Esse modelo possibilita ter centralização de dados do objeto, ao ter uma classe única para armazenar dados, e na separação da parte visual e lógica ao ter um view e um controller, respetivamente.
 
 **Implementation**
 
-Para implementar cada classe do MVC, decidimos as seguintes criar classes abstratas:
-- GenericModel: uma classe que armazena apenas a sua posição, velocidades e direção
-- GenericView: uma classe com um Sprite ou AnimatedSprite
-- GenericController: uma classe com um BoxCollider e RigidBody
+Para implementar cada classe do MVC, decidimos criar as seguintes interfaces:
+- GenericModel
+- GenericView
+- GenericController
 
-![img](misc/MVC.png)
+<p align="center" justify="center">
+  <img src="misc/MVC.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 4 UML do MVC</i></b>
+</p>
 
-E com essa estrutura, a criação do Hero tornou-se assim:
-![img](misc/heroMVC.png)
+E com essa estrutura, a criação do *Hero* ficou assim:
+<p align="center" justify="center">
+  <img src="misc/heroMVC.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 5 MVC aplicado no Hero</i></b>
+</p>
+
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
@@ -105,8 +132,9 @@ As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 **Consequences**
 
 O uso dessa estratégia teve os seguintes benefícios:
-- Boa organização de um objeto complexo
-- Maior facilidade em controlar as variáveis do objeto
+- Boa organização de um objeto complexo;
+- Maior facilidade em controlar as variáveis do objeto;
+- Utilização do *Single Responsibility Principle*.
 
 ------
 
@@ -118,16 +146,21 @@ Durante o jogo, muitos objetos precisam captar e ler diversos *inputs*. E o prob
 
 **The Pattern**
 
-Este problema foi resolvido usando dois *design patterns* que são Singleton e Observers. O uso de Singleton vai permitir centralizar a leitura dos *inputs* numa só instância e evitar a passagem por argumentos de valores entre objetos.
-E para impedir que existem paragens para leitura *inputs*, decidimos utilizar observers que vão enviar um sinal quando existe um input feito pelo player.
+Este problema foi resolvido usando dois *design patterns* que são Singleton e Observers. O uso de Singleton vai permitir centralizar os dados dos *inputs* numa só instância e evitar a passagem por argumentos de valores entre objetos.
+E para ler os *inputs*, decidimos utilizar observers que vão enviar um sinal quando existe um *input* feito pelo *player*.
 
 **Implementation**
 
-No projeto, criamos uma classe chamada InputHandler em que tem armazenado um hashmap com os pares <KeyType, Boolean> que representam o *input* e se foi pressionado.
-A leitura de inputs foi implementada ao utilizar os eventsListeners do Java (KeyListerner) em que demos *overwrite* nas funções keyPressed e keyRealeased em que ambas envião um sinal para o Singleton atualizar o hashmap.
-Por fim, para qualquer objeto que necessite de ler um input, só precisa chamar a função isPressed para verificar se a tecla foi pressionada.
+No projeto, criamos uma classe chamada InputHandler em que tem armazenado um hashmap com os pares <Integer, Boolean>, que representam o *input* e se a tecla foi pressionado.
+A leitura de *inputs* foi implementada ao utilizar os eventsListeners do Java (KeyListerner), em que fizemos *override* nas funções *keyPressed* e *keyRealeased* em que ambas envião um sinal para o Singleton atualizar o hashmap.
+Por fim, para qualquer objeto que necessite de ler um *input*, só precisa chamar a função isPressed para verificar se a tecla foi pressionada.
 
-![img](misc/inputHandlerUML.png)
+<p align="center" justify="center">
+  <img src="misc/inputHandlerUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 6 UML do Inputhandler</i></b>
+</p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
@@ -136,9 +169,9 @@ As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 **Consequences**
 
 O uso dessa estratégia teve os seguintes benefícios:
-- Facilidade em ler inputs, armazená-los e utilizá-los
-- Não é preciso ser preocupar em enviar os *inputs* de objeto para objeto
-- Informação centralizada
+- Facilidade em ler inputs, armazená-los e utilizá-los;
+- Não é preciso ser preocupar em enviar os *inputs* de objeto para objeto;
+- Informação centralizada.
 
 Com o uso de Singleton, existe um grande problema no contexto de testar código.
 
@@ -146,20 +179,24 @@ Com o uso de Singleton, existe um grande problema no contexto de testar código.
 
 #### KNOWN CODE SMELLS
 
-1º code Smell: 
-- Todos os componentes são subclasses 
+Todos os objetos complexos dependem dos componentes que são subclasses do Node, por isso qualquer alteração na classe Node pode causar muitos problemas 
 
 ### TESTING
 
-- Screenshot of coverage report.
-- Link to mutation testing report.
+Só foi testado as classes nas package *components* e *utils*.
+<p align="center" justify="center">
+  <img src="misc/Coverage1.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 6 Test Coverage</i></b>
+</p>
+
+Link para o relatório do *pitest*:
+[Mutation Test](build/reports/pitest/index.html)
 
 ### SELF-EVALUATION
 
-> In this section describe how the work regarding the project was divided between the students. In the event that members of the group do not agree on a work distribution, the group should send an email to the teacher explaining the disagreement.
 
-**Example**:
-
-- Gustavo Pereira da Cunha Bastos: 33%
-- ....: 33%
-- Tiago Su: 33%
+- Gustavo Pereira da Cunha Bastos: 33.3%
+- Pedro Manuel Cerqueira Gonçalves: 33.3%
+- Tiago Su: 33.3%

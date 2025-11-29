@@ -17,7 +17,7 @@ public class Arena {
             hero = new Hero(new Vector2d(25, 0), this);
             walls = new ArrayList<>();
 
-            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 100), 100, 100);
+            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 80), 100, 100);
             walls.add(wall1);
             BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000);
             walls.add(wall2);

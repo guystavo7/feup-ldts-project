@@ -49,7 +49,6 @@ public class RigidBody extends Node {
         return newPos.getY();
     }
 
-
     public Vector2d move() {
         float x = moveX(getPosition());
         float y = moveY(new Vector2d(x, getPosition().getY()));
