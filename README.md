@@ -14,7 +14,6 @@ Este projeto foi desenvolvido pelo ..., Gustavo Pereira da Cunha Bastos (up20240
 
 ![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
 ![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
 
 ### PLANNED FEATURES
 
@@ -51,14 +50,14 @@ As funcionalidades necessárias são:
 - BoxCollider: um componente que representa um *collider*
 - RigidBody: um componente responsável por calcular a próxima posição válida dada uma velocidade
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+![img](misc/ComponentsUML.png)
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
-- [Sprite](src/main/java/com/aor/utils/Sprite.java)
-- [AnimatedSprite](src/main/java/com/aor/utils/AnimatedSprite.java)
-- [BoxCollider](src/main/java/com/aor/utils/BoxCollider.java)
-- [RigidBody](src/main/java/com/aor/utils/RigidBody.java)
+- [Sprite](src/main/java/com/aor/components/Sprite.java)
+- [AnimatedSprite](src/main/java/com/aor/components/AnimatedSprite.java)
+- [BoxCollider](src/main/java/com/aor/components/BoxCollider.java)
+- [RigidBody](src/main/java/com/aor/components/RigidBody.java)
 
 **Consequences**
 
@@ -88,16 +87,20 @@ Para implementar cada classe do MVC, decidimos as seguintes criar classes abstra
 - GenericView: uma classe com um Sprite ou AnimatedSprite
 - GenericController: uma classe com um BoxCollider e RigidBody
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+![img](misc/MVC.png)
+
+E com essa estrutura, a criação do Hero tornou-se assim:
+![img](misc/heroMVC.png)
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
-- [GenericModel](src/main/java/com/aor/utils/GenericModel.java)
-- [GenericView](src/main/java/com/aor/utils/GenericView.java)
-- [GenericController](src/main/java/com/aor/utils/GenericController.java)
-- [HeroModel](src/main/java/com/aor/game/HeroModel.java)
-- [HeroView](src/main/java/com/aor/game/HeroView.java)
-- [HeroController](src/main/java/com/aor/game/HeroController.java)
+- [GenericModel](src/main/java/com/aor/mvc/GenericModel.java)
+- [GenericView](src/main/java/com/aor/mvc/GenericView.java)
+- [GenericController](src/main/java/com/aor/mvc/GenericController.java)
+- [Hero](src/main/java/com/aor/hero/Hero.java)
+- [HeroModel](src/main/java/com/aor/hero/HeroModel.java)
+- [HeroView](src/main/java/com/aor/hero/HeroView.java)
+- [HeroController](src/main/java/com/aor/hero/HeroController.java)
 
 **Consequences**
 
@@ -124,11 +127,11 @@ No projeto, criamos uma classe chamada InputHandler em que tem armazenado um has
 A leitura de inputs foi implementada ao utilizar os eventsListeners do Java (KeyListerner) em que demos *overwrite* nas funções keyPressed e keyRealeased em que ambas envião um sinal para o Singleton atualizar o hashmap.
 Por fim, para qualquer objeto que necessite de ler um input, só precisa chamar a função isPressed para verificar se a tecla foi pressionada.
 
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
+![img](misc/inputHandlerUML.png)
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
-- [InputHandler](src/main/java/com/aor/utils/InputHandler.java)
+- [InputHandler](src/main/java/com/aor/game/InputHandler.java)
 
 **Consequences**
 
@@ -157,5 +160,6 @@ Com o uso de Singleton, existe um grande problema no contexto de testar código.
 
 **Example**:
 
-- John Doe: 40%
-- Jane Doe: 60%
+- Gustavo Pereira da Cunha Bastos: 33%
+- ....: 33%
+- Tiago Su: 33%
