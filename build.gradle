@@ -17,7 +17,6 @@ repositories {
 
 pitest {
     junit5PluginVersion = '1.0.0'
-    targetClasses = ['com.aor.utils.*']
 }
 
 dependencies {
