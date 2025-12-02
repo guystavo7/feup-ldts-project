@@ -9,10 +9,14 @@ public class GameDataFeature {
     private int collectedstrawberries = 0;
     private int totalstrawberries = 0;
 
+    private boolean hasDash = true;
+
+
     //Physics settings
     private float gravity;
     private float jumpvelocity;
     private float playerspeed;
+    private float dashspeed;
     private float coyotetime;
 
     //Level data
@@ -41,6 +45,9 @@ public class GameDataFeature {
 
     public int getCollectedstrawberries() {return collectedstrawberries;}
     public void setCollectedstrawberries(int count) {this.collectedstrawberries = count;}
+
+    public boolean hasDash() {return hasDash;}
+    public void sethasDash(boolean hasDash) {this.hasDash = hasDash;}
 
     public int getTotalstrawberries() {return totalstrawberries;}
     public void setTotalstrawberries(int count) {this.totalstrawberries = count;}
