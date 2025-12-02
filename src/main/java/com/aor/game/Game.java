@@ -41,7 +41,7 @@ public class Game {
             TerminalSize terminalSize = new TerminalSize(screenWidth, screenHeight);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 
-            Font loadedFont = font.deriveFont(Font.PLAIN, 5);
+            Font loadedFont = font.deriveFont(Font.PLAIN, 10);
             AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
             terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
             terminalFactory.setForceAWTOverSwing(true);
@@ -102,10 +102,12 @@ public class Game {
 
                     previousTime = System.currentTimeMillis();
 
-                    Thread.sleep(1000 / 60);
+                    long delay_time=1000 / 60-(previousTime-currentTime);
+                    delay_time=delay_time>0?delay_time:0;
+                    Thread.sleep(delay_time);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Thread.currentThread().interrupt();
+                   // Thread.currentThread().interrupt();
                 }
             }
         });
