@@ -58,6 +58,7 @@ public class HeroController implements GenericController {
         rigidBody.setVelocity(model.getVelocity());
         rigidBody.update(model.getPosition());
         model.setPosition(rigidBody.move());
+        model.setVelocity(rigidBody.getVelocity());
     }
 
     public RigidBody getRigidBody() {

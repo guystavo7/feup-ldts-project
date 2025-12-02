@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameDataFeature {
+    // static varibles
+    public static int tileWidth=8;
+    public static int tileHeight=8;
+
     private static GameDataFeature instance;
 
     private int collectedstrawberries = 0;

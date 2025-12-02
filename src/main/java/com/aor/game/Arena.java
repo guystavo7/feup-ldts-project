@@ -1,5 +1,6 @@
 package com.aor.game;
 
+import com.aor.Tiles.Tile;
 import com.aor.hero.Hero;
 import com.aor.components.BoxCollider;
 import com.aor.utils.Vector2d;
@@ -11,12 +12,16 @@ import java.util.List;
 public class Arena {
     private Hero hero;
     private List<BoxCollider> walls;
+    Tile t;
 
     public Arena() {
         try {
             hero = new Hero(new Vector2d(25, 0), this);
             walls = new ArrayList<>();
 
+            t=new Tile(new Vector2d(10,62),"src/main/resources/Hero/tile022.png");
+
+            walls.add(t.getBoxCollider());
             BoxCollider wall1 = new BoxCollider(new Vector2d(0, 80), 100, 100);
             walls.add(wall1);
             BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000);
@@ -31,6 +36,7 @@ public class Arena {
 
     public void update(TextGraphics graphics, float delta) {
         hero.update(graphics, delta);
+        t.update(graphics,delta);
     }
 
     public List<BoxCollider> detectCollision(Vector2d newPos, BoxCollider boxCollider) {
