@@ -58,5 +58,9 @@ public class GameDataFeature {
     public int getHeight() {return windowheight;}
     public void setHeight(int height) {this.windowheight = height;}
 
+    public boolean isLevelCompleted(int level) {
+        return completedlevels.contains(level);
+    }
+
 
 }
