@@ -26,8 +26,10 @@ public class RigidBody extends Node {
         for (BoxCollider collider : boxColliders) {
             if (velocity.getX() > 0 && (newPos.getX() + this.boxCollider.getWidth()) > collider.getPosition().getX()) {
                 newPos.setX(collider.getPosition().getX() - this.boxCollider.getWidth());
+                velocity.setX(0);
             } else if (velocity.getX() < 0 && newPos.getX() < (collider.getPosition().getX() + collider.getWidth())) {
                 newPos.setX(collider.getPosition().getX() + collider.getWidth());
+                velocity.setX(0);
             }
         }
 

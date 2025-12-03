@@ -20,7 +20,9 @@ public class Tile {
         tileView=new TileView(tileModel);
         tileController=new TileController(tileModel);
     }
-
+    public static Tile TileFrom16x16Grid(int gridx,int gridy,String filePath) throws IOException {
+        return new Tile(new Vector2d(gridx*8,gridy*8),filePath);
+    }
     public void update(TextGraphics graphics, float delta) {
         tileController.update(delta);
         tileView.update(graphics, delta);

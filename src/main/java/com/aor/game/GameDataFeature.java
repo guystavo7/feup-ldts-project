@@ -1,12 +1,14 @@
 package com.aor.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GameDataFeature {
     // static varibles
     public static int tileWidth=8;
     public static int tileHeight=8;
+
+    public static Map<Integer ,String> tileImgsPath=tileImgPathLoader();
+
 
     private static GameDataFeature instance;
 
@@ -37,6 +39,14 @@ public class GameDataFeature {
     private boolean iskeyboardInverted = false;
     private float inputSensivity;
 
+    private static Map<Integer ,String> tileImgPathLoader(){
+        List<Integer> l= Arrays.asList(26,27,28,29,30,31,32,34,46);
+        Map<Integer ,String> res=new HashMap<>();
+        for(Integer i:l){
+            res.put(i,"src/main/resources/Hero/tile0"+i.toString()+".png");
+        }
+        return res;
+    }
     private GameDataFeature() {
     }
 
