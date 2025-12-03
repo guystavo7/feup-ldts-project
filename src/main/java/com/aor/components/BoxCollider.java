@@ -12,59 +12,17 @@ public class BoxCollider extends Node {
         this.height = height;
     }
 
-    private boolean checkTopLeftCollision(BoxCollider other) {
+
+    public boolean isColliding(BoxCollider other) {
         float x = getPosition().getX();
         float y = getPosition().getY();
 
         float otherX = other.getPosition().getX();
         float otherY = other.getPosition().getY();
-        int otherWidth = other.getWidth();
-        int otherHeight = other.getHeight();
-
-        //Check if topLeft is inside
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    private boolean checkTopRightCollision(BoxCollider other) {
-        float x = getPosition().getX()+width;
-        float y = getPosition().getY();
-
-        float otherX = other.getPosition().getX();
-        float otherY = other.getPosition().getY();
-        int otherWidth = other.getWidth();
-        int otherHeight = other.getHeight();
-
-        //Check if topLeft is inside
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    private boolean checkBotRightCollision(BoxCollider other) {
-        float x = getPosition().getX() + width;
-        float y = getPosition().getY() + height;
-
-        float otherX = other.getPosition().getX();
-        float otherY = other.getPosition().getY();
         float otherWidth = other.getWidth();
         float otherHeight = other.getHeight();
 
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    private boolean checkBotLeftCollision(BoxCollider other) {
-        float x = getPosition().getX() ;
-        float y = getPosition().getY() + height;
-
-        float otherX = other.getPosition().getX();
-        float otherY = other.getPosition().getY();
-        float otherWidth = other.getWidth();
-        float otherHeight = other.getHeight();
-
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    public boolean isColliding(BoxCollider other) {
-        if (other.equals(this)) return false;
-        return checkBotRightCollision(other) || checkTopLeftCollision(other)||checkTopRightCollision(other)||checkBotLeftCollision(other);
+        return x < (otherX + otherWidth) && (x + width) > otherX && y < (otherY + otherHeight) && (y + height) > otherY;
     }
 
     public int getWidth() {
