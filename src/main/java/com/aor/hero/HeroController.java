@@ -40,10 +40,12 @@ public class HeroController implements GenericController {
         this.arena = arena;
         this.jumpBufferTimer = new Timer(0.1d, false);
         this.coyoteTimer = new Timer(0.1d, false);
-        this.dashTimer = new Timer(0.2d, false);
+        this.dashTimer = new Timer(0.3d, false);
     }
 
     private void checkIfGrounded() {
+        if (dashTimer.isRunning()) return;
+
         if (!arena.detectCollision(groundCollider.getPosition(), groundCollider).isEmpty()) {
             coyoteTimer.start();
             isGrounded = true;
@@ -64,7 +66,7 @@ public class HeroController implements GenericController {
     }
 
     private void checkTransitions(double delta) {
-        if (model.getState() instanceof DashingState && (!dashTimer.isRunning() || isGrounded)) {
+        if ((model.getState() instanceof DashingState && !dashTimer.isRunning()) || (model.getState() instanceof JumpingState && isGrounded)) {
             model.getState().onExit(delta);
             model.setState(new GroundedState(model, delta));
 
@@ -77,6 +79,7 @@ public class HeroController implements GenericController {
 
             coyoteTimer.interrupt();
             jumpBufferTimer.interrupt();
+
         }
     }
 
@@ -123,8 +126,8 @@ public class HeroController implements GenericController {
         groundCollider.update(Utils.vectorSum(model.getPosition(), groundColliderOffset));
 
         //Check for transitions
-        checkTransitions(delta);
         checkIfGrounded();
+        checkTransitions(delta);
 
         //Timers updates
         jumpBufferTimer.update(delta);

@@ -1,6 +1,5 @@
 package com.aor.hero;
 
-import com.aor.game.Game;
 import com.aor.game.GameDataFeature;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;

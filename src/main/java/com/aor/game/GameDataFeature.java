@@ -18,9 +18,9 @@ public class GameDataFeature {
     private double maxHorizontalVelocity = 1.5d;
     private double maxVerticalVelocity = 2;
 
-    private double groundFriction = 10d;
+    private double groundFriction = 15d;
     private double airFriction = 8d;
-    private double dashFriction = 0.4d;
+    private double dashFriction = 1d;
 
     private double horizontalAcceleration = 85d;
     private double gravityAcceleration = 10d;

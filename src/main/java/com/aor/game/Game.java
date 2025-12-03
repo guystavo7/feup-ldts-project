@@ -20,8 +20,8 @@ public class Game {
     private Screen screen;
     private Arena arena;
 
-    private int screenWidth = 100;
-    private int screenHeight = 100;
+    private int screenWidth = 128;
+    private int screenHeight = 128;
 
     private boolean isRunning;
     private long previousTime;
