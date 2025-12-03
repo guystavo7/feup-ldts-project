@@ -37,7 +37,7 @@ public class DashingState implements HeroState {
         double maxHorizontalDelta = GameDataFeature.getInstance().getDashFriction() * delta;
 
         double xVelocity = Utils.moveTowards(current.getX(), 0, maxHorizontalDelta);
-        double yVelocity = current.getY();
+        double yVelocity = Utils.moveTowards(current.getY(), 0, maxHorizontalDelta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }

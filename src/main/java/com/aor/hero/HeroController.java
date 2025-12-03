@@ -82,28 +82,28 @@ public class HeroController implements GenericController {
 
     private void handleInputs(double delta) {
         //Check horizontal inputs
-        if (InputHandler.getInstance().isPressed(KeyEvent.VK_LEFT)) {
+        if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_LEFT)) {
             model.setDirectionX(-1);
-        } else if (InputHandler.getInstance().isPressed(KeyEvent.VK_RIGHT)) {
+        } else if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_RIGHT)) {
             model.setDirectionX(1);
         } else {
             model.setDirectionX(0);
         }
 
         //Check vertical inputs
-        if (InputHandler.getInstance().isPressed(KeyEvent.VK_UP)) {
+        if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_UP)) {
             model.setDirectionY(-1);
-        } else if (InputHandler.getInstance().isPressed(KeyEvent.VK_DOWN)) {
+        } else if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_DOWN)) {
             model.setDirectionY(1);
         } else {
             model.setDirectionY(0);
         }
 
-        if (InputHandler.getInstance().isPressed(KeyEvent.VK_C)) {
+        if (InputHandler.getInstance().getKeyDown(KeyEvent.VK_C)) {
             jumpBufferTimer.start();
         }
 
-        if (canDash && InputHandler.getInstance().isPressed(KeyEvent.VK_X)) {
+        if (canDash && InputHandler.getInstance().getKeyDown(KeyEvent.VK_X)) {
             dash(delta);
         }
     }

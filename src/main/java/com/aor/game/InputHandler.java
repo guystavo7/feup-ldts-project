@@ -3,10 +3,12 @@ import java.util.HashMap;
 
 public class InputHandler {
     private static InputHandler instance;
-    private HashMap<Integer, Boolean> keys;
+    private HashMap<Integer, Boolean> keysPressed;
+    private HashMap<Integer, Boolean> keysDown;
 
     private InputHandler() {
-        keys = new HashMap<>();
+        keysPressed = new HashMap<>();
+        keysDown = new HashMap<>();
     }
 
     public static InputHandler getInstance() {
@@ -15,11 +17,21 @@ public class InputHandler {
     }
 
     public void readKeys(int key, boolean isPressed) {
-        keys.put(key, isPressed);
+        keysPressed.put(key, isPressed);
+        keysDown.put(key, isPressed);
     }
 
-    public boolean isPressed(int key) {
-        if (Boolean.TRUE.equals(keys.get(key))) return keys.get(key);
+    public boolean getKeyPressed(int key) {
+        if (Boolean.TRUE.equals(keysPressed.get(key))) return keysPressed.get(key);
+        return false;
+    }
+
+    public boolean getKeyDown(int key) {
+        if (Boolean.TRUE.equals(keysDown.get(key))) {
+            keysDown.put(key, false);
+            return true;
+        }
+
         return false;
     }
 }
