@@ -16,7 +16,7 @@ import java.util.List;
 
 class TestAnimatedSprite {
 
-        GenericSprite spriteStub;
+        Sprite spriteStub;
         AnimatedSprite animatedSprite;
         TextGraphics graphicsStub;
 

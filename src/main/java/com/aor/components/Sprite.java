@@ -9,7 +9,7 @@ import com.googlecode.lanterna.graphics.TextImage;
 import java.io.*;
 import java.util.*;
 
-public class Sprite extends Node implements GenericSprite {
+public class Sprite extends Node {
     private Integer width;
     private Integer height;
     private TextImage pixels;

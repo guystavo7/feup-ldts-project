@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class AnimatedSprite extends Node {
-    private List<GenericSprite> frames = new ArrayList<>();
+    private List<Sprite> frames = new ArrayList<>();
     private float currentFrame;
     private float frameSpeed;
 
     public AnimatedSprite(Vector2d position, List<String> imgPaths, float frameSpeed) throws IOException {
         super(position);
-        for(String ip:imgPaths){
+        for(String ip : imgPaths){
             frames.add(new Sprite(position, ip));
         }
 
