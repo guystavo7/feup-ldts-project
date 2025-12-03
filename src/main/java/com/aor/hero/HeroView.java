@@ -26,7 +26,7 @@ public class HeroView implements GenericView {
     }
 
     @Override
-    public void update(TextGraphics graphics, float delta) {
+    public void update(TextGraphics graphics, double delta) {
         animatedSprite.update(model.getPosition(), delta);
         animatedSprite.draw(graphics);
     }

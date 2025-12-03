@@ -2,11 +2,11 @@ package com.aor.utils;
 
 import java.util.Objects;
 
-public class Vector2d {
-    private float x;
-    private float y;
+public class Vector2d implements Cloneable {
+    private double x;
+    private double y;
 
-    public Vector2d(float x, float y) {
+    public Vector2d(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -32,6 +32,11 @@ public class Vector2d {
         return "(" + x + ", " + y + ")";
     }
 
+    @Override
+    public Vector2d clone() {
+        return new Vector2d(x, y);
+    }
+
     public Vector2d addVector(Vector2d other) {
         this.x += other.getX();
         this.y += other.getY();
@@ -39,27 +44,35 @@ public class Vector2d {
         return this;
     }
 
-    public Vector2d scalarProduct(int k) {
+    public Vector2d scalarProduct(double k) {
         this.x *= k;
         this.y *= k;
 
         return this;
     }
 
+    public Vector2d normalize() {
+        double module = Math.sqrt(x * x + y * y);
+        if (module == 0) return this;
+
+        scalarProduct(1 / module);
+        return this;
+    }
+
     //To do: setters and getters
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 }

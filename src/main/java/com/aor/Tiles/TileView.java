@@ -16,7 +16,7 @@ public class TileView implements GenericView {
         sprite=new Sprite(tileModel.getPosition(),tileModel.getFilePath());
     }
     @Override
-    public void update(TextGraphics graphics, float delta) {
+    public void update(TextGraphics graphics, double delta) {
         sprite.draw(graphics);
     }
 }

@@ -30,6 +30,6 @@ public class Hero {
 
         heroController.update(delta);
         heroView.update(graphics, delta);
-     //   System.out.println(heroModel.getPosition());
+        System.out.println(heroModel.getVelocity());
     }
 }

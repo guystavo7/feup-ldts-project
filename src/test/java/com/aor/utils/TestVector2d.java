@@ -48,4 +48,10 @@ class TestVector2d {
         String s = "(1.0, 1.0)";
         Assertions.assertEquals(s, v1.toString());
     }
+
+    @Test
+    void testNormalize() {
+        Vector2d normalizedVector = new Vector2d(1 / Math.sqrt(2), 1 / Math.sqrt(2));
+        Assertions.assertEquals(normalizedVector, v1.normalize());
+    }
 }

@@ -40,4 +40,23 @@ public class Utils {
     public static Vector2d vectorSum(Vector2d v1, Vector2d v2) {
         return new Vector2d(v1.getX() + v2.getX(), v1.getY() + v2.getY());
     }
+
+    public static Vector2d normalizedVector(Vector2d v) {
+        double x = v.getX();
+        double y = v.getY();
+
+        Vector2d normalizedVector = new Vector2d(x, y);
+        double module = Math.sqrt(x * x + y * y);
+        normalizedVector.scalarProduct(1 / module);
+
+        return normalizedVector;
+    }
+
+    public static Vector2d scalarProduct(Vector2d v, double k) {
+        return new Vector2d(v.getX() * k, v.getY() * k);
+    }
+
+    public static double moveTowards(double current, double target, double maxDelta) {
+        return Math.abs(target - current) <= maxDelta ? target : current + Math.signum(target - current) * maxDelta;
+    }
 }

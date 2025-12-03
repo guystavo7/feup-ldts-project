@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class AnimatedSprite extends Node {
     private List<Sprite> frames = new ArrayList<>();
-    private float currentFrame;
-    private float frameSpeed;
+    private double currentFrame;
+    private double frameSpeed;
 
-    public AnimatedSprite(Vector2d position, List<String> imgPaths, float frameSpeed) throws IOException {
+    public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed) throws IOException {
         super(position);
         for(String ip : imgPaths){
             frames.add(new Sprite(position, ip));
@@ -27,7 +27,7 @@ public class AnimatedSprite extends Node {
         frames.get((int) currentFrame).draw(graphics);
     }
 
-    public void update(Vector2d newPos,float timeDelta){
+    public void update(Vector2d newPos, double timeDelta){
         currentFrame += frameSpeed * timeDelta;
         if(currentFrame > frames.size()) currentFrame = 0;
 

@@ -11,7 +11,7 @@ public class TileController implements GenericController {
     }
 
     @Override
-    public void update(float delta) {
+    public void update(double delta) {
 
     }
 

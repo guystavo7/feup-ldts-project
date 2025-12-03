@@ -15,6 +15,16 @@ public class GameDataFeature {
 
     private boolean hasDash = true;
 
+    private double maxHorizontalVelocity = 1.5d;
+    private double maxVerticalVelocity = 2;
+
+    private double groundFriction = 10d;
+    private double airFriction = 8d;
+    private double dashFriction = 0.4d;
+
+    private double horizontalAcceleration = 85d;
+    private double gravityAcceleration = 10d;
+    private double jumpForce = -3d;
 
     //Physics settings
     private float gravity;
@@ -55,16 +65,44 @@ public class GameDataFeature {
 
     public int getTotalstrawberries() {return totalstrawberries;}
     public void setTotalstrawberries(int count) {this.totalstrawberries = count;}
-
     public int getWidth() {return windowwidth;}
     public void setWidth(int width) {this.windowwidth = width;}
-
     public int getHeight() {return windowheight;}
     public void setHeight(int height) {this.windowheight = height;}
-
     public boolean isLevelCompleted(int level) {
         return completedlevels.contains(level);
     }
 
 
+    public double getMaxHorizontalVelocity() {
+        return maxHorizontalVelocity;
+    }
+
+    public double getMaxVerticalVelocity() {
+        return maxVerticalVelocity;
+    }
+
+    public double getHorizontalAcceleration() {
+        return horizontalAcceleration;
+    }
+
+    public double getGravityAcceleration() {
+        return gravityAcceleration;
+    }
+
+    public double getGroundFriction() {
+        return groundFriction;
+    }
+
+    public double getAirFriction() {
+        return airFriction;
+    }
+
+    public double getJumpForce() {
+        return jumpForce;
+    }
+
+    public double getDashFriction() {
+        return dashFriction;
+    }
 }

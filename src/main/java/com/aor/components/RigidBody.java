@@ -19,7 +19,7 @@ public class RigidBody extends Node {
         this.boxCollider = boxCollider;
     }
 
-    private float moveX(Vector2d pos) {
+    private double moveX(Vector2d pos) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX(), 0), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
@@ -34,26 +34,26 @@ public class RigidBody extends Node {
         return newPos.getX();
     }
 
-    private float moveY(Vector2d pos) {
+    private double moveY(Vector2d pos) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY()), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider);
 
         for (BoxCollider collider : boxColliders) {
             if (velocity.getY() > 0 && (newPos.getY() + this.boxCollider.getHeight()) > collider.getPosition().getY()) {
                 newPos.setY(collider.getPosition().getY() - this.boxCollider.getHeight());
-                velocity.setY(0);
             } else if (velocity.getY() < 0 && newPos.getY() < (collider.getPosition().getY() + collider.getHeight())) {
                 newPos.setY(collider.getPosition().getY() + collider.getHeight());
-                velocity.setY(0);
             }
+
+            velocity.setY(0);
         }
 
         return newPos.getY();
     }
 
     public Vector2d move() {
-        float x = moveX(getPosition());
-        float y = moveY(new Vector2d(x, getPosition().getY()));
+        double x = moveX(getPosition());
+        double y = moveY(new Vector2d(x, getPosition().getY()));
         return new Vector2d(x, y);
     }
 

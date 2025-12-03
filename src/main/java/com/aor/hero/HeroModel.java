@@ -7,11 +7,18 @@ public class HeroModel implements GenericModel {
     private Vector2d position;
     private Vector2d velocity;
     private Vector2d direction;
+    private HeroState state;
 
     public HeroModel(Vector2d position, Vector2d velocity, Vector2d direction) {
         this.position = position;
         this.velocity = velocity;
         this.direction = direction;
+
+        state = new GroundedState(this, 0);
+    }
+
+    public void setState(HeroState state) {
+        this.state = state;
     }
 
     public void setPosition(Vector2d position) {
@@ -42,4 +49,7 @@ public class HeroModel implements GenericModel {
         return direction;
     }
 
+    public HeroState getState() {
+        return state;
+    }
 }
