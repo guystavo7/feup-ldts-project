@@ -34,7 +34,7 @@ public class Arena {
         }
     }
 
-    public void update(TextGraphics graphics, float delta) {
+    public void update(TextGraphics graphics, double delta) {
         hero.update(graphics, delta);
         t.update(graphics,delta);
     }

@@ -8,7 +8,7 @@ import com.aor.utils.Vector2d;
 public class DashingState implements HeroState {
     private HeroModel model;
     private Vector2d direction;
-    private double dashVelocity = 2d;
+    private double dashVelocity = 3.5d;
 
     public DashingState(GenericModel model, double delta) {
         this.model = (HeroModel) model;

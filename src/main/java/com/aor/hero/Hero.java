@@ -26,9 +26,10 @@ public class Hero {
         heroController = new HeroController(heroModel, new Vector2d(0, 0), width, height, arena);
     }
 
-    public void update(TextGraphics graphics, float delta) {
+    public void update(TextGraphics graphics, double delta) {
 
         heroController.update(delta);
         heroView.update(graphics, delta);
+        System.out.println(heroModel.getState());
     }
 }

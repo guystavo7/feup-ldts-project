@@ -20,11 +20,11 @@ public class GameDataFeature {
 
     private double groundFriction = 15d;
     private double airFriction = 8d;
-    private double dashFriction = 1d;
+    private double dashFriction = 10d;
 
     private double horizontalAcceleration = 85d;
     private double gravityAcceleration = 10d;
-    private double jumpForce = -3d;
+    private double jumpForce = -4d;
 
     //Physics settings
     private float gravity;

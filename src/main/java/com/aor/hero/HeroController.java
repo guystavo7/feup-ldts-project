@@ -33,19 +33,18 @@ public class HeroController implements GenericController {
         this.boxCollider = new BoxCollider(this.model.getPosition(), width, height);
         this.rigidBody = new RigidBody(this.model.getPosition(), initialVelocity, arena, boxCollider);
 
-        this.groundColliderOffset =  new Vector2d(width / 2f - 1, height - 1f);
+        this.groundColliderOffset =  new Vector2d(0, height - 1f);
         Vector2d groundColliderPosition = Utils.vectorSum(this.model.getPosition(), groundColliderOffset);
-        this.groundCollider = new BoxCollider(groundColliderPosition, 3, 2);
+        this.groundCollider = new BoxCollider(groundColliderPosition, 8, 2);
 
         this.arena = arena;
         this.jumpBufferTimer = new Timer(0.1d, false);
         this.coyoteTimer = new Timer(0.1d, false);
-        this.dashTimer = new Timer(0.3d, false);
+        this.dashTimer = new Timer(0.2d, false);
     }
 
     private void checkIfGrounded() {
         if (dashTimer.isRunning()) return;
-
         if (!arena.detectCollision(groundCollider.getPosition(), groundCollider).isEmpty()) {
             coyoteTimer.start();
             isGrounded = true;
@@ -66,20 +65,26 @@ public class HeroController implements GenericController {
     }
 
     private void checkTransitions(double delta) {
-        if ((model.getState() instanceof DashingState && !dashTimer.isRunning()) || (model.getState() instanceof JumpingState && isGrounded)) {
+        if (model.getState() instanceof DashingState && !dashTimer.isRunning()) {
+            model.getState().onExit(delta);
+            model.setState(new JumpingState(model, delta, model.getState()));
+
+            isGrounded = false;
+            coyoteTimer.interrupt();
+
+        } else if (model.getState() instanceof JumpingState && isGrounded) {
             model.getState().onExit(delta);
             model.setState(new GroundedState(model, delta));
 
         } else if ((coyoteTimer.isRunning() || model.getState() instanceof GroundedState) && jumpBufferTimer.isRunning()) {
             //Jump
             model.getState().onExit(delta);
-            model.setState(new JumpingState(model, delta));
+            model.setState(new JumpingState(model, delta, model.getState()));
 
             isGrounded = false;
 
             coyoteTimer.interrupt();
             jumpBufferTimer.interrupt();
-
         }
     }
 

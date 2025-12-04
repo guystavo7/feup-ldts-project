@@ -21,7 +21,7 @@ public class Tile {
         tileController=new TileController(tileModel);
     }
 
-    public void update(TextGraphics graphics, float delta) {
+    public void update(TextGraphics graphics, double delta) {
         tileController.update(delta);
         tileView.update(graphics, delta);
     }

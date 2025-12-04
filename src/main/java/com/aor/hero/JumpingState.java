@@ -10,9 +10,10 @@ import com.aor.utils.Vector2d;
 public class JumpingState implements HeroState {
     private HeroModel model;
 
-    public JumpingState(GenericModel model, double delta) {
+    public JumpingState(GenericModel model, double delta, HeroState previousState) {
         this.model = (HeroModel) model;
-        onEnter(delta);
+
+        if (previousState instanceof GroundedState) onEnter(delta);
     }
 
     @Override

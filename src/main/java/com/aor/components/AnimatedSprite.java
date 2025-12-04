@@ -29,7 +29,7 @@ public class AnimatedSprite extends Node {
 
     public void update(Vector2d newPos, double timeDelta){
         currentFrame += frameSpeed * timeDelta;
-        if(currentFrame > frames.size()) currentFrame = 0;
+        if(currentFrame >= frames.size()) currentFrame = 0;
 
         super.update(newPos);
         frames.get((int) currentFrame).update(newPos);

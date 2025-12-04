@@ -97,7 +97,7 @@ public class Game {
                     long delta = currentTime - previousTime;
 
                     screen.clear();
-                    arena.update(screen.newTextGraphics(), (float) delta / 1000);
+                    arena.update(screen.newTextGraphics(), (double) delta / 1000);
                     screen.refresh(Screen.RefreshType.DELTA);
 
                     previousTime = System.currentTimeMillis();
@@ -105,6 +105,7 @@ public class Game {
                     long delay_time=1000 / 60-(previousTime-currentTime);
                     delay_time=delay_time>0?delay_time:0;
                     Thread.sleep(delay_time);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                    // Thread.currentThread().interrupt();
