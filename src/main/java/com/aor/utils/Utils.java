@@ -37,6 +37,27 @@ public class Utils {
         return pixels;
     }
 
+    public static TextImage loadXFlippedImage(String path) throws IOException {
+        File file = new File(path);
+        BufferedImage image = ImageIO.read(file);
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        TextImage pixels = new BasicTextImage(width, height);
+        TextGraphics graphics = pixels.newTextGraphics();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                graphics.setBackgroundColor(TextColor.Factory.fromString(new Pixel(image.getRGB(x, y)).toString()));
+                Vector2d pixelPos = new Vector2d(width-x-1, y);
+                graphics.setCharacter(new TerminalPosition((int) pixelPos.getX(), (int) pixelPos.getY()), ' ');
+            }
+        }
+
+        return pixels;
+    }
+
     public static Vector2d vectorSum(Vector2d v1, Vector2d v2) {
         return new Vector2d(v1.getX() + v2.getX(), v1.getY() + v2.getY());
     }

@@ -26,7 +26,16 @@ public class AnimatedSprite extends Node {
     public final void draw(TextGraphics graphics){
         frames.get((int) currentFrame).draw(graphics);
     }
-
+    public void xFlip(){
+        for (Sprite f:frames){
+            f.xFlip();
+        }
+    }
+    public void normal(){
+        for (Sprite f:frames){
+            f.normal();
+        }
+    }
     public void update(Vector2d newPos,float timeDelta){
         currentFrame += frameSpeed * timeDelta;
         if(currentFrame > frames.size()) currentFrame = 0;
