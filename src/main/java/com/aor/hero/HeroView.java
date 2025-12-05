@@ -1,7 +1,6 @@
 package com.aor.hero;
 
-import com.aor.components.AnimatedSprite;
-import com.aor.components.AttachedSprite;
+import com.aor.components.*;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
 import com.aor.utils.Vector2d;
@@ -17,10 +16,10 @@ public class HeroView implements GenericView {
     public HeroView(HeroModel model, List<String> filePaths) {
         try {
             this.model = (HeroModel) model;
-            animatedSprite = new AnimatedSprite(this.model.getPosition(), filePaths, 10);
-            hair.add(new AttachedSprite(new Vector2d( model.getPosition().getX(),model.getPosition().getY()),"src/main/resources/Hero/hair.png",model,new Vector2d(0,2),4,4));
+            animatedSprite = new AnimatedSprite(this.model.getPosition(), filePaths, 10,new TransparentSpriteFactory());
+            hair.add(new AttachedSprite(new Sprite(new Vector2d( model.getPosition().getX(),model.getPosition().getY()),"src/main/resources/Hero/hair.png"),model,new Vector2d(0,2),4,4));
             for(int i=1;i!=7;i++){
-                hair.add(new AttachedSprite(new Vector2d( hair.get(i-1).getPosition().getX(),hair.get(i-1).getPosition().getY()),"src/main/resources/Hero/hair.png",hair.get(i-1),new Vector2d(0,2),4,4));
+                hair.add(new AttachedSprite(new Sprite(new Vector2d( hair.get(i-1).getPosition().getX(),hair.get(i-1).getPosition().getY()),"src/main/resources/Hero/hair.png"),hair.get(i-1),new Vector2d(0,2),4,4));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,9 +34,7 @@ public class HeroView implements GenericView {
     public void update(TextGraphics graphics, float delta) {
 
         animatedSprite.update(model.getPosition(), delta);
-        for (AttachedSprite h:hair){
-            h.draw(graphics);
-        }
+
         if(model.getVelocity().getX()>0){
             animatedSprite.normal();
             for (AttachedSprite h:hair){
@@ -50,6 +47,10 @@ public class HeroView implements GenericView {
                 h.xFlip();
             }
         }
+        for (AttachedSprite h:hair){
+            h.draw(graphics);
+        }
         animatedSprite.draw(graphics);
+
     }
 }

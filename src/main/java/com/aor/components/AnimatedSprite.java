@@ -2,21 +2,27 @@ package com.aor.components;
 
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.gui2.SameTextGUIThread;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+//TO DO : generic sprite <>
 public class AnimatedSprite extends Node {
-    private List<Sprite> frames = new ArrayList<>();
+
+    private List<GenericSprite> frames = new ArrayList<>();
     private float currentFrame;
     private float frameSpeed;
 
-    public AnimatedSprite(Vector2d position, List<String> imgPaths, float frameSpeed) throws IOException {
+    public AnimatedSprite(Vector2d position, List<String> imgPaths, float frameSpeed,GenericSpriteFactory factory) throws IOException {
         super(position);
+        System.out.println("colool");
+        System.out.println(factory.getClass());
+
         for(String ip : imgPaths){
-            frames.add(new Sprite(position, ip));
+            frames.add(factory.newSprite(position,ip));
         }
 
         currentFrame = 0;
@@ -27,12 +33,12 @@ public class AnimatedSprite extends Node {
         frames.get((int) currentFrame).draw(graphics);
     }
     public void xFlip(){
-        for (Sprite f:frames){
+        for (GenericSprite f:frames){
             f.xFlip();
         }
     }
     public void normal(){
-        for (Sprite f:frames){
+        for (GenericSprite f:frames){
             f.normal();
         }
     }
@@ -41,8 +47,10 @@ public class AnimatedSprite extends Node {
         if(currentFrame > frames.size()) currentFrame = 0;
 
         super.update(newPos);
-        frames.get((int) currentFrame).update(newPos);
+        frames.get((int) currentFrame).setPosition(newPos);
     }
+
+
 
     public int getWidth(){
         return frames.get((int) currentFrame).getWidth();

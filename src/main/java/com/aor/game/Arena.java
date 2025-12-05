@@ -1,6 +1,7 @@
 package com.aor.game;
 
 import com.aor.Tiles.Tile;
+import com.aor.components.TransparentSprite;
 import com.aor.hero.Hero;
 import com.aor.components.BoxCollider;
 import com.aor.utils.Vector2d;
@@ -12,7 +13,7 @@ import java.util.List;
 public class Arena {
     private Hero hero;
     private List<BoxCollider> walls;
-
+    TransparentSprite ts;
     List<Tile> tiles=new ArrayList<>();
 
     public Arena() {
@@ -20,6 +21,7 @@ public class Arena {
             hero = new Hero(new Vector2d(25, 0), this);
             walls = new ArrayList<>();
 
+            ts=new TransparentSprite(new Vector2d(8,5*8),"src/main/resources/Hero/tile000.png");
             //level 15
 
             tiles.add(Tile.TileFrom16x16Grid(0,15,GameDataFeature.tileImgsPath.get(30)));
@@ -119,6 +121,7 @@ public class Arena {
     public void update(TextGraphics graphics, float delta) {
 
         hero.update(graphics, delta);
+        ts.draw(graphics);
         for(Tile t:tiles) {
             t.update(graphics, delta);
         }

@@ -1,5 +1,6 @@
 package com.aor.utils;
 
+import com.aor.Tiles.Tile;
 import com.aor.components.Pixel;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -11,51 +12,89 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 //A class that holds some useful methods
 public class Utils {
     private Utils() {}
 
-    public static TextImage loadImage(String path) throws IOException {
+
+    public static List<List<Pixel>> XFLipPixeis(List<List<Pixel>> p){
+        int height=p.size();
+        int width=p.getFirst().size();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width/2; x++) {
+                Pixel temp=p.get(y).get(x);
+                p.get(y).set(x,p.get(y).get(width-x-1));
+                p.get(y).set(width-x-1,temp);
+            }
+        }
+        return p;
+    }
+
+    public static List<List<Pixel>> loadPixeis(String path) throws IOException {
         File file = new File(path);
         BufferedImage image = ImageIO.read(file);
 
         int width = image.getWidth();
         int height = image.getHeight();
 
+        List<List<Pixel>> res=new ArrayList<>();
+
+
+        for (int y = 0; y < height; y++) {
+            res.add(new ArrayList<Pixel>());
+            for (int x = 0; x < width; x++) {
+
+                res.getLast().add(new Pixel(image.getRGB(x, y)));
+            }
+        }
+
+        return res;
+    }
+
+    public static TextImage CreateTextImage(List<List<Pixel>> p){
+        int width = p.getFirst().size();
+        int height = p.size();
+
         TextImage pixels = new BasicTextImage(width, height);
         TextGraphics graphics = pixels.newTextGraphics();
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                graphics.setBackgroundColor(TextColor.Factory.fromString(new Pixel(image.getRGB(x, y)).toString()));
+                Pixel pixel=p.get(y).get(x);
+
+                graphics.setBackgroundColor(TextColor.Factory.fromString(pixel.toString()));
                 Vector2d pixelPos = new Vector2d(x, y);
                 graphics.setCharacter(new TerminalPosition((int) pixelPos.getX(), (int) pixelPos.getY()), ' ');
+
             }
         }
-
         return pixels;
     }
 
+    public static List<List<Pixel>> loadTransparentImage(String path) throws IOException {
+        return  loadPixeis(path);
+    }
+    public static List<List<Pixel>> loadXFlippedTransparentImage(String path) throws IOException {
+        List<List<Pixel>> p=loadTransparentImage(path);
+        p=XFLipPixeis(p);
+        System.out.println("");
+
+        return p;
+    }
+
+
+    public static TextImage loadImage(String path) throws IOException {
+
+        return CreateTextImage(loadPixeis(path));
+    }
+
     public static TextImage loadXFlippedImage(String path) throws IOException {
-        File file = new File(path);
-        BufferedImage image = ImageIO.read(file);
-
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        TextImage pixels = new BasicTextImage(width, height);
-        TextGraphics graphics = pixels.newTextGraphics();
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                graphics.setBackgroundColor(TextColor.Factory.fromString(new Pixel(image.getRGB(x, y)).toString()));
-                Vector2d pixelPos = new Vector2d(width-x-1, y);
-                graphics.setCharacter(new TerminalPosition((int) pixelPos.getX(), (int) pixelPos.getY()), ' ');
-            }
-        }
-
-        return pixels;
+        List<List<Pixel>> p=loadPixeis(path);
+        XFLipPixeis(p);
+        return  CreateTextImage(p);
     }
 
     public static Vector2d vectorSum(Vector2d v1, Vector2d v2) {

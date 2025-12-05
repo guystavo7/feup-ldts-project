@@ -9,7 +9,8 @@ import com.googlecode.lanterna.graphics.TextImage;
 import java.io.*;
 import java.util.*;
 
-public class Sprite extends Node implements Positionable {
+public class Sprite implements Positionable,GenericSprite {
+    private Vector2d position;
     private Integer width;
     private Integer height;
     private TextImage pixels;
@@ -17,12 +18,26 @@ public class Sprite extends Node implements Positionable {
     private TextImage normalImg;
 
     public Sprite(Vector2d position, String filePath) throws IOException {
-        super(position);
+        this.position=position;
         this.normalImg = Utils.loadImage(filePath);
         xFlippedImg=Utils.loadXFlippedImage(filePath);
         pixels=normalImg;
         this.width = pixels.getSize().getColumns();
         this.height = pixels.getSize().getRows();
+    }
+
+    @Override
+    public Vector2d getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(Vector2d pos) {
+        position=pos;
+    }
+
+    public GenericSprite newSprite(Vector2d position, String filePath) throws IOException {
+        return new Sprite(position,filePath);
     }
 
     public void draw(TextGraphics graphics){
