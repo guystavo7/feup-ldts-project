@@ -30,6 +30,7 @@ public class AnimatedSprite extends Node {
     }
 
     public final void draw(TextGraphics graphics){
+        //if(((int)currentFrame) > frames.size()) currentFrame = 0;
         frames.get((int) currentFrame).draw(graphics);
     }
     public void xFlip(){

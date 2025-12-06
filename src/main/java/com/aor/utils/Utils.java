@@ -80,7 +80,6 @@ public class Utils {
     public static List<List<Pixel>> loadXFlippedTransparentImage(String path) throws IOException {
         List<List<Pixel>> p=loadTransparentImage(path);
         p=XFLipPixeis(p);
-        System.out.println("");
 
         return p;
     }

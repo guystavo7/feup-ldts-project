@@ -1,5 +1,6 @@
 package com.aor.Tiles;
 
+import com.aor.GameLoader.GameElement;
 import com.aor.components.BoxCollider;
 import com.aor.mvc.GenericController;
 import com.aor.mvc.GenericModel;
@@ -10,7 +11,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import javax.swing.text.View;
 import java.io.IOException;
 
-public class Tile {
+public class Tile implements GameElement {
     TileView tileView;
     TileModel tileModel;
     TileController tileController;

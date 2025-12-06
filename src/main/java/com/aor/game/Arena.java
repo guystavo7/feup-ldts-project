@@ -1,5 +1,6 @@
 package com.aor.game;
 
+import com.aor.GameLoader.GameLoader;
 import com.aor.Tiles.Tile;
 import com.aor.components.TransparentSprite;
 import com.aor.hero.Hero;
@@ -20,10 +21,13 @@ public class Arena {
         try {
             hero = new Hero(new Vector2d(25, 0), this);
             walls = new ArrayList<>();
+            GameLoader gl=new GameLoader();
+         //   gl.load16x16file("src/main/java/com/aor/GameLoader/loadTiles1.txt");
 
             ts=new TransparentSprite(new Vector2d(8,5*8),"src/main/resources/Hero/tile000.png");
             //level 15
-
+            tiles=gl.loadTile16x16file("src/main/java/com/aor/GameLoader/loadTiles1.txt");
+            /*
             tiles.add(Tile.TileFrom16x16Grid(0,15,GameDataFeature.tileImgsPath.get(30)));
             tiles.add(Tile.TileFrom16x16Grid(1,15,GameDataFeature.tileImgsPath.get(30)));
             tiles.add(Tile.TileFrom16x16Grid(2,15,GameDataFeature.tileImgsPath.get(30)));
@@ -103,6 +107,7 @@ public class Arena {
             tiles.add(Tile.TileFrom16x16Grid(15,10,GameDataFeature.tileImgsPath.get(30)));
 
 
+             */
             for(Tile t:tiles) {
                 walls.add(t.getBoxCollider());
             }
