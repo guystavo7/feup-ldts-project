@@ -1,8 +1,6 @@
 package com.aor.hero;
 
-import com.aor.game.GameDataFeature;
 import com.aor.mvc.GenericModel;
-import com.aor.utils.Vector2d;
 
 public class IdleState implements HeroState {
     private HeroModel model;
@@ -23,9 +21,6 @@ public class IdleState implements HeroState {
         getVelocity(delta);
     }
 
-    private void getVelocity(double delta) {
-        double gravityAcceleration = GameDataFeature.getInstance().getGravityAcceleration() * delta;
-
-        double groundFriction = GameDataFeature.getInstance().getGroundFriction();
-    }
+    @Override
+    public void getVelocity(double delta) {}
 }

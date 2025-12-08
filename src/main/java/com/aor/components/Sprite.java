@@ -14,8 +14,8 @@ public class Sprite extends Node {
     private Integer height;
     private TextImage pixels;
 
-    public Sprite(Vector2d position, String filePath) throws IOException {
-        super(position);
+    public Sprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
+        super(position, offset);
         this.pixels = Utils.loadImage(filePath);
         this.width = pixels.getSize().getColumns();
         this.height = pixels.getSize().getRows();

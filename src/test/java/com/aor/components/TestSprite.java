@@ -19,7 +19,7 @@ public class TestSprite {
         graphicsStub = Mockito.mock(TextGraphics.class);
 
         try {
-            sprite = new Sprite(new Vector2d(0, 0), "src/main/resources/Hero/tile000.png");
+            sprite = new Sprite(new Vector2d(0, 0), Vector2d.VECTORZERO, "src/main/resources/Hero/tile000.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public class TestSprite {
     @Test
     void testEquals() {
         try {
-            Sprite s = new Sprite(new Vector2d(0, 0), "src/main/resources/Hero/tile001.png");
+            Sprite s = new Sprite(new Vector2d(0, 0), Vector2d.VECTORZERO, "src/main/resources/Hero/tile001.png");
             Assertions.assertNotEquals(s, sprite);
             Assertions.assertEquals(sprite, sprite);
 

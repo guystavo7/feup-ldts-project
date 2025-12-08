@@ -1,6 +1,6 @@
 package com.aor.hero;
 
-import com.aor.game.GameDataFeature;
+import com.aor.game.GameData;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
@@ -31,9 +31,10 @@ public class DashingState implements HeroState {
         getVelocity(delta);
     }
 
-    private void getVelocity(double delta) {
+    @Override
+    public void getVelocity(double delta) {
         Vector2d current = model.getVelocity();
-        double maxHorizontalDelta = GameDataFeature.getInstance().getDashFriction() * delta;
+        double maxHorizontalDelta = GameData.getInstance().getDashFriction() * delta;
 
         double xVelocity = Utils.moveTowards(current.getX(), 0, maxHorizontalDelta);
         double yVelocity = Utils.moveTowards(current.getY(), 0, maxHorizontalDelta);

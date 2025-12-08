@@ -22,11 +22,11 @@ public class Arena {
             t=new Tile(new Vector2d(10,62),"src/main/resources/Hero/tile022.png");
 
             walls.add(t.getBoxCollider());
-            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 80), 100, 100);
+            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 80), Vector2d.VECTORZERO, 100, 100, "tile");
             walls.add(wall1);
-            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000);
+            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), Vector2d.VECTORZERO, 10, 1000, "tile");
             walls.add(wall2);
-            BoxCollider wall3 = new BoxCollider(new Vector2d(90, 0), 10, 1000);
+            BoxCollider wall3 = new BoxCollider(new Vector2d(90, 0), Vector2d.VECTORZERO, 10, 1000, "tile");
             walls.add(wall3);
 
         } catch (Exception e) {
@@ -39,12 +39,13 @@ public class Arena {
         t.update(graphics,delta);
     }
 
-    public List<BoxCollider> detectCollision(Vector2d newPos, BoxCollider boxCollider) {
+    public List<BoxCollider> detectCollision(Vector2d newPos, BoxCollider boxCollider, String tag) {
         List<BoxCollider> colliders = new ArrayList<>();
         Vector2d oldPos = new Vector2d(boxCollider.getPosition().getX(), boxCollider.getPosition().getY());
         boxCollider.setPosition(newPos);
 
         for (BoxCollider box : walls) {
+            if (!tag.equals("colliders") && !tag.equals(box.getTag())) continue;
             if (boxCollider.isColliding(box)) colliders.add(box);
         }
 

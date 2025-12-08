@@ -6,6 +6,8 @@ public class Vector2d implements Cloneable {
     private double x;
     private double y;
 
+    public static Vector2d VECTORZERO = new Vector2d(0, 0);
+
     public Vector2d(double x, double y) {
         this.x = x;
         this.y = y;

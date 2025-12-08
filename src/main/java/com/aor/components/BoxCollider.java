@@ -5,11 +5,13 @@ import com.aor.utils.Vector2d;
 public class BoxCollider extends Node {
     private int width;
     private int height;
+    private String tag;
 
-    public BoxCollider(Vector2d position, int width, int height) {
-        super(position);
+    public BoxCollider(Vector2d position, Vector2d offset, int width, int height, String tag) {
+        super(position, offset);
         this.width = width;
         this.height = height;
+        this.tag = tag;
     }
 
     private boolean checkTopLeftCollision(BoxCollider other) {
@@ -72,5 +74,8 @@ public class BoxCollider extends Node {
     }
     public int getHeight() {
         return height;
+    }
+    public String getTag() {
+        return tag;
     }
 }

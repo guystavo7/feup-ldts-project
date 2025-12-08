@@ -3,15 +3,17 @@ package com.aor.game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameDataFeature {
+public class GameData {
     // static varibles
     public static int tileWidth=8;
     public static int tileHeight=8;
 
-    private static GameDataFeature instance;
+    private static GameData instance;
 
     private int collectedstrawberries = 0;
     private int totalstrawberries = 0;
+
+
 
     private boolean hasDash = true;
 
@@ -26,12 +28,9 @@ public class GameDataFeature {
     private double gravityAcceleration = 10d;
     private double jumpForce = -4d;
 
-    //Physics settings
-    private float gravity;
-    private float jumpvelocity;
-    private float playerspeed;
-    private float dashspeed;
-    private float coyotetime;
+
+
+
 
     //Level data
     private int currentlevel;
@@ -47,12 +46,12 @@ public class GameDataFeature {
     private boolean iskeyboardInverted = false;
     private float inputSensivity;
 
-    private GameDataFeature() {
+    private GameData() {
     }
 
-    public static GameDataFeature getInstance() {
+    public static GameData getInstance() {
         if (instance == null) {
-            instance = new GameDataFeature();
+            instance = new GameData();
         }
         return instance;
     }

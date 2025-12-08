@@ -13,10 +13,10 @@ public class AnimatedSprite extends Node {
     private double currentFrame;
     private double frameSpeed;
 
-    public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed) throws IOException {
-        super(position);
+    public AnimatedSprite(Vector2d position, Vector2d offset, List<String> imgPaths, double frameSpeed) throws IOException {
+        super(position, offset);
         for(String ip : imgPaths){
-            frames.add(new Sprite(position, ip));
+            frames.add(new Sprite(position, Vector2d.VECTORZERO, ip));
         }
 
         currentFrame = 0;
