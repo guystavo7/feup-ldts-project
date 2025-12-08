@@ -15,7 +15,7 @@ public class WallJumpState implements HeroState {
 
     @Override
     public void onEnter(double delta) {
-        model.getVelocity().setY(GameData.getInstance().getJumpForce());
+        model.getVelocity().setY(GameData.getInstance().getJumpForce() * 0.5);
         model.getVelocity().setX(model.getVelocity().getX() * -1);
     }
 
@@ -33,20 +33,10 @@ public class WallJumpState implements HeroState {
     public void getVelocity(double delta) {
         Vector2d direction = model.getDirection();
         Vector2d current = model.getVelocity();
-        double maxHorizontalVelocity;
-        double maxHorizontalDelta;
 
-        if (direction.getX() == 0) {
-            maxHorizontalVelocity = 0;
-            maxHorizontalDelta = GameData.getInstance().getAirFriction() * delta;
-        } else {
-            maxHorizontalVelocity = GameData.getInstance().getMaxHorizontalVelocity() * direction.getX();
-            maxHorizontalDelta = GameData.getInstance().getHorizontalAcceleration() * delta;
-        }
-
-        Vector2d target = new Vector2d(maxHorizontalVelocity, GameData.getInstance().getMaxVerticalVelocity());
-        double xVelocity = Utils.moveTowards(current.getX(), target.getX(), maxHorizontalDelta);
-        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().getGravityAcceleration() * delta * 0.5);
+        Vector2d target = new Vector2d(0, GameData.getInstance().getMaxVerticalVelocity());
+        double xVelocity = 3d * direction.getX() * -1;
+        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().getGravityAcceleration());
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }

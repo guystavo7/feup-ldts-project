@@ -14,7 +14,10 @@ public class BoxCollider extends Node {
         this.tag = tag;
     }
 
-    private boolean checkTopLeftCollision(BoxCollider other) {
+
+    public boolean isColliding(BoxCollider other) {
+        if (other.equals(this)) return false;
+
         double x = getPosition().getX();
         double y = getPosition().getY();
 
@@ -23,52 +26,9 @@ public class BoxCollider extends Node {
         double otherWidth = other.getWidth();
         double otherHeight = other.getHeight();
 
-        //Check if topLeft is inside
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
+        return x < (otherX + otherWidth) && (x + width) > otherX && y < (otherY + otherHeight) && (y + height) > otherY;
+
     }
-
-    private boolean checkTopRightCollision(BoxCollider other) {
-        double x = getPosition().getX() + width;
-        double y = getPosition().getY();
-
-        double otherX = other.getPosition().getX();
-        double otherY = other.getPosition().getY();
-        double otherWidth = other.getWidth();
-        double otherHeight = other.getHeight();
-
-        //Check if topLeft is inside
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    private boolean checkBotRightCollision(BoxCollider other) {
-        double x = getPosition().getX() + width;
-        double y = getPosition().getY() + height;
-
-        double otherX = other.getPosition().getX();
-        double otherY = other.getPosition().getY();
-        double otherWidth = other.getWidth();
-        double otherHeight = other.getHeight();
-
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    private boolean checkBotLeftCollision(BoxCollider other) {
-        double x = getPosition().getX() ;
-        double y = getPosition().getY() + height;
-
-        double otherX = other.getPosition().getX();
-        double otherY = other.getPosition().getY();
-        double otherWidth = other.getWidth();
-        double otherHeight = other.getHeight();
-
-        return x > otherX && x < (otherX + otherWidth) && y > otherY && y < (otherY + otherHeight);
-    }
-
-    public boolean isColliding(BoxCollider other) {
-        if (other.equals(this)) return false;
-        return checkBotRightCollision(other) || checkTopLeftCollision(other)||checkTopRightCollision(other)||checkBotLeftCollision(other);
-    }
-
     public int getWidth() {
         return width;
     }
@@ -79,3 +39,4 @@ public class BoxCollider extends Node {
         return tag;
     }
 }
+

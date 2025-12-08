@@ -2,6 +2,7 @@ package com.aor.hero;
 
 import com.aor.components.BoxCollider;
 import com.aor.components.RigidBody;
+import com.aor.components.Sprite;
 import com.aor.game.Arena;
 import com.aor.game.InputHandler;
 import com.aor.mvc.GenericModel;
@@ -28,11 +29,11 @@ public class HeroController implements GenericController {
     private final Timer jumpBufferTimer;
     private final Timer coyoteTimer;
     private final Timer dashTimer;
+    private final Timer wallJumpTimer;
 
     //Flags
     private boolean isGrounded = false;
-    private boolean canDash = true;
-    private boolean isFacingRight = true;
+    private boolean canDash = false;
 
     public HeroController(GenericModel model, Vector2d initialVelocity, int width, int height, Arena arena) {
         this.model = (HeroModel) model;
@@ -40,29 +41,30 @@ public class HeroController implements GenericController {
         this.rigidBody = new RigidBody(this.model.getPosition(), Vector2d.VECTORZERO, initialVelocity, arena, boxCollider);
 
         //Ground collider
-        Vector2d groundColliderOffset =  new Vector2d(1, height - 1d);
-        this.groundCollider = new BoxCollider(this.model.getPosition(), groundColliderOffset, 6, 2, "player");
+        Vector2d groundColliderOffset =  new Vector2d(2, height - 1d);
+        this.groundCollider = new BoxCollider(this.model.getPosition(), groundColliderOffset, 4, 2, "player");
 
         //Left wall collider
         Vector2d leftWallOffset = new Vector2d(-1, 0);
-        this.leftWallCollider = new BoxCollider(this.model.getPosition(), leftWallOffset, 2, 7, "player");
+        this.leftWallCollider = new BoxCollider(this.model.getPosition(), leftWallOffset, 2, 8, "player");
 
         //Right Wall collider
         Vector2d rightWallOffset = new Vector2d(width - 1d, 0);
-        this.rightWallCollider = new BoxCollider(this.model.getPosition(), rightWallOffset, 2, 7, "player");
+        this.rightWallCollider = new BoxCollider(this.model.getPosition(), rightWallOffset, 2, 8, "player");
 
         this.arena = arena;
 
         //Timers
         this.jumpBufferTimer = new Timer(0.1d, false);
         this.coyoteTimer = new Timer(0.1d, false);
-        this.dashTimer = new Timer(0.2d, false);
+        this.dashTimer = new Timer(0.25d, false);
+        this.wallJumpTimer = new Timer(0.3d, false);
     }
 
     private void checkIfGrounded() {
         if (model.getState() instanceof JumpingState) return;
-
         groundCollider.update(model.getPosition());
+
         if (!arena.detectCollision(groundCollider.getPosition(), groundCollider, "tile").isEmpty()) {
             coyoteTimer.start();
             isGrounded = true;
@@ -72,12 +74,14 @@ public class HeroController implements GenericController {
 
     private boolean checkIfLeftSliding() {
         leftWallCollider.update(model.getPosition());
-        return !arena.detectCollision(leftWallCollider.getPosition(), leftWallCollider, "tile").isEmpty() && model.getDirection().getX() == -1;
+        return !arena.detectCollision(leftWallCollider.getPosition(), leftWallCollider, "tile").isEmpty() && model.getDirection().getX() < 0;
     }
 
     private boolean checkIfRightSliding() {
         rightWallCollider.update(model.getPosition());
-        return !arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, "tile").isEmpty() && model.getDirection().getX() == 1;
+
+        System.out.println(arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, "tile"));
+        return !arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, "tile").isEmpty() && model.getDirection().getX() > 0;
     }
 
     private void dash(double delta) {
@@ -93,47 +97,55 @@ public class HeroController implements GenericController {
     }
 
     private void checkTransitions(double delta) {
-        if ((model.getState() instanceof SlidingState || model.getState() instanceof FallingState) && isGrounded) {
-            //Was in air or sliding and hit the ground
-            model.getState().onExit(delta);
-            model.setState(new GroundedState(model, delta));
-        }
+        if ((coyoteTimer.isRunning() || model.getState() instanceof GroundedState)) {
+            if (jumpBufferTimer.isRunning()) {
+                model.setState(new JumpingState(model, delta, true));
+                isGrounded = false;
 
-        if (model.getState() instanceof DashingState && !dashTimer.isRunning()) {
-            //If dash is over
-            model.getState().onExit(delta);
-            model.setState(new JumpingState(model, delta, false));
+                coyoteTimer.interrupt();
+                jumpBufferTimer.interrupt();
+                wallJumpTimer.interrupt();
+            }
 
-            isGrounded = false;
-            coyoteTimer.interrupt();
-        }
+        } else if (model.getState() instanceof JumpingState) {
+            if (model.getVelocity().getY() > 0) {
+                model.setState(new FallingState(model, delta));
 
-        if (model.getState() instanceof JumpingState && model.getVelocity().getY() > 0) {
-            //Jumping to falling
-            model.getState().onExit(delta);
-            model.setState(new FallingState(model, delta));
-        }
+            }
 
-        if ((coyoteTimer.isRunning() || model.getState() instanceof GroundedState) && jumpBufferTimer.isRunning()) {
-            //Jump
-            model.getState().onExit(delta);
-            model.setState(new JumpingState(model, delta, true));
-            isGrounded = false;
+        } else if (model.getState() instanceof FallingState) {
+            if (checkIfLeftSliding() || checkIfRightSliding()) {
+                model.setState(new SlidingState(model, delta));
 
-            coyoteTimer.interrupt();
-            jumpBufferTimer.interrupt();
-        }
+            } else if (isGrounded) {
+                model.setState(new GroundedState(model, delta));
+            }
 
-        if ((model.getState() instanceof JumpingState || model.getState() instanceof FallingState) && (checkIfLeftSliding() || checkIfRightSliding())) {
-            //Mid air and touched walls
-            model.getState().onExit(delta);
-            model.setState(new SlidingState(model, delta));
-        }
+        } else if (model.getState() instanceof SlidingState) {
+            if (isGrounded) {
+                model.setState(new GroundedState(model, delta));
 
-        if (model.getState() instanceof SlidingState && jumpBufferTimer.isRunning()) {
-            model.getState().onExit(delta);
-            model.setState(new WallJumpState(model, delta));
+            } else if (jumpBufferTimer.isRunning()) {
+                model.setState(new WallJumpState(model, delta));
+                wallJumpTimer.start();
 
+                coyoteTimer.interrupt();
+                jumpBufferTimer.interrupt();
+                isGrounded = false;
+
+            } else if (!(checkIfRightSliding() || checkIfLeftSliding())) {
+                model.setState(new FallingState(model, delta));
+            }
+
+        } else if (model.getState() instanceof DashingState) {
+            if (!dashTimer.isRunning()) {
+                model.setState(new FallingState(model, delta));
+            }
+
+        } else if (model.getState() instanceof WallJumpState) {
+            if (!wallJumpTimer.isRunning()) {
+                model.setState(new FallingState(model, delta));
+            }
         }
     }
 
@@ -141,11 +153,9 @@ public class HeroController implements GenericController {
         //Check horizontal inputs
         if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_LEFT)) {
             model.setDirectionX(-1);
-            isFacingRight = false;
 
         } else if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_RIGHT)) {
             model.setDirectionX(1);
-            isFacingRight = true;
 
         } else {
             model.setDirectionX(0);
@@ -184,13 +194,16 @@ public class HeroController implements GenericController {
         groundCollider.update(model.getPosition());
 
         //Check for transitions
-        checkIfGrounded();
         checkTransitions(delta);
+        checkIfGrounded();
 
         //Timers updates
         jumpBufferTimer.update(delta);
         coyoteTimer.update(delta);
         dashTimer.update(delta);
+        wallJumpTimer.update(delta);
+
+        rightWallCollider.update(model.getPosition());
     }
 
     public RigidBody getRigidBody() {

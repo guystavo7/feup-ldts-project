@@ -8,7 +8,7 @@ public abstract class Node {
     private Vector2d offset;
 
     protected Node(Vector2d position, Vector2d offset) {
-        this.position = Utils.vectorSum(position, offset);
+        this.position = Utils.vectorSum(offset, position);
         this.offset = offset;
     }
 
@@ -18,7 +18,7 @@ public abstract class Node {
 
     //Getters and Setters
     public Vector2d getPosition() {
-        return Utils.vectorSum(position, offset);
+        return position;
     }
 
     public void setPosition(Vector2d position) {
