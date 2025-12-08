@@ -1,4 +1,4 @@
-package com.aor.hero;
+package com.aor.hero.mvc;
 
 import com.aor.components.AnimatedSprite;
 import com.aor.mvc.GenericModel;
@@ -15,7 +15,7 @@ public class HeroView implements GenericView {
     public HeroView(GenericModel model, List<String> filePaths) {
         try {
             this.model = (HeroModel) model;
-            animatedSprite = new AnimatedSprite(this.model.getPosition(), Vector2d.VECTORZERO, filePaths, 2);
+            animatedSprite = new AnimatedSprite(this.model.getPosition(), new Vector2d(0, 0), filePaths, 2);
 
         } catch (Exception e) {
             e.printStackTrace();

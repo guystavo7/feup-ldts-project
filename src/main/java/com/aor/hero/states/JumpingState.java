@@ -1,20 +1,24 @@
-package com.aor.hero;
+package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
-public class FallingState implements HeroState {
+
+public class JumpingState implements HeroState {
     private HeroModel model;
 
-    public FallingState(GenericModel model, double delta) {
+    public JumpingState(GenericModel model, double delta, boolean pressedJump) {
         this.model = (HeroModel) model;
+
+        if (pressedJump) onEnter(delta);
     }
 
     @Override
     public void onEnter(double delta) {
-
+        model.getVelocity().setY(GameData.getInstance().getJumpForce());
     }
 
     @Override

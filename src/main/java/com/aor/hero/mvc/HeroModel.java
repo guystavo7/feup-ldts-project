@@ -1,5 +1,7 @@
-package com.aor.hero;
+package com.aor.hero.mvc;
 
+import com.aor.hero.states.HeroState;
+import com.aor.hero.states.GroundedState;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Vector2d;
 
@@ -8,6 +10,8 @@ public class HeroModel implements GenericModel {
     private Vector2d velocity;
     private Vector2d direction;
     private HeroState state;
+
+    private boolean canDash = false;
 
     public HeroModel(Vector2d position, Vector2d velocity, Vector2d direction) {
         this.position = position;
@@ -37,6 +41,10 @@ public class HeroModel implements GenericModel {
         this.direction.setY(newDirY);
     }
 
+    public void setCanDash(boolean canDash) {
+        this.canDash = canDash;
+    }
+
     public Vector2d getPosition() {
         return position;
     }
@@ -51,5 +59,9 @@ public class HeroModel implements GenericModel {
 
     public HeroState getState() {
         return state;
+    }
+
+    public boolean canDash() {
+        return canDash;
     }
 }

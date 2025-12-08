@@ -1,4 +1,4 @@
-package com.aor.hero;
+package com.aor.hero.mvc;
 
 import com.aor.game.Arena;
 import com.aor.utils.Vector2d;
@@ -27,9 +27,10 @@ public class Hero {
     }
 
     public void update(TextGraphics graphics, double delta) {
-
+        System.out.println(heroModel.getPosition());
         heroController.update(delta);
+        System.out.println(heroModel.getPosition());
         heroView.update(graphics, delta);
-        System.out.println(heroModel.getState());
+        System.out.println(heroModel.getPosition());
     }
 }

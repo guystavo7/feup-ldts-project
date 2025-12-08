@@ -13,7 +13,7 @@ public class TileView implements GenericView {
     private Sprite sprite;
 
     public TileView(TileModel tileModel) throws IOException {
-        sprite=new Sprite(tileModel.getPosition(), Vector2d.VECTORZERO, tileModel.getFilePath());
+        sprite=new Sprite(tileModel.getPosition(), new Vector2d(0, 0), tileModel.getFilePath());
     }
     @Override
     public void update(TextGraphics graphics, double delta) {

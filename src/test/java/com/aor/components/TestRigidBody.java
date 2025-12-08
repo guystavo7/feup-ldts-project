@@ -22,9 +22,9 @@ class TestRigidBody {
         initialPos = new Vector2d(0, 0);
         Vector2d velocity = new Vector2d(0, 0);
         stubArena = Mockito.mock(Arena.class);
-        BoxCollider boxCollider = new BoxCollider(initialPos, Vector2d.VECTORZERO, 5, 5, "player");
+        BoxCollider boxCollider = new BoxCollider(initialPos, new Vector2d(0, 0), 5, 5, "player");
 
-        rb = new RigidBody(new Vector2d(0, 0), Vector2d.VECTORZERO, velocity, stubArena, boxCollider);
+        rb = new RigidBody(new Vector2d(0, 0), new Vector2d(0, 0), velocity, stubArena, boxCollider);
     }
 
     @Test
@@ -65,7 +65,7 @@ class TestRigidBody {
         //Moving to the left and there is a wall in position (7, 0) with size (2, 10)
         Vector2d wallPosition = new Vector2d(7, 0);
         List<BoxCollider> colliders = new ArrayList<>();
-        colliders.add(new BoxCollider(wallPosition, Vector2d.VECTORZERO, 2, 10, "tile"));
+        colliders.add(new BoxCollider(wallPosition, new Vector2d(0, 0), 2, 10, "tile"));
         Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class), "colliders")).thenReturn(colliders);
 
         Vector2d newVelocity = new Vector2d(3, 0);
@@ -81,7 +81,7 @@ class TestRigidBody {
         //Moving to the right and there is a wall in position (-5, 0) with size (3, 10)
         Vector2d wallPosition = new Vector2d(-5, 0);
         List<BoxCollider> colliders = new ArrayList<>();
-        colliders.add(new BoxCollider(wallPosition, Vector2d.VECTORZERO, 3, 10, "tile"));
+        colliders.add(new BoxCollider(wallPosition, new Vector2d(0, 0), 3, 10, "tile"));
         Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class), "colliders")).thenReturn(colliders);
 
         Vector2d newVelocity = new Vector2d(-3, 0);
@@ -97,7 +97,7 @@ class TestRigidBody {
         //Moving upwards and there is a wall in position (0, -5) with size (5, 3)
         Vector2d wallPosition = new Vector2d(0, -5);
         List<BoxCollider> colliders = new ArrayList<>();
-        colliders.add(new BoxCollider(wallPosition, Vector2d.VECTORZERO, 5, 3, "tile"));
+        colliders.add(new BoxCollider(wallPosition, new Vector2d(0, 0), 5, 3, "tile"));
         Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class), "colliders")).thenReturn(colliders);
 
         Vector2d newVelocity = new Vector2d(0, -3);
@@ -113,7 +113,7 @@ class TestRigidBody {
         //Moving downwards and there is a wall in position (0, 7) with size (5, 3)
         Vector2d wallPosition = new Vector2d(0, 7);
         List<BoxCollider> colliders = new ArrayList<>();
-        colliders.add(new BoxCollider(wallPosition, Vector2d.VECTORZERO, 5, 3, "tile"));
+        colliders.add(new BoxCollider(wallPosition, new Vector2d(0, 0), 5, 3, "tile"));
         Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class), "colliders")).thenReturn(colliders);
 
         Vector2d newVelocity = new Vector2d(0, 3);

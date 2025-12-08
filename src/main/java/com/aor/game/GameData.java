@@ -5,17 +5,17 @@ import java.util.List;
 
 public class GameData {
     // static varibles
-    public static int tileWidth=8;
+    public static int tileWidth = 8;
     public static int tileHeight=8;
 
     private static GameData instance;
 
+    private String playerTag = "player";
+    private String tileTag = "tile";
+    private String allColliders = "all";
+
     private int collectedstrawberries = 0;
     private int totalstrawberries = 0;
-
-
-
-    private boolean hasDash = true;
 
     private double maxHorizontalVelocity = 1.5d;
     private double maxVerticalVelocity = 2;
@@ -28,8 +28,10 @@ public class GameData {
     private double gravityAcceleration = 10d;
     private double jumpForce = -4d;
 
-
-
+    private double jumpBufferTime = 0.1d;
+    private double coyoteTime = 0.1d;
+    private double dashTime = 0.25d;
+    private double wallJumpTime = 0.3d;
 
 
     //Level data
@@ -59,8 +61,6 @@ public class GameData {
     public int getCollectedstrawberries() {return collectedstrawberries;}
     public void setCollectedstrawberries(int count) {this.collectedstrawberries = count;}
 
-    public boolean hasDash() {return hasDash;}
-    public void sethasDash(boolean hasDash) {this.hasDash = hasDash;}
 
     public int getTotalstrawberries() {return totalstrawberries;}
     public void setTotalstrawberries(int count) {this.totalstrawberries = count;}
@@ -103,5 +103,33 @@ public class GameData {
 
     public double getDashFriction() {
         return dashFriction;
+    }
+
+    public double getCoyoteTime() {
+        return coyoteTime;
+    }
+
+    public double getDashTime() {
+        return dashTime;
+    }
+
+    public double getJumpBufferTime() {
+        return jumpBufferTime;
+    }
+
+    public double getWallJumpTime() {
+        return wallJumpTime;
+    }
+
+    public String getPlayerTag() {
+        return playerTag;
+    }
+
+    public String getTileTag() {
+        return tileTag;
+    }
+
+    public String getAllColliders() {
+        return allColliders;
     }
 }

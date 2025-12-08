@@ -11,7 +11,7 @@ class TestBoxCollider {
     @BeforeEach
     void setUp() {
         Vector2d position = new Vector2d(5, 5);
-        boxCollider = new BoxCollider(position, Vector2d.VECTORZERO, 10, 5, "tile");
+        boxCollider = new BoxCollider(position, new Vector2d(0, 0), 10, 5, "tile");
     }
 
     @Test
@@ -21,7 +21,7 @@ class TestBoxCollider {
         int width = 1;
         int height = 1;
 
-        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, width, height, "tile")));
+        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), width, height, "tile")));
     }
 
     @Test
@@ -31,49 +31,49 @@ class TestBoxCollider {
         int width = 5;
         int height = 5;
 
-        Assertions.assertTrue(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, width, height, "tile")));
+        Assertions.assertTrue(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), width, height, "tile")));
     }
 
     @Test
     void testIsColliding3() {
         //Check when botRight is colliding
         Vector2d position = new Vector2d(7, 7);
-        Assertions.assertTrue(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, 10, 10, "tile")));
+        Assertions.assertTrue(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), 10, 10, "tile")));
     }
 
     @Test
     void testIsColliding4() {
         //Check when is inside another box
         Vector2d position = new Vector2d(2, 2);
-        Assertions.assertTrue(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, 20, 20, "tile")));
+        Assertions.assertTrue(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), 20, 20, "tile")));
     }
 
     @Test
     void testIsColliding5() {
         //Check when is only touching the left limit
         Vector2d position = new Vector2d(2, 2);
-        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, 3, 20, "tile")));
+        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), 3, 20, "tile")));
     }
 
     @Test
     void testIsColliding6() {
         //Check when is only touching the right limit
         Vector2d position = new Vector2d(15, 2);
-        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, 3, 20, "tile")));
+        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), 3, 20, "tile")));
     }
 
     @Test
     void testIsColliding7() {
         //Check when is only touching the top limit
         Vector2d position = new Vector2d(2, 2);
-        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, 20, 3, "tile")));
+        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), 20, 3, "tile")));
     }
 
     @Test
     void testIsColliding8() {
         //Check when is only touching the bottom limit
         Vector2d position = new Vector2d(2, 10);
-        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, Vector2d.VECTORZERO, 20, 5, "tile")));
+        Assertions.assertFalse(boxCollider.isColliding(new BoxCollider(position, new Vector2d(0, 0), 20, 5, "tile")));
     }
 
     @Test

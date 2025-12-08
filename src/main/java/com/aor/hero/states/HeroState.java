@@ -1,4 +1,4 @@
-package com.aor.hero;
+package com.aor.hero.states;
 
 public interface HeroState {
     public void onEnter(double delta);

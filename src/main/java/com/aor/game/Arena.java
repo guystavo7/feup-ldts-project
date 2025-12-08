@@ -1,7 +1,7 @@
 package com.aor.game;
 
 import com.aor.Tiles.Tile;
-import com.aor.hero.Hero;
+import com.aor.hero.mvc.Hero;
 import com.aor.components.BoxCollider;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -22,11 +22,11 @@ public class Arena {
             t=new Tile(new Vector2d(10,62),"src/main/resources/Hero/tile022.png");
 
             walls.add(t.getBoxCollider());
-            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 80), Vector2d.VECTORZERO, 100, 100, "tile");
+            BoxCollider wall1 = new BoxCollider(new Vector2d(0, 80), new Vector2d(0, 0), 100, 100, "tile");
             walls.add(wall1);
-            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), Vector2d.VECTORZERO, 10, 1000, "tile");
+            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), new Vector2d(0, 0), 10, 1000, "tile");
             walls.add(wall2);
-            BoxCollider wall3 = new BoxCollider(new Vector2d(90, 0), Vector2d.VECTORZERO, 10, 1000, "tile");
+            BoxCollider wall3 = new BoxCollider(new Vector2d(90, 0), new Vector2d(0, 0), 10, 1000, "tile");
             walls.add(wall3);
 
         } catch (Exception e) {

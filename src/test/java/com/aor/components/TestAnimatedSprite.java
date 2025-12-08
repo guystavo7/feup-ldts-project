@@ -32,7 +32,7 @@ class TestAnimatedSprite {
             filesPaths.add("src/main/resources/Hero/tile000_scaled.png");
 
             try {
-                animatedSprite = new AnimatedSprite(new Vector2d(0, 0), Vector2d.VECTORZERO, filesPaths,1);
+                animatedSprite = new AnimatedSprite(new Vector2d(0, 0), new Vector2d(0, 0), filesPaths,1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -62,7 +62,7 @@ class TestAnimatedSprite {
         @Test
         void testEquals() {
             try {
-                AnimatedSprite as = new AnimatedSprite(new Vector2d(0, 0), Vector2d.VECTORZERO, new ArrayList<String>(Arrays.asList("src/main/resources/Hero/tile000.png","src/main/resources/Hero/tile000_scaled.png","src/main/resources/Hero/tile001.png")),1);
+                AnimatedSprite as = new AnimatedSprite(new Vector2d(0, 0), new Vector2d(0, 0), new ArrayList<String>(Arrays.asList("src/main/resources/Hero/tile000.png","src/main/resources/Hero/tile000_scaled.png","src/main/resources/Hero/tile001.png")),1);
                 Assertions.assertNotEquals(as, animatedSprite);
                 Assertions.assertEquals(animatedSprite, animatedSprite);
 

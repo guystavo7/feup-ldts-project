@@ -1,21 +1,22 @@
-package com.aor.hero;
+package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
-
-public class GroundedState implements HeroState {
+public class FallingState implements HeroState {
     private HeroModel model;
 
-    public GroundedState(GenericModel model, double delta) {
+    public FallingState(GenericModel model, double delta) {
         this.model = (HeroModel) model;
-        onEnter(delta);
     }
 
     @Override
-    public void onEnter(double delta) {}
+    public void onEnter(double delta) {
+
+    }
 
     @Override
     public void onExit(double delta) {}
@@ -34,7 +35,7 @@ public class GroundedState implements HeroState {
 
         if (direction.getX() == 0) {
             maxHorizontalVelocity = 0;
-            maxHorizontalDelta = GameData.getInstance().getGroundFriction() * delta;
+            maxHorizontalDelta = GameData.getInstance().getAirFriction() * delta;
         } else {
             maxHorizontalVelocity = GameData.getInstance().getMaxHorizontalVelocity() * direction.getX();
             maxHorizontalDelta = GameData.getInstance().getHorizontalAcceleration() * delta;

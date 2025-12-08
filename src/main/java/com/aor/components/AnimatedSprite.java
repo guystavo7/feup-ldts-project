@@ -16,7 +16,7 @@ public class AnimatedSprite extends Node {
     public AnimatedSprite(Vector2d position, Vector2d offset, List<String> imgPaths, double frameSpeed) throws IOException {
         super(position, offset);
         for(String ip : imgPaths){
-            frames.add(new Sprite(position, Vector2d.VECTORZERO, ip));
+            frames.add(new Sprite(position, new Vector2d(0, 0), ip));
         }
 
         currentFrame = 0;
