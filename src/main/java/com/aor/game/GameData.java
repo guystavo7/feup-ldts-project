@@ -10,7 +10,6 @@ public class GameData {
     private static GameData instance;
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
 
-
     private String playerTag = "player";
     private String tileTag = "tile";
     private String allColliders = "all";
@@ -52,6 +51,9 @@ public class GameData {
             res.put(i,"src/main/resources/Tiles/tile0" + i + ".png");
 
         }
+        res.put("B","src/main/resources/misc/strawberry.png");
+        res.put("strawberry", "src/main/resources/misc/strawberry.png");
+
         return res;
     }
 

@@ -1,6 +1,7 @@
 package com.aor.game;
 
 import com.aor.GameLoader.GameLoader;
+import com.aor.gameElements.Strawberry;
 import com.aor.tile.Tile;
 import com.aor.hero.mvc.Hero;
 import com.aor.components.TransparentSprite;
@@ -15,7 +16,9 @@ public class Arena {
     private Hero hero;
     private List<BoxCollider> walls;
     TransparentSprite ts;
+    Strawberry st;
     List<Tile> tiles=new ArrayList<>();
+    Integer n_berrys=0;
 
     public Arena() {
         try {
@@ -25,9 +28,13 @@ public class Arena {
 
             tiles = gl.loadTile16x16file("src/main/java/com/aor/GameLoader/loadTiles1.txt");
 
+            st=new Strawberry(new Vector2d(13*8,3*8));
             for(Tile t : tiles) {
                 walls.add(t.getBoxCollider());
             }
+
+            walls.add(st.getBoxCollider());
+
 
             BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), new Vector2d(0, 0), 10, 1000, "tile");
             walls.add(wall2);
@@ -45,6 +52,7 @@ public class Arena {
         for(Tile t:tiles) {
             t.update(graphics, delta);
         }
+        st.update(graphics,delta);
 
     }
 
@@ -54,8 +62,13 @@ public class Arena {
         boxCollider.setPosition(newPos);
 
         for (BoxCollider box : walls) {
-            if (!tag.equals("colliders") && !tag.equals(box.getTag())) continue;
-            if (boxCollider.isColliding(box)) colliders.add(box);
+
+            if (boxCollider.isColliding(box)){
+                box.firstCollide();
+                if (tag.equals("colliders") && !tag.equals(box.getTag())) continue;
+                colliders.add(box);
+            };
+
         }
 
         boxCollider.setPosition(oldPos);
