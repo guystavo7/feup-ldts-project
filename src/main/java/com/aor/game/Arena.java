@@ -1,7 +1,7 @@
 package com.aor.game;
 
 import com.aor.GameLoader.GameLoader;
-import com.aor.tiles.Tile;
+import com.aor.tile.Tile;
 import com.aor.hero.mvc.Hero;
 import com.aor.components.TransparentSprite;
 import com.aor.components.BoxCollider;

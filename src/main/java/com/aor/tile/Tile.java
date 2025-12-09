@@ -1,4 +1,4 @@
-package com.aor.tiles;
+package com.aor.tile;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.aor.tiles;
+package com.aor.tile;
 
 import com.aor.game.GameData;
 import com.aor.mvc.GenericModel;

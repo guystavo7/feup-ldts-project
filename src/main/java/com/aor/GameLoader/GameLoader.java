@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.aor.tiles.Tile;
+import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 
 public class GameLoader {

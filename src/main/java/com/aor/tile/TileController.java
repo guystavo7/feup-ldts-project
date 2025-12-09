@@ -1,4 +1,4 @@
-package com.aor.tiles;
+package com.aor.tile;
 
 import com.aor.components.BoxCollider;
 import com.aor.mvc.GenericController;

@@ -1,6 +1,6 @@
 package com.aor.GameLoader;
 
-import com.aor.tiles.Tile;
+import com.aor.tile.*;
 import com.aor.game.GameData;
 import com.aor.utils.Vector2d;
 
