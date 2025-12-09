@@ -27,9 +27,9 @@ class TestAnimatedSprite {
             spriteStub = Mockito.mock(Sprite.class);
 
             List<String> filesPaths = new ArrayList<>();
-            filesPaths.add("src/main/resources/Hero/tile000.png");
-            filesPaths.add("src/main/resources/Hero/tile001.png");
-            filesPaths.add("src/main/resources/Hero/tile000_scaled.png");
+            filesPaths.add("src/main/resources/Hero/running0.png");
+            filesPaths.add("src/main/resources/Hero/running1.png");
+            filesPaths.add("src/main/resources/Hero-deprecated/tile000_scaled.png");
 
             try {
                 animatedSprite = new AnimatedSprite(new Vector2d(0, 0), new Vector2d(0, 0), filesPaths,1);
@@ -62,7 +62,7 @@ class TestAnimatedSprite {
         @Test
         void testEquals() {
             try {
-                AnimatedSprite as = new AnimatedSprite(new Vector2d(0, 0), new Vector2d(0, 0), new ArrayList<String>(Arrays.asList("src/main/resources/Hero/tile000.png","src/main/resources/Hero/tile000_scaled.png","src/main/resources/Hero/tile001.png")),1);
+                AnimatedSprite as = new AnimatedSprite(new Vector2d(0, 0), new Vector2d(0, 0), new ArrayList<String>(Arrays.asList("src/main/resources/Hero/running0.png","src/main/resources/Hero-deprecated/tile000_scaled.png","src/main/resources/Hero/running2.png")),1);
                 Assertions.assertNotEquals(as, animatedSprite);
                 Assertions.assertEquals(animatedSprite, animatedSprite);
 

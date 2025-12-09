@@ -16,8 +16,8 @@ public class WallJumpState implements HeroState {
 
     @Override
     public void onEnter(double delta) {
-        model.getVelocity().setY(GameData.getInstance().getJumpForce() * 0.5);
-        model.getVelocity().setX(model.getVelocity().getX() * -1);
+        model.getVelocity().setX(GameData.getInstance().getMaxHorizontalVelocity() * 0.8 * model.getDirection().getX() * -1);
+        model.getVelocity().setY(GameData.getInstance().getJumpForce() * 0.3);
     }
 
     @Override
@@ -32,11 +32,10 @@ public class WallJumpState implements HeroState {
 
     @Override
     public void getVelocity(double delta) {
-        Vector2d direction = model.getDirection();
         Vector2d current = model.getVelocity();
 
         Vector2d target = new Vector2d(0, GameData.getInstance().getMaxVerticalVelocity());
-        double xVelocity = 3d * direction.getX() * -1;
+        double xVelocity = current.getX();
         double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().getGravityAcceleration());
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));

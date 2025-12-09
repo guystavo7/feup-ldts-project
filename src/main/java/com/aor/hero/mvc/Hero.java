@@ -15,9 +15,9 @@ public class Hero {
     public Hero(Vector2d position, Arena arena) {
         heroModel = new HeroModel(position, new Vector2d(0, 0), new Vector2d(0, 0));
         List<String> filesPaths = new ArrayList<>();
-        filesPaths.add("src/main/resources/Hero/tile000.png");
-        filesPaths.add("src/main/resources/Hero/tile001.png");
-        filesPaths.add("src/main/resources/Hero/tile002.png");
+        filesPaths.add("src/main/resources/Hero/Running/running0.png");
+        filesPaths.add("src/main/resources/Hero/Running/running1.png");
+        filesPaths.add("src/main/resources/Hero/Running/running2.png");
 
         heroView = new HeroView(heroModel, filesPaths);
         int width = heroView.getAnimatedSprite().getWidth();

@@ -26,13 +26,12 @@ public class GameData {
 
     private double horizontalAcceleration = 85d;
     private double gravityAcceleration = 10d;
-    private double jumpForce = -4d;
+    private double jumpForce = -3d;
 
     private double jumpBufferTime = 0.1d;
     private double coyoteTime = 0.1d;
     private double dashTime = 0.25d;
     private double wallJumpTime = 0.3d;
-
 
     //Level data
     private int currentlevel;
