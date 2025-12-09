@@ -1,7 +1,6 @@
 package com.aor.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GameData {
     // static varibles
@@ -9,6 +8,8 @@ public class GameData {
     public static int tileHeight=8;
 
     private static GameData instance;
+    public static Map<String ,String> tileImgsPath = tileImgPathLoader();
+
 
     private String playerTag = "player";
     private String tileTag = "tile";
@@ -31,7 +32,7 @@ public class GameData {
     private double jumpBufferTime = 0.1d;
     private double coyoteTime = 0.1d;
     private double dashTime = 0.25d;
-    private double wallJumpTime = 0.3d;
+    private double wallJumpTime = 0.15d;
 
     //Level data
     private int currentlevel;
@@ -42,6 +43,17 @@ public class GameData {
     private int windowwidth;
     private int windowheight;
 
+    private static Map<String ,String> tileImgPathLoader(){
+        //src/main/resources/Tiles/tile000.png
+
+        List<String> l = Arrays.asList("00","01","02","03", "04", "05", "06", "08", "13");
+        Map<String ,String> res=new HashMap<>();
+        for(String i : l){
+            res.put(i,"src/main/resources/Tiles/tile0" + i + ".png");
+
+        }
+        return res;
+    }
 
     //Input settings
     private boolean iskeyboardInverted = false;

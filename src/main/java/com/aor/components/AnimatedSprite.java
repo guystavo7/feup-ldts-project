@@ -1,22 +1,27 @@
 package com.aor.components;
 
-import com.aor.utils.Vector2d;
-import com.googlecode.lanterna.graphics.TextGraphics;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.aor.utils.Vector2d;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
+//TO DO : generic sprite <>
 public class AnimatedSprite extends Node {
-    private List<Sprite> frames = new ArrayList<>();
+
+    private List<GenericSprite> frames = new ArrayList<>();
     private double currentFrame;
     private double frameSpeed;
 
-    public AnimatedSprite(Vector2d position, Vector2d offset, List<String> imgPaths, double frameSpeed) throws IOException {
-        super(position, offset);
+    public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed,GenericSpriteFactory factory) throws IOException {
+        super(position, new Vector2d(0, 0));
+        System.out.println("colool");
+        System.out.println(factory.getClass());
+
         for(String ip : imgPaths){
-            frames.add(new Sprite(position, new Vector2d(0, 0), ip));
+            frames.add(factory.newSprite(position,ip));
         }
 
         currentFrame = 0;
@@ -26,14 +31,25 @@ public class AnimatedSprite extends Node {
     public final void draw(TextGraphics graphics){
         frames.get((int) currentFrame).draw(graphics);
     }
-
+    public void xFlip(){
+        for (GenericSprite f:frames){
+            f.xFlip();
+        }
+    }
+    public void normal(){
+        for (GenericSprite f:frames){
+            f.normal();
+        }
+    }
     public void update(Vector2d newPos, double timeDelta){
         currentFrame += frameSpeed * timeDelta;
         if(currentFrame >= frames.size()) currentFrame = 0;
 
         super.update(newPos);
-        frames.get((int) currentFrame).update(newPos);
+        frames.get((int) currentFrame).setPosition(newPos);
     }
+
+
 
     public int getWidth(){
         return frames.get((int) currentFrame).getWidth();

@@ -227,8 +227,6 @@ public class HeroController implements GenericController {
 
         //Check for transitions
         checkTransitions(delta);
-
-        System.out.println(coyoteTimer.getRemaingTime());
     }
 
     public RigidBody getRigidBody() {

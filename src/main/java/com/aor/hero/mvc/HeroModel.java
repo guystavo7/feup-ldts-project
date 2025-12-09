@@ -1,12 +1,12 @@
 package com.aor.hero.mvc;
 
+import com.aor.components.Positionable;
 import com.aor.hero.states.FallingState;
 import com.aor.hero.states.HeroState;
-import com.aor.hero.states.GroundedState;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Vector2d;
 
-public class HeroModel implements GenericModel {
+public class HeroModel implements GenericModel, Positionable {
     private Vector2d position;
     private Vector2d velocity;
     private Vector2d direction;
