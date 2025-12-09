@@ -17,8 +17,6 @@ public class AnimatedSprite extends Node {
 
     public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed,GenericSpriteFactory factory) throws IOException {
         super(position, new Vector2d(0, 0));
-        System.out.println("colool");
-        System.out.println(factory.getClass());
 
         for(String ip : imgPaths){
             frames.add(factory.newSprite(position,ip));

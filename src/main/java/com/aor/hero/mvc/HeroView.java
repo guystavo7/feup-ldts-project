@@ -1,53 +1,71 @@
 package com.aor.hero.mvc;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.aor.components.AnimatedSprite;
-import com.aor.components.AttachedSprite;
-import com.aor.components.Sprite;
 import com.aor.components.TransparentSpriteFactory;
+import com.aor.hero.states.DashingState;
+import com.aor.hero.states.IdleState;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
-import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class HeroView implements GenericView {
     private HeroModel model;
-    private AnimatedSprite animatedSprite;
+    private Map<Class, AnimatedSprite> sprites = new HashMap<>();
+    private AnimatedSprite currentSprite;
+    private Class currentState;
+
 //    private List<AttachedSprite> hair=new ArrayList<>();
 
-    public HeroView(GenericModel model, List<String> filePaths) {
+    public HeroView(GenericModel model, Map<Class, List<String>> filePaths) {
         try {
             this.model = (HeroModel) model;
-            animatedSprite = new AnimatedSprite(this.model.getPosition(), filePaths, 10,new TransparentSpriteFactory());
+            for (Class state : filePaths.keySet()) {
+                sprites.put(state, new AnimatedSprite(this.model.getPosition(), filePaths.get(state), 10, new TransparentSpriteFactory()));
+            }
+
+            currentState = IdleState.class;
+            currentSprite = sprites.get(currentState);
+
 //            hair.add(new AttachedSprite(new Sprite(new Vector2d(this.model.getPosition().getX(),this.model.getPosition().getY()),"src/main/resources/hair.png"),this.model ,new Vector2d(0,2),4,4));
 //            for(int i=1; i!=3; i++){
 //                hair.add(new AttachedSprite(new Sprite(new Vector2d( hair.get(i-1).getPosition().getX(),hair.get(i-1).getPosition().getY()),"src/main/resources/hair.png"),hair.get(i-1),new Vector2d(0,2),4,4));
 //            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public AnimatedSprite getAnimatedSprite() {
-        return animatedSprite;
+        return currentSprite;
+    }
+
+    private void checkState() {
+        if (model.getState() instanceof DashingState) return;
+        if (currentState != model.getState().getClass()) {
+            currentState = model.getState().getClass();
+            currentSprite = sprites.get(currentState);
+        }
     }
 
     @Override
     public void update(TextGraphics graphics, double delta) {
+        checkState();
+        currentSprite.update(model.getPosition(), delta);
 
-        animatedSprite.update(model.getPosition(), delta);
-
-        if(model.getVelocity().getX()>0){
-            animatedSprite.normal();
+        if(model.isFacingRight()){
+            currentSprite.normal();
 //            for (AttachedSprite h:hair){
 //                h.normal();
 //            }
         }
 
-        else if(model.getVelocity().getX()<0){
-            animatedSprite.xFlip();
+        else {
+            currentSprite.xFlip();
 //            for (AttachedSprite h:hair){
 //                h.xFlip();
 //            }
@@ -55,7 +73,6 @@ public class HeroView implements GenericView {
 //        for (AttachedSprite h:hair){
 //            h.draw(graphics);
 //        }
-        animatedSprite.draw(graphics);
-
+        currentSprite.draw(graphics);
     }
 }

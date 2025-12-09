@@ -64,17 +64,17 @@ public class HeroController implements GenericController {
         this.wallJumpTimer = new Timer(GameData.getInstance().getWallJumpTime(), false);
     }
 
-    private boolean checkIfGrounded() {
+    public boolean checkIfGrounded() {
         groundCollider.update(model.getPosition());
         return !arena.detectCollision(groundCollider.getPosition(), groundCollider, GameData.getInstance().getTileTag()).isEmpty();
     }
 
-    private boolean checkIfLeftSliding() {
+    public boolean checkIfLeftSliding() {
         leftWallCollider.update(model.getPosition());
         return !arena.detectCollision(leftWallCollider.getPosition(), leftWallCollider, GameData.getInstance().getTileTag()).isEmpty() && model.getDirection().getX() < 0;
     }
 
-    private boolean checkIfRightSliding() {
+    public boolean checkIfRightSliding() {
         rightWallCollider.update(model.getPosition());
         return !arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, GameData.getInstance().getTileTag()).isEmpty() && model.getDirection().getX() > 0;
     }
@@ -91,97 +91,15 @@ public class HeroController implements GenericController {
         wallJumpTimer.interrupt();
     }
 
-    private void groundStateTransition(double delta) {
-        coyoteTimer.start();
-
-        if (jumpBufferTimer.isRunning()) {
-            model.setState(new JumpingState(model, delta, true));
-
-            coyoteTimer.interrupt();
-            jumpBufferTimer.interrupt();
-            wallJumpTimer.interrupt();
-
-        } else if (!checkIfGrounded()) {
-            model.setState(new FallingState(model, delta));
-        }
-    }
-
-    private void jumpStateTransition(double delta) {
-        if (model.getVelocity().getY() > 0) {
-            model.setState(new FallingState(model, delta));
-
-        } else if (checkIfLeftSliding() || checkIfRightSliding()) {
-            model.setState(new SlidingState(model, delta));
-        }
-    }
-
-    private void fallingStateTransition(double delta) {
-        if (checkIfLeftSliding() || checkIfRightSliding()) {
-            model.setState(new SlidingState(model, delta));
-
-        } else if (checkIfGrounded()) {
-            model.setState(new GroundedState(model, delta));
-            model.setCanDash(true);
-        }
-    }
-
-    private void slidingStateTransition(double delta) {
-        if (checkIfGrounded()) {
-            model.setState(new GroundedState(model, delta));
-            model.setCanDash(true);
-
-        } else if (jumpBufferTimer.isRunning()) {
-            model.setState(new WallJumpState(model, delta));
-            wallJumpTimer.start();
-
-            coyoteTimer.interrupt();
-            jumpBufferTimer.interrupt();
-
-        } else if (!(checkIfRightSliding() || checkIfLeftSliding())) {
-            model.setState(new FallingState(model, delta));
-        }
-    }
-
-    private void dashingStateTransition(double delta) {
-        if (!dashTimer.isRunning()) {
-            model.setState(new FallingState(model, delta));
-        }
-    }
-
-    private void wallJumpStateTransition(double delta) {
-        if (!wallJumpTimer.isRunning()) {
-            model.setState(new FallingState(model, delta));
-        }
-    }
-
-    private void checkTransitions(double delta) {
-        if ((coyoteTimer.isRunning() || model.getState() instanceof GroundedState)) {
-            groundStateTransition(delta);
-
-        } else if (model.getState() instanceof JumpingState) {
-            jumpStateTransition(delta);
-
-        } else if (model.getState() instanceof FallingState) {
-            fallingStateTransition(delta);
-
-        } else if (model.getState() instanceof SlidingState) {
-            slidingStateTransition(delta);
-
-        } else if (model.getState() instanceof DashingState) {
-            dashingStateTransition(delta);
-
-        } else if (model.getState() instanceof WallJumpState) {
-            wallJumpStateTransition(delta);
-        }
-    }
-
     private void handleInputs(double delta) {
         //Check horizontal inputs
         if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_LEFT)) {
             model.setDirectionX(-1);
+            if (!(model.getState() instanceof SlidingState)) model.setFacingRight(false);
 
         } else if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_RIGHT)) {
             model.setDirectionX(1);
+            if (!(model.getState() instanceof SlidingState)) model.setFacingRight(true);
 
         } else {
             model.setDirectionX(0);
@@ -190,8 +108,10 @@ public class HeroController implements GenericController {
         //Check vertical inputs
         if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_UP)) {
             model.setDirectionY(-1);
+
         } else if (InputHandler.getInstance().getKeyPressed(KeyEvent.VK_DOWN)) {
             model.setDirectionY(1);
+
         } else {
             model.setDirectionY(0);
         }
@@ -226,7 +146,7 @@ public class HeroController implements GenericController {
         wallJumpTimer.update(delta);
 
         //Check for transitions
-        checkTransitions(delta);
+        model.getState().transition(this, delta);
     }
 
     public RigidBody getRigidBody() {
@@ -239,5 +159,21 @@ public class HeroController implements GenericController {
 
     public BoxCollider getGroundCollider() {
         return groundCollider;
+    }
+
+    public Timer getCoyoteTimer() {
+        return coyoteTimer;
+    }
+
+    public Timer getDashTimer() {
+        return dashTimer;
+    }
+
+    public Timer getJumpBufferTimer() {
+        return jumpBufferTimer;
+    }
+
+    public Timer getWallJumpTimer() {
+        return wallJumpTimer;
     }
 }

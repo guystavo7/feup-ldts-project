@@ -18,7 +18,6 @@ import java.util.List;
 public class Utils {
     private Utils() {}
 
-
     public static List<List<Pixel>> XFLipPixeis(List<List<Pixel>> p){
         int height=p.size();
         int width=p.getFirst().size();

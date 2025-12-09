@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
@@ -27,6 +28,16 @@ public class JumpingState implements HeroState {
     @Override
     public void update(double delta) {
         getVelocity(delta);
+    }
+
+    @Override
+    public void transition(HeroController controller, double delta) {
+        if (model.getVelocity().getY() > 0) {
+            model.setState(new FallingState(model, delta));
+
+        } else if (controller.checkIfLeftSliding() || controller.checkIfRightSliding()) {
+            model.setState(new SlidingState(model, delta));
+        }
     }
 
     @Override

@@ -49,7 +49,6 @@ public class TransparentSprite implements  GenericSprite,Positionable {
     }
 
     public void draw(TextGraphics graphics){
-
         for(int y=0;y<pixels.size();y++){
             for(int x=0;x<pixels.getFirst().size();x++){
                 Pixel p= pixels.get(y).get(x);

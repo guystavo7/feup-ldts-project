@@ -13,6 +13,7 @@ public class HeroModel implements GenericModel, Positionable {
     private HeroState state;
 
     private boolean canDash = false;
+    private boolean isFacingRight = true;
 
     public HeroModel(Vector2d position, Vector2d velocity, Vector2d direction) {
         this.position = position;
@@ -46,6 +47,10 @@ public class HeroModel implements GenericModel, Positionable {
         this.canDash = canDash;
     }
 
+    public void setFacingRight(boolean facingRight) {
+        isFacingRight = facingRight;
+    }
+
     public Vector2d getPosition() {
         return position;
     }
@@ -64,5 +69,9 @@ public class HeroModel implements GenericModel, Positionable {
 
     public boolean canDash() {
         return canDash;
+    }
+
+    public boolean isFacingRight() {
+        return isFacingRight;
     }
 }

@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
@@ -26,6 +27,13 @@ public class DashingState implements HeroState {
 
     @Override
     public void onExit(double delta) {}
+
+    @Override
+    public void transition(HeroController controller, double delta) {
+        if (!controller.getDashTimer().isRunning()) {
+            model.setState(new FallingState(model, delta));
+        }
+    }
 
     @Override
     public void update(double delta) {

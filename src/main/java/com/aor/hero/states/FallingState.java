@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
@@ -20,6 +21,17 @@ public class FallingState implements HeroState {
 
     @Override
     public void onExit(double delta) {}
+
+    @Override
+    public void transition(HeroController controller, double delta) {
+        if (controller.checkIfLeftSliding() || controller.checkIfRightSliding()) {
+            model.setState(new SlidingState(model, delta));
+
+        } else if (controller.checkIfGrounded()) {
+            model.setState(new GroundedState(model, delta));
+            model.setCanDash(true);
+        }
+    }
 
     @Override
     public void update(double delta) {

@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
@@ -20,6 +21,25 @@ public class GroundedState implements HeroState {
 
     @Override
     public void onExit(double delta) {}
+
+    @Override
+    public void transition(HeroController controller, double delta) {
+        controller.getCoyoteTimer().start();
+
+        if (controller.getJumpBufferTimer().isRunning()) {
+            model.setState(new JumpingState(model, delta, true));
+
+            controller.getCoyoteTimer().interrupt();
+            controller.getJumpBufferTimer().interrupt();
+            controller.getWallJumpTimer().interrupt();
+
+        } else if (!controller.checkIfGrounded()) {
+            model.setState(new FallingState(model, delta));
+
+        }else if (model.getDirection().getX() == 0 && model.getDirection().getY() == 0) {
+            model.setState(new IdleState(model, delta));
+        }
+    }
 
     @Override
     public void update(double delta) {

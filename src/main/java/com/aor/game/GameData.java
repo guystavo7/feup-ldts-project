@@ -10,7 +10,6 @@ public class GameData {
     private static GameData instance;
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
 
-
     private String playerTag = "player";
     private String tileTag = "tile";
     private String allColliders = "all";

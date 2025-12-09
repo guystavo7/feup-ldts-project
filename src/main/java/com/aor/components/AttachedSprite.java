@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class AttachedSprite  implements Positionable,GenericSprite {
+public class AttachedSprite  implements Positionable, GenericSprite {
     GenericSprite sprite;
     int maxXdist,maxYdist;
     Vector2d relative_pos;

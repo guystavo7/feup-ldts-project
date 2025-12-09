@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
@@ -28,6 +29,13 @@ public class WallJumpState implements HeroState {
     @Override
     public void update(double delta) {
 
+    }
+
+    @Override
+    public void transition(HeroController controller, double delta) {
+        if (!controller.getWallJumpTimer().isRunning()) {
+            model.setState(new FallingState(model, delta));
+        }
     }
 
     @Override
