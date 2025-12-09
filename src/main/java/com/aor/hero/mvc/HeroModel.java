@@ -1,5 +1,6 @@
 package com.aor.hero.mvc;
 
+import com.aor.hero.states.FallingState;
 import com.aor.hero.states.HeroState;
 import com.aor.hero.states.GroundedState;
 import com.aor.mvc.GenericModel;
@@ -18,7 +19,7 @@ public class HeroModel implements GenericModel {
         this.velocity = velocity;
         this.direction = direction;
 
-        state = new GroundedState(this, 0);
+        state = new FallingState(this, 0);
     }
 
     public void setState(HeroState state) {

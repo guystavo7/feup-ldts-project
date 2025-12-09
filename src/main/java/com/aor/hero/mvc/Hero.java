@@ -27,10 +27,8 @@ public class Hero {
     }
 
     public void update(TextGraphics graphics, double delta) {
-        System.out.println(heroModel.getPosition());
         heroController.update(delta);
-        System.out.println(heroModel.getPosition());
         heroView.update(graphics, delta);
-        System.out.println(heroModel.getPosition());
+        System.out.println(heroModel.getState());
     }
 }

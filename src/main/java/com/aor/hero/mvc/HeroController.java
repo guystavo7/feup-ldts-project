@@ -92,12 +92,17 @@ public class HeroController implements GenericController {
     }
 
     private void groundStateTransition(double delta) {
+        coyoteTimer.start();
+
         if (jumpBufferTimer.isRunning()) {
             model.setState(new JumpingState(model, delta, true));
 
             coyoteTimer.interrupt();
             jumpBufferTimer.interrupt();
             wallJumpTimer.interrupt();
+
+        } else if (!checkIfGrounded()) {
+            model.setState(new FallingState(model, delta));
         }
     }
 
@@ -117,7 +122,6 @@ public class HeroController implements GenericController {
         } else if (checkIfGrounded()) {
             model.setState(new GroundedState(model, delta));
             model.setCanDash(true);
-            coyoteTimer.start();
         }
     }
 
@@ -125,7 +129,6 @@ public class HeroController implements GenericController {
         if (checkIfGrounded()) {
             model.setState(new GroundedState(model, delta));
             model.setCanDash(true);
-            coyoteTimer.start();
 
         } else if (jumpBufferTimer.isRunning()) {
             model.setState(new WallJumpState(model, delta));
@@ -216,14 +219,16 @@ public class HeroController implements GenericController {
         rigidBody.update(model.getPosition());
         groundCollider.update(model.getPosition());
 
-        //Check for transitions
-        checkTransitions(delta);
-
         //Timers updates
         jumpBufferTimer.update(delta);
         coyoteTimer.update(delta);
         dashTimer.update(delta);
         wallJumpTimer.update(delta);
+
+        //Check for transitions
+        checkTransitions(delta);
+
+        System.out.println(coyoteTimer.getRemaingTime());
     }
 
     public RigidBody getRigidBody() {
