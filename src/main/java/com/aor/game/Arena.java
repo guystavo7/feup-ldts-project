@@ -1,6 +1,7 @@
 package com.aor.game;
 
 import com.aor.GameLoader.GameLoader;
+import com.aor.gameElements.Spike;
 import com.aor.gameElements.Strawberry;
 import com.aor.tile.Tile;
 import com.aor.hero.mvc.Hero;
@@ -15,8 +16,10 @@ import java.util.List;
 public class Arena {
     private Hero hero;
     private List<BoxCollider> walls;
-    TransparentSprite ts;
+    private boolean isHeroDead=false;
+    private boolean arenaCompleted=false;
     Strawberry st;
+    Spike sp;
     List<Tile> tiles=new ArrayList<>();
     Integer n_berrys=0;
 
@@ -29,11 +32,13 @@ public class Arena {
             tiles = gl.loadTile16x16file("src/main/java/com/aor/GameLoader/loadTiles1.txt");
 
             st=new Strawberry(new Vector2d(13*8,3*8));
+            sp=new Spike(new Vector2d(5*8,14*8+4));
             for(Tile t : tiles) {
                 walls.add(t.getBoxCollider());
             }
 
             walls.add(st.getBoxCollider());
+            walls.add(sp.getBoxCollider());
 
 
             BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), new Vector2d(0, 0), 10, 1000, "tile");
@@ -53,6 +58,7 @@ public class Arena {
             t.update(graphics, delta);
         }
         st.update(graphics,delta);
+        sp.update(graphics,delta);
 
     }
 
@@ -65,8 +71,16 @@ public class Arena {
 
             if (boxCollider.isColliding(box)){
                 box.firstCollide();
-                if (tag.equals("colliders") && !tag.equals(box.getTag())) continue;
-                colliders.add(box);
+                if(boxCollider.getTag().equals(GameData.getInstance().getPlayerTag())){ // o player procura por colisões na arena
+                    if(box.getTag().equals(GameData.spikeTag)){
+                        isHeroDead=true;
+                    }
+                }
+                if(tag.equals(box.getTag())){
+                    colliders.add(box);
+                }
+               // if (tag.equals("colliders") && !tag.equals(box.getTag())) continue;
+
             };
 
         }
@@ -75,4 +89,7 @@ public class Arena {
         return colliders;
     }
 
+    public boolean isHeroDead() {
+        return isHeroDead;
+    }
 }

@@ -11,7 +11,7 @@ public class Strawberry extends Tile {
     boolean active=true;
     public Strawberry(Vector2d pos) throws IOException {
         super(pos, GameData.tileImgsPath.get("strawberry"));
-        super.getBoxCollider().setTag("strawberry");
+        super.getBoxCollider().setTag(GameData.strawberryTag);
     }
 
     public void  kill(){

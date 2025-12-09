@@ -14,9 +14,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 public class Game {
+    private Terminal terminal;
     private Screen screen;
     private Arena arena;
 
@@ -25,6 +27,7 @@ public class Game {
 
     private boolean isRunning;
     private long previousTime;
+
 
     public Game() {
         try {
@@ -48,7 +51,7 @@ public class Game {
             terminalFactory.setInitialTerminalSize(terminalSize);
 
             //Terminal Setup
-            Terminal terminal = terminalFactory.createTerminal();
+            terminal = terminalFactory.createTerminal();
 
             ((AWTTerminalFrame)terminal).addWindowListener(new WindowAdapter() {
                 @Override
@@ -77,6 +80,7 @@ public class Game {
             screen.doResizeIfNecessary();
             screen.refresh();
 
+
             isRunning = true;
             arena = new Arena();
 
@@ -99,6 +103,7 @@ public class Game {
                     screen.clear();
                     arena.update(screen.newTextGraphics(), (double) delta / 1000);
                     screen.refresh(Screen.RefreshType.DELTA);
+                    isRunning=!arena.isHeroDead();
 
                     previousTime = System.currentTimeMillis();
 
@@ -111,6 +116,16 @@ public class Game {
                    // Thread.currentThread().interrupt();
                 }
             }
+            try {
+                close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
+    }
+
+    public void close() throws IOException {
+        screen.close();
+        terminal.close();
     }
 }

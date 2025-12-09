@@ -9,6 +9,9 @@ public class GameData {
 
     private static GameData instance;
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
+    public static String strawberryTag="strawberry";
+    public static String spikeTag="spike";
+
 
     private String playerTag = "player";
     private String tileTag = "tile";
@@ -53,6 +56,8 @@ public class GameData {
         }
         res.put("B","src/main/resources/misc/strawberry.png");
         res.put("strawberry", "src/main/resources/misc/strawberry.png");
+
+        res.put("spike", "src/main/resources/misc/Spike.png");
 
         return res;
     }
