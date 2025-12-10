@@ -11,15 +11,14 @@ import com.aor.utils.Vector2d;
 public class JumpingState implements HeroState {
     private HeroModel model;
 
-    public JumpingState(GenericModel model, double delta, boolean pressedJump) {
+    public JumpingState(GenericModel model, double delta) {
         this.model = (HeroModel) model;
-
-        if (pressedJump) onEnter(delta);
+        onEnter(delta);
     }
 
     @Override
     public void onEnter(double delta) {
-        model.getVelocity().setY(GameData.getInstance().getJumpForce());
+        model.getVelocity().setY(GameData.getInstance().jumpForce);
     }
 
     @Override
@@ -32,7 +31,7 @@ public class JumpingState implements HeroState {
 
     @Override
     public void transition(HeroController controller, double delta) {
-        if (model.getVelocity().getY() > 0) {
+        if (model.getVelocity().getY() >= 0) {
             model.setState(new FallingState(model, delta));
 
         } else if (controller.checkIfLeftSliding() || controller.checkIfRightSliding()) {
@@ -49,15 +48,15 @@ public class JumpingState implements HeroState {
 
         if (direction.getX() == 0) {
             maxHorizontalVelocity = 0;
-            maxHorizontalDelta = GameData.getInstance().getAirFriction() * delta;
+            maxHorizontalDelta = GameData.getInstance().airFriction * delta;
         } else {
-            maxHorizontalVelocity = GameData.getInstance().getMaxHorizontalVelocity() * direction.getX();
-            maxHorizontalDelta = GameData.getInstance().getHorizontalAcceleration() * delta;
+            maxHorizontalVelocity = GameData.getInstance().maxHorizontalVelocity * direction.getX();
+            maxHorizontalDelta = GameData.getInstance().horizontalAcceleration * delta;
         }
 
-        Vector2d target = new Vector2d(maxHorizontalVelocity, GameData.getInstance().getMaxVerticalVelocity());
+        Vector2d target = new Vector2d(maxHorizontalVelocity, 0);
         double xVelocity = Utils.moveTowards(current.getX(), target.getX(), maxHorizontalDelta);
-        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().getGravityAcceleration() * delta);
+        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().gravityAcceleration * delta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }

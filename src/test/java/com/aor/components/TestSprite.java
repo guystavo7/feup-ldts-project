@@ -1,5 +1,6 @@
 package com.aor.components;
 
+import com.aor.components.sprites.SolidSprite;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class TestSprite {
-    Sprite sprite;
+    SolidSprite sprite;
     TextGraphics graphicsStub;
 
     @BeforeEach
@@ -18,7 +19,7 @@ public class TestSprite {
         graphicsStub = Mockito.mock(TextGraphics.class);
 
         try {
-            sprite = new Sprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/running0.png");
+            sprite = new SolidSprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/running0.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,7 +35,7 @@ public class TestSprite {
     @Test
     void testEquals() {
         try {
-            Sprite s = new Sprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/running1.png");
+            SolidSprite s = new SolidSprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/running1.png");
             Assertions.assertNotEquals(s, sprite);
             Assertions.assertEquals(sprite, sprite);
 

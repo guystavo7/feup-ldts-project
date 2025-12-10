@@ -1,5 +1,7 @@
 package com.aor.components;
 
+import com.aor.components.sprites.AnimatedSprite;
+import com.aor.components.sprites.SolidSprite;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -9,14 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 class TestAnimatedSprite {
 
-        Sprite spriteStub;
+        SolidSprite spriteStub;
         AnimatedSprite animatedSprite;
         TextGraphics graphicsStub;
 
@@ -24,7 +25,7 @@ class TestAnimatedSprite {
         @BeforeEach
         void setup() {
             graphicsStub = Mockito.mock(TextGraphics.class);
-            spriteStub = Mockito.mock(Sprite.class);
+            spriteStub = Mockito.mock(SolidSprite.class);
 
             List<String> filesPaths = new ArrayList<>();
             filesPaths.add("src/main/resources/Hero/running0.png");

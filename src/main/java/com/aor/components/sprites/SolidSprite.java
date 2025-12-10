@@ -1,43 +1,29 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
 import java.io.IOException;
 import java.util.Objects;
 
+import com.aor.components.Node;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 
-public class Sprite implements Positionable,GenericSprite {
-    private Vector2d position;
+public class SolidSprite extends Node implements GenericSprite {
     private Integer width;
     private Integer height;
     private TextImage pixels;
     private TextImage xFlippedImg;
     private TextImage normalImg;
 
-    public Sprite(Vector2d position, String filePath) throws IOException {
-        this.position=position;
+    public SolidSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
+        super(position, offset);
         this.normalImg = Utils.loadImage(filePath);
-        xFlippedImg=Utils.loadXFlippedImage(filePath);
-        pixels=normalImg;
+        this.xFlippedImg = Utils.loadXFlippedImage(filePath);
+        this.pixels = normalImg;
         this.width = pixels.getSize().getColumns();
         this.height = pixels.getSize().getRows();
-    }
-
-    @Override
-    public Vector2d getPosition() {
-        return position;
-    }
-
-    @Override
-    public void setPosition(Vector2d pos) {
-        position=pos;
-    }
-
-    public GenericSprite newSprite(Vector2d position, String filePath) throws IOException {
-        return new Sprite(position,filePath);
     }
 
     public void draw(TextGraphics graphics){
@@ -54,7 +40,6 @@ public class Sprite implements Positionable,GenericSprite {
     public void xFlip(){
         pixels=xFlippedImg;
     }
-
     public void normal(){
         pixels=normalImg;
     }
@@ -69,7 +54,7 @@ public class Sprite implements Positionable,GenericSprite {
         if (o == null) return false;
         if (getClass() != o.getClass()) return false;
 
-        Sprite p = (Sprite) o;
+        SolidSprite p = (SolidSprite) o;
         return this.hashCode() == p.hashCode();
     }
 }

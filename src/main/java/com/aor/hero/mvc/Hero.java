@@ -81,6 +81,7 @@ public class Hero {
     public void update(TextGraphics graphics, double delta) {
         heroController.update(delta);
         heroView.update(graphics, delta);
-        System.out.println(heroModel.isFacingRight());
+        System.out.println(heroModel.getState());
+        System.out.println(heroModel.getVelocity());
     }
 }

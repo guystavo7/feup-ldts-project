@@ -1,4 +1,4 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;

@@ -3,6 +3,9 @@ package com.aor.game;
 import java.util.*;
 
 public class GameData {
+    public int SCREEN_WIDTH = 128;
+    public int SCREEN_HEIGHT = 128;
+
     // static varibles
     public static int tileWidth = 8;
     public static int tileHeight=8;
@@ -17,22 +20,23 @@ public class GameData {
     private int collectedstrawberries = 0;
     private int totalstrawberries = 0;
 
-    private double maxHorizontalVelocity = 1.5d;
-    private double maxVerticalVelocity = 2;
+    public double maxHorizontalVelocity = 1d;
+    public double maxVerticalVelocity = 1d;
+    public double maxVerticalVelocityFalling = 1.5d;
 
-    private double groundFriction = 15d;
-    private double airFriction = 8d;
-    private double dashFriction = 10d;
+    public double groundFriction = 15d;
+    public double airFriction = 8d;
+    public double dashFriction = 10d;
 
-    private double horizontalAcceleration = 85d;
-    private double gravityAcceleration = 10d;
-    private double jumpForce = -3d;
+    public double horizontalAcceleration = 10d;
+    public double gravityAcceleration = 5d;
+    public double jumpForce = -2d;
+    public double dashForce = 3.4d;
 
-    private double jumpBufferTime = 0.1d;
-    private double coyoteTime = 0.1d;
-    private double dashTime = 0.25d;
-    private double wallJumpTime = 0.15d;
-
+    public double jumpBufferTime = 0.15d;
+    public double coyoteTime = 0.15d;
+    public double dashTime = 0.30d;
+    public double wallJumpTime = 0.15d;
     //Level data
     private int currentlevel;
     private int totallevels;
@@ -83,53 +87,6 @@ public class GameData {
     }
 
 
-    public double getMaxHorizontalVelocity() {
-        return maxHorizontalVelocity;
-    }
-
-    public double getMaxVerticalVelocity() {
-        return maxVerticalVelocity;
-    }
-
-    public double getHorizontalAcceleration() {
-        return horizontalAcceleration;
-    }
-
-    public double getGravityAcceleration() {
-        return gravityAcceleration;
-    }
-
-    public double getGroundFriction() {
-        return groundFriction;
-    }
-
-    public double getAirFriction() {
-        return airFriction;
-    }
-
-    public double getJumpForce() {
-        return jumpForce;
-    }
-
-    public double getDashFriction() {
-        return dashFriction;
-    }
-
-    public double getCoyoteTime() {
-        return coyoteTime;
-    }
-
-    public double getDashTime() {
-        return dashTime;
-    }
-
-    public double getJumpBufferTime() {
-        return jumpBufferTime;
-    }
-
-    public double getWallJumpTime() {
-        return wallJumpTime;
-    }
 
     public String getPlayerTag() {
         return playerTag;

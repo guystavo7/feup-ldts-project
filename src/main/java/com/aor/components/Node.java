@@ -24,4 +24,8 @@ public abstract class Node {
     public void setPosition(Vector2d position) {
         this.position = position;
     }
+
+    public void setOffset(Vector2d offset) {
+        this.offset = offset;
+    }
 }

@@ -13,13 +13,14 @@ public class Tile implements GameElement {
     TileController tileController;
 
     public Tile(Vector2d pos,String filePath) throws IOException {
-        tileModel=new TileModel(pos,filePath);
-        tileView=new TileView(tileModel);
-        tileController=new TileController(tileModel);
+        tileModel = new TileModel(pos,filePath);
+        tileView = new TileView(tileModel);
+        tileController = new TileController(tileModel);
     }
     public static Tile TileFrom16x16Grid(int gridx,int gridy,String filePath) throws IOException {
         return new Tile(new Vector2d(gridx*8,gridy*8),filePath);
     }
+
     public void update(TextGraphics graphics, double delta) {
         tileController.update(delta);
         tileView.update(graphics, delta);

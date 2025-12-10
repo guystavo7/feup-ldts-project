@@ -58,10 +58,10 @@ public class HeroController implements GenericController {
         this.arena = arena;
 
         //Timers
-        this.jumpBufferTimer = new Timer(GameData.getInstance().getJumpBufferTime(), false);
-        this.coyoteTimer = new Timer(GameData.getInstance().getCoyoteTime(), false);
-        this.dashTimer = new Timer(GameData.getInstance().getDashTime(), false);
-        this.wallJumpTimer = new Timer(GameData.getInstance().getWallJumpTime(), false);
+        this.jumpBufferTimer = new Timer(GameData.getInstance().jumpBufferTime, false);
+        this.coyoteTimer = new Timer(GameData.getInstance().coyoteTime, false);
+        this.dashTimer = new Timer(GameData.getInstance().dashTime, false);
+        this.wallJumpTimer = new Timer(GameData.getInstance().wallJumpTime, false);
     }
 
     public boolean checkIfGrounded() {

@@ -12,7 +12,8 @@ import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 
 public class GameLoader {
-    Map<Character,GameElementLoader> loader=Map.of('T', new TileLoader() );
+    Map<Character, GameElementLoader> loader=Map.of('T', new TileLoader() );
+
     public List<GameElement> load16x16file(String filePath) throws IOException {
         List<GameElement>res=new ArrayList<>();
         DataInputStream data=new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));

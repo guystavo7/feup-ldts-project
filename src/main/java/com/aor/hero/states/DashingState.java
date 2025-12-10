@@ -10,7 +10,6 @@ import com.aor.utils.Vector2d;
 public class DashingState implements HeroState {
     private HeroModel model;
     private Vector2d direction;
-    private double dashVelocity = 3.5d;
     private Class lastState;
 
     public DashingState(GenericModel model, Class lastState, double delta) {
@@ -25,7 +24,7 @@ public class DashingState implements HeroState {
 
     @Override
     public void onEnter(double delta) {
-        model.setVelocity(Utils.scalarProduct(direction, dashVelocity));
+        model.setVelocity(Utils.scalarProduct(direction, GameData.getInstance().dashForce));
     }
 
     @Override
@@ -46,7 +45,7 @@ public class DashingState implements HeroState {
     @Override
     public void getVelocity(double delta) {
         Vector2d current = model.getVelocity();
-        double maxHorizontalDelta = GameData.getInstance().getDashFriction() * delta;
+        double maxHorizontalDelta = GameData.getInstance().dashFriction * delta;
 
         double xVelocity = Utils.moveTowards(current.getX(), 0, maxHorizontalDelta);
         double yVelocity = Utils.moveTowards(current.getY(), 0, maxHorizontalDelta);

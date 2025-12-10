@@ -1,5 +1,6 @@
 package com.aor.game;
 
+import com.aor.utils.Utils;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -20,43 +21,15 @@ public class Game {
     private Screen screen;
     private Arena arena;
 
-    private int screenWidth = 128;
-    private int screenHeight = 128;
-
     private boolean isRunning;
-    private long previousTime;
 
-    public Game() {
+    public void setup() {
         try {
-            URL resource = getClass().getClassLoader().getResource("square.ttf");
-            assert resource != null;
-
-            File fontFile = new File(resource.toURI());
-            Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
-
+            Font font = Utils.loadSquaredFont();
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
+            Terminal terminal = Utils.setupTerminal(font);
 
-            //Size setup
-            TerminalSize terminalSize = new TerminalSize(screenWidth, screenHeight);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-
-            Font loadedFont = font.deriveFont(Font.PLAIN, 5);
-            AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
-            terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
-            terminalFactory.setForceAWTOverSwing(true);
-            terminalFactory.setInitialTerminalSize(terminalSize);
-
-            //Terminal Setup
-            Terminal terminal = terminalFactory.createTerminal();
-
-            ((AWTTerminalFrame)terminal).addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    e.getWindow().dispose();
-                }
-            });
-            
             ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
@@ -85,32 +58,43 @@ public class Game {
         }
     }
 
+    public Game() {
+        setup();
+    }
+
     public void start() {
-        Thread.ofVirtual().start(() -> {
-            previousTime = 0;
+        double frames = 60;
+        double framePerNanoSecond = 1_000_000_000d / frames;
+        double previousTime = System.nanoTime();
 
-            while (isRunning) {
+        while (isRunning) {
+            double currentTime = System.nanoTime();
+            double delta = currentTime - previousTime;
+
+            if (delta >= framePerNanoSecond) {
+                previousTime = currentTime;
+
                 try {
-                    long currentTime = System.currentTimeMillis();
-
-                    if (previousTime == 0) currentTime = 0;
-                    long delta = currentTime - previousTime;
-
                     screen.clear();
-                    arena.update(screen.newTextGraphics(), (double) delta / 1000);
+                    arena.update(screen.newTextGraphics(), delta / 1_000_000_000d);
                     screen.refresh(Screen.RefreshType.DELTA);
-
-                    previousTime = System.currentTimeMillis();
-
-                    long delay_time=1000 / 60-(previousTime-currentTime);
-                    delay_time=delay_time>0?delay_time:0;
-                    Thread.sleep(delay_time);
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                   // Thread.currentThread().interrupt();
+                }
+
+            } else {
+                double sleepTime = ((framePerNanoSecond - delta) / 1000000);
+                if (sleepTime > 0) {
+                    try {
+                        Thread.sleep((long) sleepTime);
+
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                 }
             }
-        });
+
+        }
     }
 }

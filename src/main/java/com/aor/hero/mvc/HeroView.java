@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.aor.components.AnimatedSprite;
-import com.aor.components.TransparentSprite;
-import com.aor.components.TransparentSpriteFactory;
+import com.aor.components.sprites.AnimatedSprite;
+import com.aor.components.factory.TransparentSpriteFactory;
 import com.aor.hero.states.DashingState;
 import com.aor.hero.states.IdleState;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
+import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class HeroView implements GenericView {
@@ -20,21 +20,21 @@ public class HeroView implements GenericView {
     private AnimatedSprite currentSprite;
     private Class currentState;
 
-    private List<TransparentSprite> hair;
 
 //    private List<AttachedSprite> hair=new ArrayList<>();
 
     public HeroView(GenericModel model, Map<Class, List<String>> filePaths, Map<Class, List<String>> filesPaths_v1) {
         try {
             this.model = (HeroModel) model;
+            TransparentSpriteFactory factory = new TransparentSpriteFactory();
+
             for (Class state : filePaths.keySet()) {
-                sprites.put(state, new AnimatedSprite(this.model.getPosition(), filePaths.get(state), 10, new TransparentSpriteFactory()));
-                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), filesPaths_v1.get(state), 10, new TransparentSpriteFactory()));
+                sprites.put(state, new AnimatedSprite(this.model.getPosition(), new Vector2d(0, 0), filePaths.get(state), 10, factory));
+                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), new Vector2d(0, 0), filesPaths_v1.get(state), 10, factory));
             }
 
             currentState = IdleState.class;
             currentSprite = sprites.get(currentState);
-
 //            hair.add(new AttachedSprite(new Sprite(new Vector2d(this.model.getPosition().getX(),this.model.getPosition().getY()),"src/main/resources/hair.png"),this.model ,new Vector2d(0,2),4,4));
 //            for(int i=1; i!=3; i++){
 //                hair.add(new AttachedSprite(new Sprite(new Vector2d( hair.get(i-1).getPosition().getX(),hair.get(i-1).getPosition().getY()),"src/main/resources/hair.png"),hair.get(i-1),new Vector2d(0,2),4,4));
@@ -60,7 +60,6 @@ public class HeroView implements GenericView {
         if (currentState != model.getState().getClass()) {
             currentState = model.getState().getClass();
             if (model.getState() instanceof DashingState) currentState = ((DashingState) model.getState()).getLastState();
-
             currentSprite = map.get(currentState);
         }
     }

@@ -1,7 +1,8 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
 import java.io.IOException;
 
+import com.aor.components.Positionable;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -11,7 +12,7 @@ public class AttachedSprite  implements Positionable, GenericSprite {
     Vector2d relative_pos;
     Positionable reference;
 
-    public AttachedSprite(Sprite sprite, Positionable reference,Vector2d relative_pos,int maxXdist,int maxYdist) throws IOException {
+    public AttachedSprite(SolidSprite sprite, Positionable reference, Vector2d relative_pos, int maxXdist, int maxYdist) throws IOException {
         this.sprite=sprite;
         this.maxXdist=maxXdist;
         this.maxYdist=maxYdist;

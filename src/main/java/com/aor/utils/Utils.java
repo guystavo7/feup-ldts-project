@@ -1,16 +1,27 @@
 package com.aor.utils;
 
 import com.aor.components.Pixel;
+import com.aor.game.GameData;
 import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,5 +123,34 @@ public class Utils {
 
     public static double moveTowards(double current, double target, double maxDelta) {
         return Math.abs(target - current) <= maxDelta ? target : current + Math.signum(target - current) * maxDelta;
+    }
+
+    public static Font loadSquaredFont() throws FontFormatException, IOException {
+        File fontFile = new File("src/main/resources/square.ttf");
+        return Font.createFont(Font.TRUETYPE_FONT, fontFile);
+    }
+
+    public static Terminal setupTerminal(Font font) throws IOException {
+        //Size setup
+        TerminalSize terminalSize = new TerminalSize(GameData.getInstance().SCREEN_WIDTH, GameData.getInstance().SCREEN_HEIGHT);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
+
+        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
+        AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
+        terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
+        terminalFactory.setForceAWTOverSwing(true);
+        terminalFactory.setInitialTerminalSize(terminalSize);
+
+        //Terminal Setup
+        Terminal terminal = terminalFactory.createTerminal();
+
+        ((AWTTerminalFrame)terminal).addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                e.getWindow().dispose();
+            }
+        });
+
+        return terminal;
     }
 }

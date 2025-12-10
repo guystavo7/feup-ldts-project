@@ -1,10 +1,12 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.aor.components.Node;
+import com.aor.components.factory.GenericSpriteFactory;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -14,10 +16,10 @@ public class AnimatedSprite extends Node {
     private double currentFrame;
     private double frameSpeed;
 
-    public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed,GenericSpriteFactory factory) throws IOException {
+    public AnimatedSprite(Vector2d position, Vector2d offset, List<String> imgPaths, double frameSpeed, GenericSpriteFactory factory) throws IOException {
         super(position, new Vector2d(0, 0));
         for(String ip : imgPaths){
-            frames.add(factory.newSprite(position,ip));
+            frames.add(factory.newSprite(position, offset, ip));
         }
 
         currentFrame = 0;

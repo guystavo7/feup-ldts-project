@@ -1,18 +1,20 @@
 package com.aor.tile;
 
-import com.aor.components.Sprite;
+import com.aor.components.sprites.SolidSprite;
 import com.aor.mvc.GenericView;
+import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
 
 public class TileView implements GenericView {
     private TileModel tileModel;
-    private Sprite sprite;
+    private SolidSprite sprite;
 
     public TileView(TileModel tileModel) throws IOException {
-        sprite=new Sprite(tileModel.getPosition(), tileModel.getFilePath());
+        sprite = new SolidSprite(tileModel.getPosition(), new Vector2d(0, 0), tileModel.getFilePath());
     }
+
     @Override
     public void update(TextGraphics graphics, double delta) {
         sprite.draw(graphics);

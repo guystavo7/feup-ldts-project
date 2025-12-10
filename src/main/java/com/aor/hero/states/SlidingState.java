@@ -49,9 +49,9 @@ public class SlidingState implements HeroState {
     @Override
     public void getVelocity(double delta) {
         Vector2d current = model.getVelocity();
-        Vector2d target = new Vector2d(0, GameData.getInstance().getMaxVerticalVelocity() * 0.3);
+        Vector2d target = new Vector2d(0, GameData.getInstance().maxVerticalVelocity * 0.5);
         double xVelocity = model.getVelocity().getX();
-        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().getGravityAcceleration() * delta);
+        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().gravityAcceleration * delta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }
