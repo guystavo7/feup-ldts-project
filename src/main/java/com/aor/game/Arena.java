@@ -23,7 +23,7 @@ public class Arena {
             walls = new ArrayList<>();
             GameLoader gl = new GameLoader();
 
-            tiles = gl.loadTile16x16file("src/main/resources/Tiles/loadTiles1.txt");
+            tiles = gl.loadTile16x16file("src/main/resources/Tiles/loadTiles2.txt");
 
             for(Tile t : tiles) {
                 walls.add(t.getBoxCollider());
