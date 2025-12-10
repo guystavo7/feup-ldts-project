@@ -11,8 +11,9 @@ public class GameData {
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
     public static String strawberryTag="strawberry";
     public static String spikeTag="spike";
+    public static String voidBlockTag="void";
 
-
+    public static String EndBlockTag="end";
     private String playerTag = "player";
     private String tileTag = "tile";
     private String allColliders = "all";

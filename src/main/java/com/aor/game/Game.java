@@ -103,7 +103,7 @@ public class Game {
                     screen.clear();
                     arena.update(screen.newTextGraphics(), (double) delta / 1000);
                     screen.refresh(Screen.RefreshType.DELTA);
-                    isRunning=!arena.isHeroDead();
+                    isRunning=!arena.isHeroDead() && !arena.isArenaCompleted();
 
                     previousTime = System.currentTimeMillis();
 
