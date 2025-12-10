@@ -81,7 +81,7 @@ public class HeroController implements GenericController {
 
     private void dash(double delta) {
         model.getState().onExit(delta);
-        model.setState(new DashingState(model, delta));
+        model.setState(new DashingState(model, model.getState().getClass(), delta));
 
         model.setCanDash(false);
 

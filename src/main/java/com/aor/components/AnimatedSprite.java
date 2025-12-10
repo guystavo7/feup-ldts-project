@@ -10,14 +10,12 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 //TO DO : generic sprite <>
 public class AnimatedSprite extends Node {
-
     private List<GenericSprite> frames = new ArrayList<>();
     private double currentFrame;
     private double frameSpeed;
 
     public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed,GenericSpriteFactory factory) throws IOException {
         super(position, new Vector2d(0, 0));
-
         for(String ip : imgPaths){
             frames.add(factory.newSprite(position,ip));
         }

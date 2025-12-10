@@ -20,10 +20,10 @@ public class TransparentSprite implements  GenericSprite,Positionable {
     private List<List<Pixel>> normalImg;
 
     public TransparentSprite(Vector2d position, String filePath) throws IOException {
-        this.position=position;
+        this.position = position;
         this.normalImg = Utils.loadTransparentImage(filePath);
-        xFlippedImg=Utils.loadXFlippedTransparentImage(filePath);
-        pixels=normalImg;
+        xFlippedImg = Utils.loadXFlippedTransparentImage(filePath);
+        pixels = normalImg;
         this.width = pixels.getFirst().size();
         this.height = pixels.size();
     }

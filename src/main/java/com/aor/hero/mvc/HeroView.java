@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.aor.components.AnimatedSprite;
+import com.aor.components.TransparentSprite;
 import com.aor.components.TransparentSpriteFactory;
 import com.aor.hero.states.DashingState;
 import com.aor.hero.states.IdleState;
@@ -15,16 +16,20 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public class HeroView implements GenericView {
     private HeroModel model;
     private Map<Class, AnimatedSprite> sprites = new HashMap<>();
+    private Map<Class, AnimatedSprite> sprites_v1 = new HashMap<>();
     private AnimatedSprite currentSprite;
     private Class currentState;
 
+    private List<TransparentSprite> hair;
+
 //    private List<AttachedSprite> hair=new ArrayList<>();
 
-    public HeroView(GenericModel model, Map<Class, List<String>> filePaths) {
+    public HeroView(GenericModel model, Map<Class, List<String>> filePaths, Map<Class, List<String>> filesPaths_v1) {
         try {
             this.model = (HeroModel) model;
             for (Class state : filePaths.keySet()) {
                 sprites.put(state, new AnimatedSprite(this.model.getPosition(), filePaths.get(state), 10, new TransparentSpriteFactory()));
+                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), filesPaths_v1.get(state), 10, new TransparentSpriteFactory()));
             }
 
             currentState = IdleState.class;
@@ -45,10 +50,18 @@ public class HeroView implements GenericView {
     }
 
     private void checkState() {
-        if (model.getState() instanceof DashingState) return;
+        Map<Class, AnimatedSprite> map;
+        if (!model.canDash()) {
+            map = sprites_v1;
+        } else {
+            map = sprites;
+        }
+
         if (currentState != model.getState().getClass()) {
             currentState = model.getState().getClass();
-            currentSprite = sprites.get(currentState);
+            if (model.getState() instanceof DashingState) currentState = ((DashingState) model.getState()).getLastState();
+
+            currentSprite = map.get(currentState);
         }
     }
 

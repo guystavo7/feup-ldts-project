@@ -51,7 +51,7 @@ public class Utils {
         return res;
     }
 
-    public static TextImage CreateTextImage(List<List<Pixel>> p){
+    public static TextImage createTextImage(List<List<Pixel>> p){
         int width = p.getFirst().size();
         int height = p.size();
 
@@ -61,18 +61,16 @@ public class Utils {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Pixel pixel=p.get(y).get(x);
-
                 graphics.setBackgroundColor(TextColor.Factory.fromString(pixel.toString()));
                 Vector2d pixelPos = new Vector2d(x, y);
                 graphics.setCharacter(new TerminalPosition((int) pixelPos.getX(), (int) pixelPos.getY()), ' ');
-
             }
         }
         return pixels;
     }
 
     public static List<List<Pixel>> loadTransparentImage(String path) throws IOException {
-        return  loadPixeis(path);
+        return loadPixeis(path);
     }
     public static List<List<Pixel>> loadXFlippedTransparentImage(String path) throws IOException {
         List<List<Pixel>> p=loadTransparentImage(path);
@@ -83,14 +81,14 @@ public class Utils {
 
 
     public static TextImage loadImage(String path) throws IOException {
-
-        return CreateTextImage(loadPixeis(path));
+        return createTextImage(loadPixeis(path));
     }
 
     public static TextImage loadXFlippedImage(String path) throws IOException {
         List<List<Pixel>> p=loadPixeis(path);
         XFLipPixeis(p);
-        return  CreateTextImage(p);
+
+        return  createTextImage(p);
     }
 
     public static Vector2d vectorSum(Vector2d v1, Vector2d v2) {

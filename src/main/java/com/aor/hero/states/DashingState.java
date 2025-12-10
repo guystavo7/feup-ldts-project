@@ -11,10 +11,13 @@ public class DashingState implements HeroState {
     private HeroModel model;
     private Vector2d direction;
     private double dashVelocity = 3.5d;
+    private Class lastState;
 
-    public DashingState(GenericModel model, double delta) {
+    public DashingState(GenericModel model, Class lastState, double delta) {
         this.model = (HeroModel) model;
         this.direction = ((HeroModel) model).getDirection();
+        this.lastState = lastState;
+
         if (direction.getX() == 0 && direction.getY() == 0) direction.setX(1);
 
         onEnter(delta);
@@ -49,5 +52,9 @@ public class DashingState implements HeroState {
         double yVelocity = Utils.moveTowards(current.getY(), 0, maxHorizontalDelta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
+    }
+
+    public Class getLastState() {
+        return lastState;
     }
 }
