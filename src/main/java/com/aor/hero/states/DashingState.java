@@ -32,7 +32,7 @@ public class DashingState implements HeroState {
 
     @Override
     public void onEnter(double delta) {
-        model.setVelocity(Utils.scalarProduct(direction, GameData.getInstance().dashForce));
+        model.setVelocity(Utils.scalarProduct(direction, GameData.DASH_FORCE));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DashingState implements HeroState {
     @Override
     public void getVelocity(double delta) {
         Vector2d current = model.getVelocity();
-        double maxHorizontalDelta = GameData.getInstance().dashFriction * delta;
+        double maxHorizontalDelta = GameData.DASH_FRICTION * delta;
 
         double xVelocity = Utils.moveTowards(current.getX(), 0, maxHorizontalDelta);
         double yVelocity = Utils.moveTowards(current.getY(), 0, maxHorizontalDelta);

@@ -130,7 +130,7 @@ public class Utils {
 
     public static Terminal setupTerminal(Font font) throws IOException {
         //Size setup
-        TerminalSize terminalSize = new TerminalSize(GameData.getInstance().SCREEN_WIDTH, GameData.getInstance().SCREEN_HEIGHT);
+        TerminalSize terminalSize = new TerminalSize(GameData.SCREEN_WIDTH, GameData.SCREEN_HEIGHT);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 
         Font loadedFont = font.deriveFont(Font.PLAIN, 5);

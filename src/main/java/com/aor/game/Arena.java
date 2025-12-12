@@ -29,11 +29,10 @@ public class Arena {
                 walls.add(t.getBoxCollider());
             }
 
-            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000, "tile");
+            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000, GameData.TILE_TAG);
             walls.add(wall2);
-            BoxCollider wall3 = new BoxCollider(new Vector2d(128, 0), 10, 1000, "tile");
+            BoxCollider wall3 = new BoxCollider(new Vector2d(128, 0), 10, 1000, GameData.TILE_TAG);
             walls.add(wall3);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +53,7 @@ public class Arena {
         boxCollider.setPosition(newPos);
 
         for (BoxCollider box : walls) {
-            if (!tag.equals("colliders") && !tag.equals(box.getTag())) continue;
+            if (!tag.equals(GameData.ALL_COLLIDERS) && !tag.equals(box.getTag())) continue;
             if (boxCollider.isColliding(box)) colliders.add(box);
         }
 

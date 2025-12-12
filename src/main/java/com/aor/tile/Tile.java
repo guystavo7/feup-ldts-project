@@ -17,8 +17,8 @@ public class Tile implements GameElement {
         tileView = new TileView(tileModel);
         tileController = new TileController(tileModel);
     }
-    public static Tile TileFrom16x16Grid(int gridx,int gridy,String filePath) throws IOException {
-        return new Tile(new Vector2d(gridx*8,gridy*8),filePath);
+    public static Tile TileFrom16x16Grid(int gridX, int gridY, String filePath) throws IOException {
+        return new Tile(new Vector2d(gridX * 8d,gridY * 8d), filePath);
     }
 
     public void update(TextGraphics graphics, double delta) {

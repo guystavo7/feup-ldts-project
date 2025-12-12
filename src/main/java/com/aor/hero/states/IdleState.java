@@ -49,15 +49,15 @@ public class IdleState implements HeroState {
 
         if (direction.getX() == 0) {
             maxHorizontalVelocity = 0;
-            maxHorizontalDelta = GameData.getInstance().groundFriction * delta;
+            maxHorizontalDelta = GameData.GROUND_FRICTION * delta;
         } else {
-            maxHorizontalVelocity = GameData.getInstance().maxHorizontalVelocity * direction.getX();
-            maxHorizontalDelta = GameData.getInstance().horizontalAcceleration * delta;
+            maxHorizontalVelocity = GameData.MAX_HORIZONTAL_VELOCITY * direction.getX();
+            maxHorizontalDelta = GameData.HORIZONTAL_ACCELERATION * delta;
         }
 
-        Vector2d target = new Vector2d(maxHorizontalVelocity, GameData.getInstance().maxVerticalVelocity);
+        Vector2d target = new Vector2d(maxHorizontalVelocity, GameData.MAX_VERTICAL_VELOCITY);
         double xVelocity = Utils.moveTowards(current.getX(), target.getX(), maxHorizontalDelta);
-        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.getInstance().gravityAcceleration * delta);
+        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.GRAVITY_ACCELERATION * delta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }

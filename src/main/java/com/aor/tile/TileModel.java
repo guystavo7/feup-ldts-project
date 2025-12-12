@@ -7,19 +7,23 @@ import com.aor.utils.Vector2d;
 
 
 public class TileModel implements GenericModel {
-    int width= GameData.tileWidth,height= GameData.tileHeight;
-    Vector2d pos;
-    String filePath;
-    public TileModel(Vector2d pos,String filePath){
-        this.pos=pos;
-        this.filePath=filePath;
+    private int width;
+    private int height;
+    private Vector2d position;
+    private String filePath;
+
+    public TileModel(Vector2d position, String filePath){
+        this.position = position;
+        this.filePath = filePath;
+        width = GameData.TILE_WIDTH;
+        height = GameData.SCREEN_HEIGHT;
     }
 
     public String getFilePath() {
         return filePath;
     }
     public Vector2d getPosition(){
-        return pos;
+        return position;
     }
     public int getWidth(){return width;}
 
