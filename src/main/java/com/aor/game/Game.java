@@ -1,5 +1,6 @@
 package com.aor.game;
 
+import com.aor.GameLoader.GameLoader;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -82,7 +83,7 @@ public class Game {
 
 
             isRunning = true;
-            arena = new Arena();
+            arena = new GameLoader().arenaBulder("src/main/java/com/aor/GameLoader/loadTiles1.txt");
 
         } catch (Exception e) {
             e.printStackTrace();

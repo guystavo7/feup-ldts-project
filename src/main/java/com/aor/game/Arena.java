@@ -16,19 +16,22 @@ import java.util.List;
 
 public class Arena {
     private Hero hero;
-    private List<BoxCollider> walls;
+    private List<BoxCollider> walls=new ArrayList<>();
     private boolean isHeroDead=false;
     private boolean isArenaCompleted=false;
-    List<Tile> tiles=new ArrayList<>();
 
-    List<Strawberry> strawberries=new ArrayList<>();
-    List<EndBlock> endBlocks=new ArrayList<>();
-    List<GroundedSpike> spikes=new ArrayList<>();
+    List<Tile> generalTiles=new ArrayList<>();
 
-    List<GroundVoidBlock> voids=new ArrayList<>();
+    List<Tile> tiles;
+
+    List<Strawberry> strawberries;
+    List<EndBlock> endBlocks;
+    List<GroundedSpike> spikes;
+
+    List<GroundVoidBlock> voids;
     Integer n_berrys=0;
 
-    public Arena() {
+    /*public Arena() {
         try {
             hero = new Hero(new Vector2d(25, 0), this);
             walls = new ArrayList<>();
@@ -74,31 +77,58 @@ public class Arena {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+
+
+    public Arena(Hero hero,List<Tile> tiles,List<Strawberry> strawberries,List<EndBlock> endBlocks,List<GroundedSpike> spikes,List<GroundVoidBlock> voids) {
+        this.hero=hero;
+        this.tiles=tiles;
+        this.strawberries=strawberries;
+        this.endBlocks=endBlocks;
+        this.spikes=spikes;
+        this.voids=voids;
+
+        for(Strawberry s : strawberries) {
+            walls.add(s.getBoxCollider());
+            generalTiles.add(s);
+        }
+
+
+        for(Tile t : tiles) {
+            walls.add(t.getBoxCollider());
+            generalTiles.add(t);
+        }
+
+        for(GroundedSpike s : spikes) {
+            walls.add(s.getBoxCollider());
+            generalTiles.add(s);
+        }
+
+        for (EndBlock e: endBlocks){
+            walls.add(e.getBoxCollider());
+            generalTiles.add(e);
+        }
+
+
+        for (GroundVoidBlock v:voids ){
+            walls.add(v.getBoxCollider());
+            generalTiles.add(v);
+        }
+
+
+
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
     public void update(TextGraphics graphics, double delta) {
         hero.update(graphics, delta);
-        for(Tile t:tiles) {
+        for(Tile t:generalTiles) {
             t.update(graphics, delta);
         }
 
-        for(GroundedSpike s : spikes) {
-            s.update(graphics,delta);
-        }
-
-        for(Strawberry s : strawberries) {
-            s.update(graphics,delta);
-        }
-
-
-        for(EndBlock e : endBlocks) {
-            e.update(graphics,delta);
-        }
-
-
-        for(GroundVoidBlock v : voids) {
-            v.update(graphics,delta);
-        }
 
     }
 
