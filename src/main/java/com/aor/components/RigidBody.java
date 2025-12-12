@@ -1,12 +1,11 @@
 package com.aor.components;
 
+import java.util.List;
+
 import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
-
-import javax.swing.*;
-import java.util.List;
 
 public class RigidBody extends Node {
     private final Arena arena;

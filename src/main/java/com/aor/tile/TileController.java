@@ -4,7 +4,6 @@ import com.aor.components.BoxCollider;
 import com.aor.game.GameData;
 import com.aor.mvc.GenericController;
 import com.aor.mvc.GenericModel;
-import com.aor.utils.Vector2d;
 
 public class TileController implements GenericController {
     BoxCollider boxCollider;

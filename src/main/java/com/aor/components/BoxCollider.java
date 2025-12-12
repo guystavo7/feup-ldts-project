@@ -8,6 +8,7 @@ public class BoxCollider extends Node {
     private int width;
     private int height;
     private String tag;
+    private boolean collidedOnce=false;
 
     public BoxCollider(Vector2d position, int width, int height, String tag) {
         super(position);
@@ -23,6 +24,12 @@ public class BoxCollider extends Node {
         this.tag = tag;
     }
 
+    public void firstCollide() {
+        this.collidedOnce = true;
+    }
+    public boolean getCollidedOnce(){
+        return collidedOnce;
+    }
 
     public boolean isColliding(BoxCollider other) {
         if (other.equals(this)) return false;
@@ -46,6 +53,9 @@ public class BoxCollider extends Node {
     }
     public String getTag() {
         return tag;
+    }
+    public void setTag(String tag) {
+         this.tag=tag;
     }
 }
 

@@ -16,7 +16,7 @@ public class TileModel implements GenericModel {
         this.position = position;
         this.filePath = filePath;
         width = GameData.TILE_WIDTH;
-        height = GameData.SCREEN_HEIGHT;
+        height = GameData.TILE_HEIGHT;
     }
 
     public String getFilePath() {

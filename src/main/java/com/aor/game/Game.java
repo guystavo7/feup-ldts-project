@@ -1,26 +1,22 @@
 package com.aor.game;
 
-import com.aor.utils.Utils;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
-
-import java.awt.*;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.net.URL;
+import java.io.IOException;
+
+import com.aor.GameLoader.GameLoader;
+import com.aor.utils.Utils;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.screen.TerminalScreen;
+import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
 public class Game {
+    private Terminal terminal;
     private Screen screen;
     private Arena arena;
-
     private boolean isRunning;
 
     public void setup() {
@@ -28,7 +24,7 @@ public class Game {
             Font font = Utils.loadSquaredFont();
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
-            Terminal terminal = Utils.setupTerminal(font);
+            terminal = Utils.setupTerminal(font);
 
             ((AWTTerminalFrame)terminal).getComponent(0).addKeyListener(new KeyAdapter() {
                 @Override
@@ -50,8 +46,9 @@ public class Game {
             screen.doResizeIfNecessary();
             screen.refresh();
 
+
             isRunning = true;
-            arena = new Arena();
+            arena = new GameLoader().arenaBulder("src/main/java/com/aor/GameLoader/loadTiles1.txt");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,6 +57,7 @@ public class Game {
 
     public Game() {
         setup();
+        start();
     }
 
     public void start() {
@@ -78,6 +76,7 @@ public class Game {
                     screen.clear();
                     arena.update(screen.newTextGraphics(), delta / 1_000_000_000d);
                     screen.refresh(Screen.RefreshType.DELTA);
+                    isRunning = !arena.isHeroDead() && !arena.isArenaCompleted();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -94,7 +93,17 @@ public class Game {
                     }
                 }
             }
-
         }
+
+        try {
+            close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void close() throws IOException {
+        screen.close();
+        terminal.close();
     }
 }

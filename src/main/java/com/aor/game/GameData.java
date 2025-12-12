@@ -1,6 +1,9 @@
 package com.aor.game;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GameData {
     public static final int SCREEN_WIDTH = 128;
@@ -11,10 +14,14 @@ public class GameData {
     public static final int TILE_HEIGHT = 8;
 
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
-
+    
     public static final String PLAYER_TAG = "player";
     public static final String TILE_TAG = "tile";
     public static final String ALL_COLLIDERS = "all";
+    public static final String END_BLOCK_TAG = "end";
+    public static final String STRAWBERRY_TAG = "strawberry";
+    public static final String SPIKE_TAG = "spike";
+    public static final String VOID_TILE_TAG = "void";
 
     public static final double MAX_HORIZONTAL_VELOCITY = 1d;
     public static final double MAX_VERTICAL_VELOCITY = 1d;
@@ -43,5 +50,10 @@ public class GameData {
             res.put(i,"src/main/resources/Tiles/tile0" + i + ".png");
 
         }
+        res.put("B","src/main/resources/misc/strawberry.png");
+        res.put("strawberry", "src/main/resources/misc/strawberry.png");
+
+        res.put("spike", "src/main/resources/misc/Spike.png");
+
         return res;
     }}

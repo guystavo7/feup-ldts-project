@@ -1,50 +1,81 @@
 package com.aor.game;
 
-import com.aor.GameLoader.GameLoader;
-import com.aor.tile.Tile;
-import com.aor.hero.mvc.Hero;
-import com.aor.components.sprites.TransparentSprite;
-import com.aor.components.BoxCollider;
-import com.aor.utils.Vector2d;
-import com.googlecode.lanterna.graphics.TextGraphics;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aor.components.BoxCollider;
+import com.aor.gameElements.EndBlock;
+import com.aor.gameElements.GroundVoidBlock;
+import com.aor.gameElements.GroundedSpike;
+import com.aor.gameElements.Strawberry;
+import com.aor.hero.mvc.Hero;
+import com.aor.tile.Tile;
+import com.aor.utils.Vector2d;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
 public class Arena {
     private Hero hero;
-    private List<BoxCollider> walls;
-    TransparentSprite ts;
-    List<Tile> tiles=new ArrayList<>();
+    private List<BoxCollider> walls = new ArrayList<>();
+    private boolean isHeroDead = false;
+    private boolean isArenaCompleted = false;
 
-    public Arena() {
-        try {
-            hero = new Hero(new Vector2d(25, 0), this);
-            walls = new ArrayList<>();
-            GameLoader gl = new GameLoader();
+    private List<Tile> generalTiles=new ArrayList<>();
 
-            tiles = gl.loadTile16x16file("src/main/java/com/aor/GameLoader/loadTiles1.txt");
+    private List<Tile> tiles;
 
-            for(Tile t : tiles) {
-                walls.add(t.getBoxCollider());
-            }
+    private List<Strawberry> strawberries;
+    private List<EndBlock> endBlocks;
+    private List<GroundedSpike> spikes;
 
-            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000, GameData.TILE_TAG);
-            walls.add(wall2);
-            BoxCollider wall3 = new BoxCollider(new Vector2d(128, 0), 10, 1000, GameData.TILE_TAG);
-            walls.add(wall3);
+    private List<GroundVoidBlock> voids;
+    private Integer n_berrys=0;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Arena(Hero hero,List<Tile> tiles,List<Strawberry> strawberries,List<EndBlock> endBlocks,List<GroundedSpike> spikes,List<GroundVoidBlock> voids) {
+        this.hero=hero;
+        this.tiles=tiles;
+        this.strawberries=strawberries;
+        this.endBlocks=endBlocks;
+        this.spikes=spikes;
+        this.voids=voids;
+
+        for(Strawberry s : strawberries) {
+            walls.add(s.getBoxCollider());
+            generalTiles.add(s);
         }
+
+
+        for(Tile t : tiles) {
+            walls.add(t.getBoxCollider());
+            generalTiles.add(t);
+        }
+
+        for(GroundedSpike s : spikes) {
+            walls.add(s.getBoxCollider());
+            generalTiles.add(s);
+        }
+
+        for (EndBlock e: endBlocks){
+            walls.add(e.getBoxCollider());
+            generalTiles.add(e);
+        }
+
+
+        for (GroundVoidBlock v:voids ){
+            walls.add(v.getBoxCollider());
+            generalTiles.add(v);
+        }
+
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
     public void update(TextGraphics graphics, double delta) {
         hero.update(graphics, delta);
-        for(Tile t:tiles) {
+        for(Tile t:generalTiles) {
             t.update(graphics, delta);
         }
-
     }
 
     public List<BoxCollider> detectCollision(Vector2d newPos, BoxCollider boxCollider, String tag) {
@@ -53,12 +84,34 @@ public class Arena {
         boxCollider.setPosition(newPos);
 
         for (BoxCollider box : walls) {
-            if (!tag.equals(GameData.ALL_COLLIDERS) && !tag.equals(box.getTag())) continue;
-            if (boxCollider.isColliding(box)) colliders.add(box);
+            if (boxCollider.isColliding(box)){
+                box.firstCollide();
+                
+                if(boxCollider.getTag().equals(GameData.PLAYER_TAG)){ // o player procura por colisões na arena
+                    if(box.getTag().equals(GameData.SPIKE_TAG)||box.getTag().equals(GameData.VOID_TILE_TAG)){
+                        isHeroDead=true;
+                    }
+                    else if(box.getTag().equals(GameData.END_BLOCK_TAG)){
+                        isArenaCompleted=true;
+                    }
+                }
+
+                if(tag.equals(box.getTag())){
+                    colliders.add(box);
+                }
+            }
+
         }
 
         boxCollider.setPosition(oldPos);
         return colliders;
     }
 
+    public boolean isHeroDead() {
+        return isHeroDead;
+    }
+
+    public boolean isArenaCompleted() {
+        return isArenaCompleted;
+    }
 }

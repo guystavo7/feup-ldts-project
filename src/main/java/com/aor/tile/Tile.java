@@ -12,7 +12,7 @@ public class Tile implements GameElement {
     TileModel tileModel;
     TileController tileController;
 
-    public Tile(Vector2d pos,String filePath) throws IOException {
+    public Tile(Vector2d pos, String filePath) throws IOException {
         tileModel = new TileModel(pos,filePath);
         tileView = new TileView(tileModel);
         tileController = new TileController(tileModel);
@@ -29,5 +29,4 @@ public class Tile implements GameElement {
     public BoxCollider getBoxCollider(){
         return tileController.getBoxCollider();
     }
-
 }

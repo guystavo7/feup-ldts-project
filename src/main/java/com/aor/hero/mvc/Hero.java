@@ -1,5 +1,6 @@
 package com.aor.hero.mvc;
 
+import com.aor.GameLoader.GameElement;
 import com.aor.game.Arena;
 import com.aor.hero.states.*;
 import com.aor.utils.Vector2d;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Hero {
+public class Hero implements GameElement {
     private HeroView heroView;
     private HeroController heroController;
     private HeroModel heroModel;
