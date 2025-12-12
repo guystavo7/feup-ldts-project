@@ -8,17 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.aor.game.Arena;
 import com.aor.gameElements.EndBlock;
 import com.aor.gameElements.GroundVoidBlock;
 import com.aor.gameElements.GroundedSpike;
 import com.aor.gameElements.Strawberry;
+import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 
 import javax.swing.*;
 
 public class GameLoader {
-    Map<Character,GameElementLoader> loader=Map.of('T', new TileLoader() ,'E',new EndBlockLoader(),'S',new GroundedSpikeLoader(),'V',new GroundedVoidBlockLoader(),'B',new StraberryLoader());
+    Map<Character,GameElementLoader> loader=Map.of('T', new TileLoader() ,'E',new EndBlockLoader(),'S',new GroundedSpikeLoader(),'V',new GroundedVoidBlockLoader(),'B',new StraberryLoader(),'H',new HeroLoader());
     public List<GameElement> load16x16file(String filePath) throws IOException {
         List<GameElement>res=new ArrayList<>();
         DataInputStream data=new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
@@ -111,6 +113,28 @@ public class GameLoader {
     public List<Strawberry> loadStrawberry16x16file(String filePath) throws IOException {
         return this.convert(load16x16File(filePath, 'B'));
     }
+
+    public List<Hero> loadHero16x16file(String filePath, Arena arena) throws IOException {
+        ((HeroLoader)loader.get('H')).setArena(arena);
+        return this.convert(load16x16File(filePath, 'H'));
+    }
+
+    public Arena arenaBulder(String filePath) throws IOException {
+
+        List<Tile> tiles=loadTile16x16file(filePath);
+        List<Strawberry> strawberries=loadStrawberry16x16file(filePath);
+        List<EndBlock> endBlocks=loadEndBlock16x16file(filePath);
+        List<GroundedSpike> spikes=loadSpike16x16file(filePath);
+
+        List<GroundVoidBlock> voids=loadVoid16x16file(filePath);
+        Arena arena=new Arena(null,tiles,strawberries,endBlocks,spikes,voids);
+        List<Hero>  heroes=loadHero16x16file(filePath, arena);
+        arena.setHero(heroes.get(0));
+        return arena;
+    }
+
+
+
 
     public <T> List<T> convert(List<GameElement>elems){
         List<T> res= new ArrayList<>();
