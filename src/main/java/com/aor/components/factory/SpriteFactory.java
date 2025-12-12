@@ -8,6 +8,12 @@ import java.io.IOException;
 
 public class SpriteFactory implements GenericSpriteFactory {
     @Override
+    public GenericSprite newSprite(Vector2d position, String filePath) throws IOException {
+        return new SolidSprite(position, filePath);
+    }
+
+
+    @Override
     public GenericSprite newSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
         return new SolidSprite(position, offset, filePath);
     }

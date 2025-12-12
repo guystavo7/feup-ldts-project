@@ -37,11 +37,11 @@ public class HeroController implements GenericController {
     private final Timer wallJumpTimer;
 
     public HeroController(GenericModel model, Vector2d initialVelocity, int width, int height, Arena arena) {
-        String playerTag = GameData.getInstance().getPlayerTag();
+        String playerTag = GameData.getInstance().playerTag;
 
         this.model = (HeroModel) model;
-        this.boxCollider = new BoxCollider(this.model.getPosition(), new Vector2d(0,0), width, height, playerTag);
-        this.rigidBody = new RigidBody(this.model.getPosition(), new Vector2d(0, 0), initialVelocity, arena, boxCollider);
+        this.boxCollider = new BoxCollider(this.model.getPosition(), width, height, playerTag);
+        this.rigidBody = new RigidBody(this.model.getPosition(), initialVelocity, arena, boxCollider);
 
         //Ground collider
         Vector2d groundColliderOffset =  new Vector2d(2, height - 1d);
@@ -66,17 +66,17 @@ public class HeroController implements GenericController {
 
     public boolean checkIfGrounded() {
         groundCollider.update(model.getPosition());
-        return !arena.detectCollision(groundCollider.getPosition(), groundCollider, GameData.getInstance().getTileTag()).isEmpty();
+        return !arena.detectCollision(groundCollider.getPosition(), groundCollider, GameData.getInstance().tileTag).isEmpty();
     }
 
     public boolean checkIfLeftSliding() {
         leftWallCollider.update(model.getPosition());
-        return !arena.detectCollision(leftWallCollider.getPosition(), leftWallCollider, GameData.getInstance().getTileTag()).isEmpty() && model.getDirection().getX() < 0;
+        return !arena.detectCollision(leftWallCollider.getPosition(), leftWallCollider, GameData.getInstance().tileTag).isEmpty() && model.getDirection().getX() < 0;
     }
 
     public boolean checkIfRightSliding() {
         rightWallCollider.update(model.getPosition());
-        return !arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, GameData.getInstance().getTileTag()).isEmpty() && model.getDirection().getX() > 0;
+        return !arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, GameData.getInstance().tileTag).isEmpty() && model.getDirection().getX() > 0;
     }
 
     private void dash(double delta) {

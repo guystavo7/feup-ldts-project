@@ -19,6 +19,16 @@ public class TransparentSprite extends Node implements GenericSprite {
     private List<List<Pixel>> xFlippedImg;
     private List<List<Pixel>> normalImg;
 
+    public TransparentSprite(Vector2d position, String filePath) throws IOException {
+        super(position);
+        this.normalImg = Utils.loadTransparentImage(filePath);
+        xFlippedImg = Utils.loadXFlippedTransparentImage(filePath);
+        pixels = normalImg;
+        this.width = pixels.getFirst().size();
+        this.height = pixels.size();
+    }
+
+
     public TransparentSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
         super(position, offset);
         this.normalImg = Utils.loadTransparentImage(filePath);

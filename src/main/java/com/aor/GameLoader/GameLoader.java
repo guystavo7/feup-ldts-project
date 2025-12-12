@@ -81,9 +81,7 @@ public class GameLoader {
 
             }
             counter++;
-
         }
-
 
         return res;
     }

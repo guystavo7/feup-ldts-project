@@ -16,6 +16,16 @@ public class AnimatedSprite extends Node {
     private double currentFrame;
     private double frameSpeed;
 
+    public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed, GenericSpriteFactory factory) throws IOException {
+        super(position, new Vector2d(0, 0));
+        for(String ip : imgPaths){
+            frames.add(factory.newSprite(position, ip));
+        }
+
+        currentFrame = 0;
+        this.frameSpeed = frameSpeed;
+    }
+
     public AnimatedSprite(Vector2d position, Vector2d offset, List<String> imgPaths, double frameSpeed, GenericSpriteFactory factory) throws IOException {
         super(position, new Vector2d(0, 0));
         for(String ip : imgPaths){

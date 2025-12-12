@@ -17,6 +17,15 @@ public class SolidSprite extends Node implements GenericSprite {
     private TextImage xFlippedImg;
     private TextImage normalImg;
 
+    public SolidSprite(Vector2d position, String filePath) throws IOException {
+        super(position);
+        this.normalImg = Utils.loadImage(filePath);
+        this.xFlippedImg = Utils.loadXFlippedImage(filePath);
+        this.pixels = normalImg;
+        this.width = pixels.getSize().getColumns();
+        this.height = pixels.getSize().getRows();
+    }
+
     public SolidSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
         super(position, offset);
         this.normalImg = Utils.loadImage(filePath);

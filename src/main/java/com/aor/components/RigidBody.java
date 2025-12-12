@@ -4,6 +4,7 @@ import com.aor.game.Arena;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
+import javax.swing.*;
 import java.util.List;
 
 public class RigidBody extends Node {
@@ -11,6 +12,13 @@ public class RigidBody extends Node {
     private final BoxCollider boxCollider;
 
     private Vector2d velocity;
+
+    public RigidBody(Vector2d position, Vector2d velocity, Arena arena, BoxCollider boxCollider) {
+        super(position);
+        this.velocity = velocity;
+        this.arena = arena;
+        this.boxCollider = boxCollider;
+    }
 
     public RigidBody(Vector2d position, Vector2d offset, Vector2d velocity, Arena arena, BoxCollider boxCollider) {
         super(position, offset);

@@ -9,7 +9,7 @@ public class TileController implements GenericController {
     TileModel tileModel;
 
     public TileController(TileModel tileModel){
-        boxCollider=new BoxCollider(tileModel.getPosition(), new Vector2d(0, 0), tileModel.getWidth(), tileModel.getHeight(), "tile");
+        boxCollider = new BoxCollider(tileModel.getPosition(), tileModel.getWidth(), tileModel.getHeight(), "tile");
     }
 
     @Override

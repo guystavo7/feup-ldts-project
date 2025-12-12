@@ -2,10 +2,19 @@ package com.aor.components;
 
 import com.aor.utils.Vector2d;
 
+import javax.swing.*;
+
 public class BoxCollider extends Node {
     private int width;
     private int height;
     private String tag;
+
+    public BoxCollider(Vector2d position, int width, int height, String tag) {
+        super(position);
+        this.width = width;
+        this.height = height;
+        this.tag = tag;
+    }
 
     public BoxCollider(Vector2d position, Vector2d offset, int width, int height, String tag) {
         super(position, offset);

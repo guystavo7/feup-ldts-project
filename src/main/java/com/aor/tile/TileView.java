@@ -12,7 +12,7 @@ public class TileView implements GenericView {
     private SolidSprite sprite;
 
     public TileView(TileModel tileModel) throws IOException {
-        sprite = new SolidSprite(tileModel.getPosition(), new Vector2d(0, 0), tileModel.getFilePath());
+        sprite = new SolidSprite(tileModel.getPosition(), tileModel.getFilePath());
     }
 
     @Override

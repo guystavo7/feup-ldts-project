@@ -17,6 +17,14 @@ public class DashingState implements HeroState {
         this.direction = ((HeroModel) model).getDirection();
         this.lastState = lastState;
 
+        if (direction.getX() == 0 && direction.getY() == 0) {
+            if (this.model.isFacingRight()) {
+                direction.setX(1);
+            } else {
+                direction.setX(-1);
+            }
+        }
+
         if (direction.getX() == 0 && direction.getY() == 0) direction.setX(1);
 
         onEnter(delta);

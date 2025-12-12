@@ -29,9 +29,9 @@ public class Arena {
                 walls.add(t.getBoxCollider());
             }
 
-            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), new Vector2d(0, 0), 10, 1000, "tile");
+            BoxCollider wall2 = new BoxCollider(new Vector2d(-10, 0), 10, 1000, "tile");
             walls.add(wall2);
-            BoxCollider wall3 = new BoxCollider(new Vector2d(128, 0), new Vector2d(0, 0), 10, 1000, "tile");
+            BoxCollider wall3 = new BoxCollider(new Vector2d(128, 0), 10, 1000, "tile");
             walls.add(wall3);
 
 

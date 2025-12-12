@@ -3,8 +3,8 @@ package com.aor.game;
 import java.util.*;
 
 public class GameData {
-    public int SCREEN_WIDTH = 128;
-    public int SCREEN_HEIGHT = 128;
+    public final int SCREEN_WIDTH = 128;
+    public final int SCREEN_HEIGHT = 128;
 
     // static varibles
     public static int tileWidth = 8;
@@ -13,12 +13,9 @@ public class GameData {
     private static GameData instance;
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
 
-    private String playerTag = "player";
-    private String tileTag = "tile";
-    private String allColliders = "all";
-
-    private int collectedstrawberries = 0;
-    private int totalstrawberries = 0;
+    public String playerTag = "player";
+    public String tileTag = "tile";
+    public String allColliders = "all";
 
     public double maxHorizontalVelocity = 1d;
     public double maxVerticalVelocity = 1d;
@@ -26,7 +23,7 @@ public class GameData {
 
     public double groundFriction = 15d;
     public double airFriction = 8d;
-    public double dashFriction = 10d;
+    public double dashFriction = 12d;
 
     public double horizontalAcceleration = 10d;
     public double gravityAcceleration = 5d;
@@ -35,16 +32,9 @@ public class GameData {
 
     public double jumpBufferTime = 0.15d;
     public double coyoteTime = 0.15d;
-    public double dashTime = 0.30d;
+    public double dashTime = 0.25d;
     public double wallJumpTime = 0.15d;
-    //Level data
-    private int currentlevel;
-    private int totallevels;
-    private List<Integer> completedlevels = new ArrayList<>();
 
-    //Rendering settings
-    private int windowwidth;
-    private int windowheight;
 
     private static Map<String ,String> tileImgPathLoader(){
         //src/main/resources/Tiles/tile000.png
@@ -58,45 +48,10 @@ public class GameData {
         return res;
     }
 
-    //Input settings
-    private boolean iskeyboardInverted = false;
-    private float inputSensivity;
-
-    private GameData() {
-    }
-
     public static GameData getInstance() {
         if (instance == null) {
             instance = new GameData();
         }
         return instance;
-    }
-
-    public int getCollectedstrawberries() {return collectedstrawberries;}
-    public void setCollectedstrawberries(int count) {this.collectedstrawberries = count;}
-
-
-    public int getTotalstrawberries() {return totalstrawberries;}
-    public void setTotalstrawberries(int count) {this.totalstrawberries = count;}
-    public int getWidth() {return windowwidth;}
-    public void setWidth(int width) {this.windowwidth = width;}
-    public int getHeight() {return windowheight;}
-    public void setHeight(int height) {this.windowheight = height;}
-    public boolean isLevelCompleted(int level) {
-        return completedlevels.contains(level);
-    }
-
-
-
-    public String getPlayerTag() {
-        return playerTag;
-    }
-
-    public String getTileTag() {
-        return tileTag;
-    }
-
-    public String getAllColliders() {
-        return allColliders;
     }
 }

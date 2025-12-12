@@ -10,7 +10,6 @@ import com.aor.hero.states.DashingState;
 import com.aor.hero.states.IdleState;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
-import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class HeroView implements GenericView {
@@ -29,8 +28,8 @@ public class HeroView implements GenericView {
             TransparentSpriteFactory factory = new TransparentSpriteFactory();
 
             for (Class state : filePaths.keySet()) {
-                sprites.put(state, new AnimatedSprite(this.model.getPosition(), new Vector2d(0, 0), filePaths.get(state), 10, factory));
-                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), new Vector2d(0, 0), filesPaths_v1.get(state), 10, factory));
+                sprites.put(state, new AnimatedSprite(this.model.getPosition(), filePaths.get(state), 10, factory));
+                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), filesPaths_v1.get(state), 10, factory));
             }
 
             currentState = IdleState.class;
