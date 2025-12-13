@@ -9,4 +9,8 @@ public class BackgroundBlock  extends Tile {
     public BackgroundBlock(Vector2d position, String path) throws IOException {
         super(position, path, " ");
     }
+
+    public BackgroundBlock(Vector2d position, Vector2d offset, int width, int height, String path) throws IOException {
+        super(position, offset, width, height, path, " ");
+    }
 }

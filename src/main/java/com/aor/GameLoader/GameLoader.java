@@ -22,7 +22,9 @@ public class GameLoader {
             'V', new GroundedVoidBlockLoader(),
             'B', new StraberryLoader(),
             'H', new HeroLoader(),
-            'F', new BackgroundLoader());
+            'F', new BackgroundLoader(),
+            'G', new GrassLoader(),
+            'C', new FlowerLoader());
 
     public List<GameElement> load16x16file(String filePath) throws IOException {
         List<GameElement>res = new ArrayList<>();
@@ -122,7 +124,12 @@ public class GameLoader {
     }
 
     public List<BackgroundBlock> loadBackground16x16file(String filePath) throws IOException {
-        return this.convert(load16x16File(filePath, 'F'));
+        List<BackgroundBlock> tiles = new ArrayList<>();
+        tiles.addAll(convert(load16x16File(filePath, 'F')));
+        tiles.addAll(convert(load16x16File(filePath, 'G')));
+        tiles.addAll(convert(load16x16File(filePath, 'C')));
+
+        return tiles;
     }
 
     public Arena arenaBuilder(String filePath, String backgroundPath) throws IOException {

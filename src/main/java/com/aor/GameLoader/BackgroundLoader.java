@@ -9,7 +9,7 @@ import java.io.IOException;
 public class BackgroundLoader implements GameElementLoader {
     @Override
     public BackgroundBlock Parse(String data, Vector2d position) throws IOException {
-        String type = "B" + data;
+        String type = "F" + data;
         return new BackgroundBlock(position, GameData.tileImgsPath.get(type));
     }
 }

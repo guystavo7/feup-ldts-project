@@ -22,6 +22,7 @@ public class GameData {
     public static final String STRAWBERRY_TAG = "strawberry";
     public static final String SPIKE_TAG = "spike";
     public static final String VOID_TILE_TAG = "void";
+    public static final String INV_WALL_TAG = "inv";
 
     public static final double MAX_HORIZONTAL_VELOCITY = 1d;
     public static final double MAX_VERTICAL_VELOCITY = 1d;
@@ -59,12 +60,14 @@ public class GameData {
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            imagePaths.put("B" + id, "src/main/resources/Background/bg0" + id + ".png");
+            imagePaths.put("F" + id, "src/main/resources/Background/bg0" + id + ".png");
         }
 
-        imagePaths.put("B","src/main/resources/misc/strawberry.png");
         imagePaths.put("strawberry", "src/main/resources/misc/strawberry.png");
         imagePaths.put("spike", "src/main/resources/misc/Spike.png");
+        imagePaths.put("flower", "src/main/resources/misc/flower.png");
+        imagePaths.put("G00", "src/main/resources/misc/grass0.png");
+        imagePaths.put("G01", "src/main/resources/misc/grass1.png");
 
         return imagePaths;
     }

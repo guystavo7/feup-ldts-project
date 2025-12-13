@@ -10,13 +10,16 @@ import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import javax.swing.*;
+
 public class Arena {
     private Hero hero;
 
     private boolean isHeroDead = false;
     private boolean isArenaCompleted = false;
 
-    private List<Tile> generalTiles=new ArrayList<>();
+    private List<Tile> generalTiles = new ArrayList<>();
+    private List<BoxCollider> boxColliders = new ArrayList<>();
 
     private List<Tile> tiles;
 
@@ -36,25 +39,37 @@ public class Arena {
         this.voids = voids;
         this.background = background;
 
+        generalTiles = new ArrayList<>();
+
         for(Strawberry s : strawberries) {
             generalTiles.add(s);
+            boxColliders.add(s.getBoxCollider());
         }
 
         for(Tile t : tiles) {
             generalTiles.add(t);
+            boxColliders.add(t.getBoxCollider());
         }
 
         for(GroundedSpike s : spikes) {
             generalTiles.add(s);
+            boxColliders.add(s.getBoxCollider());
         }
 
         for (EndBlock e: endBlocks){
             generalTiles.add(e);
+            boxColliders.add(e.getBoxCollider());
         }
 
         for (GroundVoidBlock v:voids ){
             generalTiles.add(v);
+            boxColliders.add(v.getBoxCollider());
         }
+
+        BoxCollider leftInvWall = new BoxCollider(new Vector2d(-10, 0), 10, GameData.SCREEN_HEIGHT, GameData.INV_WALL_TAG);
+        BoxCollider rightInvWall = new BoxCollider(new Vector2d(GameData.SCREEN_WIDTH, 0), 10, GameData.SCREEN_HEIGHT, GameData.INV_WALL_TAG);
+        boxColliders.add(leftInvWall);
+        boxColliders.add(rightInvWall);
     }
 
     public void setHero(Hero hero) {
@@ -86,13 +101,12 @@ public class Arena {
         Vector2d oldPos = new Vector2d(boxCollider.getPosition().getX(), boxCollider.getPosition().getY());
         boxCollider.setPosition(newPos);
 
-        for (Tile tile : generalTiles) {
-            BoxCollider tileBoxCollider = tile.getBoxCollider();
+        for (BoxCollider tileBoxCollider : boxColliders) {
             if (!boxCollider.isColliding(tileBoxCollider)) continue;
 
             if (searchTag.equals(GameData.ALL_COLLIDERS) || searchTag.equals(tileBoxCollider.getTag())) {
                 tileBoxCollider.firstCollide();
-                if (tileBoxCollider.getTag().equals(GameData.TILE_TAG)) colliders.add(tileBoxCollider);
+                if ((tileBoxCollider.getTag().equals(GameData.TILE_TAG) || tileBoxCollider.getTag().equals(GameData.INV_WALL_TAG))) colliders.add(tileBoxCollider);
             }
         }
 
