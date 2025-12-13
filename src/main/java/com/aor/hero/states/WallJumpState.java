@@ -17,7 +17,10 @@ public class WallJumpState implements HeroState {
 
     @Override
     public void onEnter(double delta) {
-        model.getVelocity().setX(GameData.MAX_VERTICAL_VELOCITY * 1.5 * model.getDirection().getX() * -1);
+        int xDirection = 1;
+        if (model.isFacingRight()) xDirection = -1;
+
+        model.getVelocity().setX(GameData.MAX_VERTICAL_VELOCITY * 1.5 * xDirection * -1);
         model.getVelocity().setY(GameData.JUMP_FORCE * 0.4);
     }
 
