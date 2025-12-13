@@ -9,6 +9,6 @@ import java.io.IOException;
 public class TileLoader implements GameElementLoader {
     @Override
     public Tile Parse(String data, Vector2d pos) throws IOException {// format
-        return new Tile(pos, GameData.tileImgsPath.get(data));
+        return new Tile(pos, GameData.tileImgsPath.get(data), GameData.TILE_TAG);
     }
 }

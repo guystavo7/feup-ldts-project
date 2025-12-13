@@ -17,6 +17,7 @@ import com.aor.mvc.GenericController;
 import com.aor.utils.Timer;
 
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class HeroController implements GenericController {
@@ -28,6 +29,7 @@ public class HeroController implements GenericController {
     private final BoxCollider groundCollider;
     private final BoxCollider leftWallCollider;
     private final BoxCollider rightWallCollider;
+
     private final Arena arena;
 
     //Timers

@@ -9,12 +9,32 @@ import com.aor.utils.Vector2d;
 public class TileModel implements GenericModel {
     private int width;
     private int height;
-    private Vector2d position;
-    private String filePath;
 
-    public TileModel(Vector2d position, String filePath){
+    private Vector2d position;
+    private Vector2d offset;
+
+    private String filePath;
+    private String tag;
+
+    public TileModel(Vector2d position, Vector2d offset, int width, int height, String filePath, String tag){
         this.position = position;
+        this.offset = offset;
+
         this.filePath = filePath;
+        this.tag = tag;
+
+        this.width = width;
+        this.height = height;
+    }
+
+
+    public TileModel(Vector2d position, String filePath, String tag){
+        this.position = position;
+        this.offset = new Vector2d(0, 0);
+
+        this.filePath = filePath;
+        this.tag = tag;
+
         width = GameData.TILE_WIDTH;
         height = GameData.TILE_HEIGHT;
     }
@@ -28,4 +48,12 @@ public class TileModel implements GenericModel {
     public int getWidth(){return width;}
 
     public int getHeight(){return height;}
+
+    public Vector2d getOffset() {
+        return offset;
+    }
+
+    public String getTag() {
+        return tag;
+    }
 }

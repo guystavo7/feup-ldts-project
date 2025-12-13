@@ -6,7 +6,7 @@ import com.aor.utils.Vector2d;
 import java.io.IOException;
 
 public class EndBlock extends EmptyBlock {
-    public EndBlock(Vector2d pos) throws IOException {
-        super(pos, GameData.END_BLOCK_TAG);
+    public EndBlock(Vector2d position) throws IOException {
+        super(position, new Vector2d(0, 0), 8, 1, GameData.END_BLOCK_TAG);
     }
 }

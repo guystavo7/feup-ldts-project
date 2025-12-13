@@ -8,9 +8,9 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 
 public class Strawberry extends Tile {
-    boolean active=true;
+    boolean active = true;
     public Strawberry(Vector2d pos) throws IOException {
-        super(pos, GameData.tileImgsPath.get("strawberry"));
+        super(pos, GameData.tileImgsPath.get("strawberry"), GameData.STRAWBERRY_TAG);
         super.getBoxCollider().setTag(GameData.STRAWBERRY_TAG);
     }
 
@@ -21,7 +21,8 @@ public class Strawberry extends Tile {
     @Override
     public void update(TextGraphics graphics, double delta){
         active = !super.getBoxCollider().getCollidedOnce();
-        if(active){
+
+        if (active) {
             super.update(graphics,delta);
         }
     }

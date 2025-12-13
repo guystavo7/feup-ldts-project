@@ -9,9 +9,9 @@ public class TileController implements GenericController {
     BoxCollider boxCollider;
     TileModel tileModel;
 
-    public TileController(GenericModel tileModel){
+    public TileController(GenericModel tileModel, String tag){
         this.tileModel = (TileModel) tileModel;
-        this.boxCollider = new BoxCollider(this.tileModel.getPosition(), this.tileModel.getWidth(), this.tileModel.getHeight(), GameData.TILE_TAG);
+        this.boxCollider = new BoxCollider(this.tileModel.getPosition(), this.tileModel.getOffset(), this.tileModel.getWidth(), this.tileModel.getHeight(), tag);
     }
 
     @Override

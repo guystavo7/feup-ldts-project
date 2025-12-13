@@ -12,13 +12,16 @@ public class Tile implements GameElement {
     TileModel tileModel;
     TileController tileController;
 
-    public Tile(Vector2d pos, String filePath) throws IOException {
-        tileModel = new TileModel(pos,filePath);
+    public Tile(Vector2d position, Vector2d offset, int width, int height, String filePath, String tag) throws IOException {
+        tileModel = new TileModel(position, offset, width, height, filePath, tag);
         tileView = new TileView(tileModel);
-        tileController = new TileController(tileModel);
+        tileController = new TileController(tileModel, this.tileModel.getTag());
     }
-    public static Tile TileFrom16x16Grid(int gridX, int gridY, String filePath) throws IOException {
-        return new Tile(new Vector2d(gridX * 8d,gridY * 8d), filePath);
+
+    public Tile(Vector2d position, String filePath, String tag) throws IOException {
+        tileModel = new TileModel(position, filePath, tag);
+        tileView = new TileView(tileModel);
+        tileController = new TileController(tileModel, this.tileModel.getTag());
     }
 
     public void update(TextGraphics graphics, double delta) {

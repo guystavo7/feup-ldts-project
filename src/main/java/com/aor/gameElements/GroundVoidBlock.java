@@ -8,16 +8,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 
 public class GroundVoidBlock extends EmptyBlock {
-
-
-    public GroundVoidBlock(Vector2d pos) throws IOException {
-        super(pos,GameData.VOID_TILE_TAG);
-        super.getBoxCollider().setPosition(assertPos(pos));
-    }
-
-    private Vector2d assertPos(Vector2d pos){
-        pos.setY(pos.getY()+15);
-        return pos;
+    public GroundVoidBlock(Vector2d position) throws IOException {
+        super(position, new Vector2d(0, 8), 8, 8, GameData.VOID_TILE_TAG);
     }
 }
 

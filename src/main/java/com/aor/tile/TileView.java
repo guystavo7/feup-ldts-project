@@ -14,7 +14,7 @@ public class TileView implements GenericView {
 
     public TileView(GenericModel tileModel) throws IOException {
         this.tileModel = (TileModel) tileModel;
-        sprite = new SolidSprite(this.tileModel.getPosition(), this.tileModel.getFilePath());
+        sprite = new SolidSprite(this.tileModel.getPosition(), this.tileModel.getOffset(), this.tileModel.getFilePath());
     }
 
     @Override
