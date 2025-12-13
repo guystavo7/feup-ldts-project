@@ -1,5 +1,6 @@
 package com.aor.game;
 import java.util.HashMap;
+import java.util.Map;
 
 enum KeyState {
     UP, //Key not pressed
@@ -9,7 +10,7 @@ enum KeyState {
 
 public class InputHandler {
     private static InputHandler instance;
-    private final HashMap<Integer, KeyState> keysPressed;
+    private final Map<Integer, KeyState> keysPressed;
 
     private InputHandler() {
         keysPressed = new HashMap<>();

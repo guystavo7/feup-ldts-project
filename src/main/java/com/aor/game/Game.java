@@ -6,11 +6,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Queue;
 
 import com.aor.GameLoader.GameLoader;
 import com.aor.arena.Arena;
+import com.aor.game.state.*;
 import com.aor.utils.Timer;
 import com.aor.utils.Utils;
 import com.googlecode.lanterna.screen.Screen;
@@ -23,6 +23,7 @@ public class Game {
     private Screen screen;
 
     private boolean isRunning;
+    private GameState gameState;
 
     private Arena arena;
     private Queue<String> arenaMaps;
@@ -66,21 +67,29 @@ public class Game {
 
             arena = new GameLoader().arenaBuilder(arenaMaps.peek());
             transitionTimer = new Timer(0.5, false);
+            gameState = new MenuState(this);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void resetArena() throws IOException {
+    public void resetArena() throws IOException {
         arena = new GameLoader().arenaBuilder(arenaMaps.peek());
         transitionTimer.start();
     }
 
-    private void nextArena() throws IOException {
+    public void nextArena() throws IOException {
         arenaMaps.poll();
-        arena = new GameLoader().arenaBuilder(arenaMaps.peek());
-        transitionTimer.start();
+        String newArena = arenaMaps.peek();
+
+        if (newArena != null) {
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+            transitionTimer.start();
+
+        } else {
+            gameState = new EndState(this);
+        }
     }
 
     public Game() {
@@ -101,14 +110,8 @@ public class Game {
                 previousTime = currentTime;
 
                 try {
-                    screen.clear();
-                    if (!transitionTimer.isRunning()) arena.update(screen.newTextGraphics(), delta / 1_000_000_000d);
-                    screen.refresh(Screen.RefreshType.DELTA);
-
-                    transitionTimer.update(delta / 1_000_000_000d);
-                    if (arena.isHeroDead()) resetArena();
-                    else if (arena.isArenaCompleted()) nextArena();
-
+                    gameState.update(delta);
+                    gameState.transition(delta);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -118,7 +121,6 @@ public class Game {
                 if (sleepTime > 0) {
                     try {
                         Thread.sleep((long) sleepTime);
-
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
@@ -133,7 +135,23 @@ public class Game {
         }
     }
 
-    private void close() throws IOException {
+    public void setGameState(GameState newGameState) {
+        gameState = newGameState;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public Timer getTransitionTimer() {
+        return transitionTimer;
+    }
+
+    public Arena getArena() {
+        return arena;
+    }
+
+    public void close() throws IOException {
         screen.close();
         terminal.close();
     }
