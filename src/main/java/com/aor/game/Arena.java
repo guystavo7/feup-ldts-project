@@ -13,6 +13,8 @@ import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import javax.swing.*;
+
 public class Arena {
     private Hero hero;
     private List<BoxCollider> walls = new ArrayList<>();
@@ -65,6 +67,10 @@ public class Arena {
             generalTiles.add(v);
         }
 
+        BoxCollider leftInvWalL = new BoxCollider(new Vector2d(-10, 0), 10, GameData.SCREEN_HEIGHT, GameData.TILE_TAG);
+        BoxCollider rightInvWall = new BoxCollider(new Vector2d(GameData.SCREEN_WIDTH, 0), 10, GameData.SCREEN_HEIGHT, GameData.TILE_TAG);
+        walls.add(leftInvWalL);
+        walls.add(rightInvWall);
     }
 
     public void setHero(Hero hero) {
@@ -110,7 +116,6 @@ public class Arena {
     public boolean isHeroDead() {
         return isHeroDead;
     }
-
     public boolean isArenaCompleted() {
         return isArenaCompleted;
     }

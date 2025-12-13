@@ -44,15 +44,16 @@ public class GameData {
 
 
     private static Map<String ,String> tileImgPathLoader(){
-        List<String> l = Arrays.asList("00","01","02","03", "04", "05", "06", "08", "13");
         Map<String ,String> res=new HashMap<>();
-        for(String i : l){
-            res.put(i,"src/main/resources/Tiles/tile0" + i + ".png");
+        for(Integer i = 0; i < 37; i++){
+            String id = i.toString();
+            if (i < 10) id = "0" + id;
 
+            res.put(id, "src/main/resources/Tiles/tile0" + id + ".png");
         }
+
         res.put("B","src/main/resources/misc/strawberry.png");
         res.put("strawberry", "src/main/resources/misc/strawberry.png");
-
         res.put("spike", "src/main/resources/misc/Spike.png");
 
         return res;
