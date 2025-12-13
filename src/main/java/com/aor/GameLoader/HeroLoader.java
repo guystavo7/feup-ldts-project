@@ -1,6 +1,6 @@
 package com.aor.GameLoader;
 
-import com.aor.arena.Arena;
+import com.aor.game.Arena;
 import com.aor.hero.mvc.Hero;
 import com.aor.utils.Vector2d;
 

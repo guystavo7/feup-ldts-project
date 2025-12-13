@@ -29,7 +29,7 @@ public class Tile implements GameElement {
         tileView.update(graphics, delta);
     }
 
-    public BoxCollider getBoxCollider(){
+    public BoxCollider getBoxCollider() {
         return tileController.getBoxCollider();
     }
 }

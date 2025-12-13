@@ -1,14 +1,10 @@
-package com.aor.arena;
+package com.aor.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.aor.components.BoxCollider;
-import com.aor.game.GameData;
-import com.aor.gameElements.EndBlock;
-import com.aor.gameElements.GroundVoidBlock;
-import com.aor.gameElements.GroundedSpike;
-import com.aor.gameElements.Strawberry;
+import com.aor.gameElements.*;
 import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
@@ -16,7 +12,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Arena {
     private Hero hero;
-    private Hero initialPosition;
 
     private boolean isHeroDead = false;
     private boolean isArenaCompleted = false;
@@ -30,14 +25,16 @@ public class Arena {
     private List<GroundedSpike> spikes;
 
     private List<GroundVoidBlock> voids;
+    private List<BackgroundBlock> background;
 
-    public Arena(Hero hero, List<Tile> tiles,List<Strawberry> strawberries,List<EndBlock> endBlocks,List<GroundedSpike> spikes,List<GroundVoidBlock> voids) {
+    public Arena(Hero hero, List<Tile> tiles, List<Strawberry> strawberries, List<EndBlock> endBlocks, List<GroundedSpike> spikes, List<GroundVoidBlock> voids, List<BackgroundBlock> background) {
         this.hero = hero;
         this.tiles = tiles;
         this.strawberries = strawberries;
         this.endBlocks = endBlocks;
         this.spikes = spikes;
         this.voids = voids;
+        this.background = background;
 
         for(Strawberry s : strawberries) {
             generalTiles.add(s);
@@ -58,12 +55,10 @@ public class Arena {
         for (GroundVoidBlock v:voids ){
             generalTiles.add(v);
         }
-
     }
 
     public void setHero(Hero hero) {
         this.hero = hero;
-
     }
 
     private boolean checkIfHeroIsDead() {
@@ -106,6 +101,10 @@ public class Arena {
     }
 
     public void update(TextGraphics graphics, double delta) {
+        for (Tile tile : background) {
+            tile.update(graphics, delta);
+        }
+
         for (Tile t : generalTiles) {
             t.update(graphics, delta);
         }

@@ -8,7 +8,8 @@ import java.io.IOException;
 
 public class TileLoader implements GameElementLoader {
     @Override
-    public Tile Parse(String data, Vector2d pos) throws IOException {// format
-        return new Tile(pos, GameData.tileImgsPath.get(data), GameData.TILE_TAG);
+    public Tile Parse(String data, Vector2d pos) throws IOException {
+        String id = 'T' + data;
+        return new Tile(pos, GameData.tileImgsPath.get(id), GameData.TILE_TAG);
     }
 }

@@ -8,17 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.aor.arena.Arena;
-import com.aor.gameElements.EndBlock;
-import com.aor.gameElements.GroundVoidBlock;
-import com.aor.gameElements.GroundedSpike;
-import com.aor.gameElements.Strawberry;
+import com.aor.game.Arena;
+import com.aor.gameElements.*;
 import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 
 public class GameLoader {
-    Map<Character,GameElementLoader> loader=Map.of('T', new TileLoader() ,'E',new EndBlockLoader(),'S',new GroundedSpikeLoader(),'V',new GroundedVoidBlockLoader(),'B',new StraberryLoader(),'H',new HeroLoader());
+    Map<Character,GameElementLoader> loader=Map.of(
+            'T', new TileLoader() ,
+            'E', new EndBlockLoader(),
+            'S', new GroundedSpikeLoader(),
+            'V', new GroundedVoidBlockLoader(),
+            'B', new StraberryLoader(),
+            'H', new HeroLoader(),
+            'F', new BackgroundLoader());
+
     public List<GameElement> load16x16file(String filePath) throws IOException {
         List<GameElement>res = new ArrayList<>();
         DataInputStream data = new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
@@ -50,11 +55,12 @@ public class GameLoader {
 
         }
 
+        data.close();
         return res;
     }
 
 
-    public  List<GameElement> load16x16File(String filePath,Character id) throws IOException {
+    public  List<GameElement> load16x16File(String filePath, Character id) throws IOException {
         List<GameElement>res=new ArrayList<>();
         DataInputStream data=new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
         StringBuilder sbdata=new StringBuilder();
@@ -80,16 +86,15 @@ public class GameLoader {
 
         for(String d:divdata){
             d=d.trim();
-            if( !(d.isEmpty()) && d.charAt(0)==id && !d.equals("-1")){
+            if( !(d.isEmpty()) && d.charAt(0) == id){
                 Vector2d pos = new Vector2d((float) (counter % 16) * 8,(float) ((int) counter / 16) * 8);
                 res.add( loader.get(id).Parse(d.substring(1),pos));
 
             }
             counter++;
-
         }
 
-
+        data.close();
         return res;
     }
     public List<Tile> loadTile16x16file(String filePath) throws IOException {
@@ -107,7 +112,6 @@ public class GameLoader {
         return this.convert(load16x16File(filePath, 'V'));
     }
 
-
     public List<Strawberry> loadStrawberry16x16file(String filePath) throws IOException {
         return this.convert(load16x16File(filePath, 'B'));
     }
@@ -117,21 +121,28 @@ public class GameLoader {
         return this.convert(load16x16File(filePath, 'H'));
     }
 
-    public Arena arenaBuilder(String filePath) throws IOException {
+    public List<BackgroundBlock> loadBackground16x16file(String filePath) throws IOException {
+        return this.convert(load16x16File(filePath, 'F'));
+    }
+
+    public Arena arenaBuilder(String filePath, String backgroundPath) throws IOException {
+
         List<Tile> tiles=loadTile16x16file(filePath);
         List<Strawberry> strawberries=loadStrawberry16x16file(filePath);
         List<EndBlock> endBlocks=loadEndBlock16x16file(filePath);
         List<GroundedSpike> spikes=loadSpike16x16file(filePath);
 
         List<GroundVoidBlock> voids=loadVoid16x16file(filePath);
-        Arena arena=new Arena(null, tiles, strawberries, endBlocks, spikes, voids);
+        List<BackgroundBlock> background = loadBackground16x16file(backgroundPath);
+
+        Arena arena = new Arena(null, tiles, strawberries, endBlocks, spikes, voids, background);
 
         List<Hero> heroes = loadHero16x16file(filePath, arena);
         arena.setHero(heroes.getFirst());
         return arena;
     }
 
-    public <T> List<T> convert(List<GameElement>elems){
+    public <T> List<T> convert(List<GameElement> elems){
         List<T> res= new ArrayList<>();
         for (GameElement e : elems) {
             res.add((T) e);

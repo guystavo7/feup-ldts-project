@@ -42,19 +42,31 @@ public class GameData {
     public static final double DASH_TIME = 0.25d;
     public static final double WALL_JUMP_TIME = 0.15d;
 
+    private static HashMap<String, String> imagePaths;
 
     private static Map<String ,String> tileImgPathLoader(){
-        Map<String ,String> res=new HashMap<>();
+        if (imagePaths != null) return imagePaths;
+
+        imagePaths = new HashMap<>();
         for(Integer i = 0; i < 37; i++){
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            res.put(id, "src/main/resources/Tiles/tile0" + id + ".png");
+            imagePaths.put("T" + id, "src/main/resources/Tiles/tile0" + id + ".png");
         }
 
-        res.put("B","src/main/resources/misc/strawberry.png");
-        res.put("strawberry", "src/main/resources/misc/strawberry.png");
-        res.put("spike", "src/main/resources/misc/Spike.png");
+        for (Integer i = 0; i < 8; i++) {
+            String id = i.toString();
+            if (i < 10) id = "0" + id;
 
-        return res;
-    }}
+            imagePaths.put("B" + id, "src/main/resources/Background/bg0" + id + ".png");
+        }
+
+        imagePaths.put("B","src/main/resources/misc/strawberry.png");
+        imagePaths.put("strawberry", "src/main/resources/misc/strawberry.png");
+        imagePaths.put("spike", "src/main/resources/misc/Spike.png");
+
+        return imagePaths;
+    }
+
+}

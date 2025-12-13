@@ -1,7 +1,7 @@
 package com.aor.hero.mvc;
 
 import com.aor.GameLoader.GameElement;
-import com.aor.arena.Arena;
+import com.aor.game.Arena;
 import com.aor.hero.states.*;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;

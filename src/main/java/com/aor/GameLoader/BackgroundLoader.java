@@ -1,0 +1,15 @@
+package com.aor.GameLoader;
+
+import com.aor.game.GameData;
+import com.aor.gameElements.BackgroundBlock;
+import com.aor.utils.Vector2d;
+
+import java.io.IOException;
+
+public class BackgroundLoader implements GameElementLoader {
+    @Override
+    public BackgroundBlock Parse(String data, Vector2d position) throws IOException {
+        String type = "B" + data;
+        return new BackgroundBlock(position, GameData.tileImgsPath.get(type));
+    }
+}

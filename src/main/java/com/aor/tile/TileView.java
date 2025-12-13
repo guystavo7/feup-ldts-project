@@ -1,6 +1,7 @@
 package com.aor.tile;
 
 import com.aor.components.sprites.SolidSprite;
+import com.aor.components.sprites.TransparentSprite;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
 import com.aor.utils.Vector2d;
@@ -10,11 +11,11 @@ import java.io.IOException;
 
 public class TileView implements GenericView {
     private TileModel tileModel;
-    private SolidSprite sprite;
+    private TransparentSprite sprite;
 
     public TileView(GenericModel tileModel) throws IOException {
         this.tileModel = (TileModel) tileModel;
-        sprite = new SolidSprite(this.tileModel.getPosition(), this.tileModel.getOffset(), this.tileModel.getFilePath());
+        sprite = new TransparentSprite(this.tileModel.getPosition(), this.tileModel.getOffset(), this.tileModel.getFilePath());
     }
 
     @Override

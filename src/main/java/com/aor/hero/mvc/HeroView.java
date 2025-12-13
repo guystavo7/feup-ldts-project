@@ -19,9 +19,6 @@ public class HeroView implements GenericView {
     private AnimatedSprite currentSprite;
     private Class currentState;
 
-
-//    private List<AttachedSprite> hair=new ArrayList<>();
-
     public HeroView(GenericModel model, Map<Class, List<String>> filePaths, Map<Class, List<String>> filesPaths_v1) {
         try {
             this.model = (HeroModel) model;
@@ -34,10 +31,6 @@ public class HeroView implements GenericView {
 
             currentState = IdleState.class;
             currentSprite = sprites.get(currentState);
-//            hair.add(new AttachedSprite(new Sprite(new Vector2d(this.model.getPosition().getX(),this.model.getPosition().getY()),"src/main/resources/hair.png"),this.model ,new Vector2d(0,2),4,4));
-//            for(int i=1; i!=3; i++){
-//                hair.add(new AttachedSprite(new Sprite(new Vector2d( hair.get(i-1).getPosition().getX(),hair.get(i-1).getPosition().getY()),"src/main/resources/hair.png"),hair.get(i-1),new Vector2d(0,2),4,4));
-//            }
 
         } catch (Exception e) {
             e.printStackTrace();

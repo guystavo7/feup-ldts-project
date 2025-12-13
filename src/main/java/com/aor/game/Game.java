@@ -9,7 +9,6 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 import com.aor.GameLoader.GameLoader;
-import com.aor.arena.Arena;
 import com.aor.game.state.*;
 import com.aor.utils.Timer;
 import com.aor.utils.Utils;
@@ -65,7 +64,7 @@ public class Game {
                 arenaMaps.add(path);
             }
 
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), "src/main/resources/Maps/bg1.csv");
             transitionTimer = new Timer(0.5, false);
             gameState = new MenuState(this);
 
@@ -75,7 +74,7 @@ public class Game {
     }
 
     public void resetArena() throws IOException {
-        arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+        arena = new GameLoader().arenaBuilder(arenaMaps.peek(), "src/main/resources/Maps/bg1.csv");
         transitionTimer.start();
     }
 
@@ -84,7 +83,7 @@ public class Game {
         String newArena = arenaMaps.peek();
 
         if (newArena != null) {
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), "src/main/resources/Maps/bg1.csv");
             transitionTimer.start();
 
         } else {

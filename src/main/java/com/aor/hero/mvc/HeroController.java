@@ -2,7 +2,7 @@ package com.aor.hero.mvc;
 
 import com.aor.components.BoxCollider;
 import com.aor.components.RigidBody;
-import com.aor.arena.Arena;
+import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.game.InputHandler;
 import com.aor.hero.states.SlidingState;
