@@ -5,8 +5,13 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
 
 import com.aor.GameLoader.GameLoader;
+import com.aor.arena.Arena;
+import com.aor.utils.Timer;
 import com.aor.utils.Utils;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -16,8 +21,13 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 public class Game {
     private Terminal terminal;
     private Screen screen;
-    private Arena arena;
+
     private boolean isRunning;
+
+    private Arena arena;
+    private Queue<String> arenaMaps;
+
+    private Timer transitionTimer;
 
     public void setup() {
         try {
@@ -46,13 +56,31 @@ public class Game {
             screen.doResizeIfNecessary();
             screen.refresh();
 
-
             isRunning = true;
-            arena = new GameLoader().arenaBuilder("src/main/resources/Maps/map5.csv");
+            arenaMaps = new ArrayDeque<>();
+
+            for (int i = 1; i < 6; i++) {
+                String path = "src/main/resources/Maps/map" + i + ".csv";
+                arenaMaps.add(path);
+            }
+
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+            transitionTimer = new Timer(0.5, false);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void resetArena() throws IOException {
+        arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+        transitionTimer.start();
+    }
+
+    private void nextArena() throws IOException {
+        arenaMaps.poll();
+        arena = new GameLoader().arenaBuilder(arenaMaps.peek());
+        transitionTimer.start();
     }
 
     public Game() {
@@ -74,9 +102,12 @@ public class Game {
 
                 try {
                     screen.clear();
-                    arena.update(screen.newTextGraphics(), delta / 1_000_000_000d);
+                    if (!transitionTimer.isRunning()) arena.update(screen.newTextGraphics(), delta / 1_000_000_000d);
                     screen.refresh(Screen.RefreshType.DELTA);
-                    isRunning = !arena.isHeroDead() && !arena.isArenaCompleted();
+
+                    transitionTimer.update(delta / 1_000_000_000d);
+                    if (arena.isHeroDead()) resetArena();
+                    else if (arena.isArenaCompleted()) nextArena();
 
                 } catch (Exception e) {
                     e.printStackTrace();

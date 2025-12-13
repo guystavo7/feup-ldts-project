@@ -1,6 +1,6 @@
 package com.aor.components;
 
-import com.aor.game.Arena;
+import com.aor.arena.Arena;
 import com.aor.utils.Vector2d;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

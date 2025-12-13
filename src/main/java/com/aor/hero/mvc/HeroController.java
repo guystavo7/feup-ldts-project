@@ -2,22 +2,17 @@ package com.aor.hero.mvc;
 
 import com.aor.components.BoxCollider;
 import com.aor.components.RigidBody;
-import com.aor.game.Arena;
+import com.aor.arena.Arena;
 import com.aor.game.GameData;
 import com.aor.game.InputHandler;
-import com.aor.hero.states.JumpingState;
 import com.aor.hero.states.SlidingState;
-import com.aor.hero.states.WallJumpState;
 import com.aor.hero.states.DashingState;
-import com.aor.hero.states.FallingState;
-import com.aor.hero.states.GroundedState;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.*;
 import com.aor.mvc.GenericController;
 import com.aor.utils.Timer;
 
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class HeroController implements GenericController {

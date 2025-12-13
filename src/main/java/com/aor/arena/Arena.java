@@ -1,9 +1,10 @@
-package com.aor.game;
+package com.aor.arena;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.aor.components.BoxCollider;
+import com.aor.game.GameData;
 import com.aor.gameElements.EndBlock;
 import com.aor.gameElements.GroundVoidBlock;
 import com.aor.gameElements.GroundedSpike;
@@ -13,10 +14,10 @@ import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-import javax.swing.*;
-
 public class Arena {
     private Hero hero;
+    private Hero initialPosition;
+
     private boolean isHeroDead = false;
     private boolean isArenaCompleted = false;
 
@@ -29,15 +30,14 @@ public class Arena {
     private List<GroundedSpike> spikes;
 
     private List<GroundVoidBlock> voids;
-    private Integer n_berrys=0;
 
     public Arena(Hero hero, List<Tile> tiles,List<Strawberry> strawberries,List<EndBlock> endBlocks,List<GroundedSpike> spikes,List<GroundVoidBlock> voids) {
-        this.hero=hero;
-        this.tiles=tiles;
-        this.strawberries=strawberries;
-        this.endBlocks=endBlocks;
-        this.spikes=spikes;
-        this.voids=voids;
+        this.hero = hero;
+        this.tiles = tiles;
+        this.strawberries = strawberries;
+        this.endBlocks = endBlocks;
+        this.spikes = spikes;
+        this.voids = voids;
 
         for(Strawberry s : strawberries) {
             generalTiles.add(s);
@@ -63,6 +63,7 @@ public class Arena {
 
     public void setHero(Hero hero) {
         this.hero = hero;
+
     }
 
     private boolean checkIfHeroIsDead() {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.aor.game.Arena;
+import com.aor.arena.Arena;
 import com.aor.gameElements.EndBlock;
 import com.aor.gameElements.GroundVoidBlock;
 import com.aor.gameElements.GroundedSpike;
@@ -124,9 +124,10 @@ public class GameLoader {
         List<GroundedSpike> spikes=loadSpike16x16file(filePath);
 
         List<GroundVoidBlock> voids=loadVoid16x16file(filePath);
-        Arena arena=new Arena(null,tiles,strawberries,endBlocks,spikes,voids);
-        List<Hero> heroes=loadHero16x16file(filePath, arena);
-        arena.setHero(heroes.get(0));
+        Arena arena=new Arena(null, tiles, strawberries, endBlocks, spikes, voids);
+
+        List<Hero> heroes = loadHero16x16file(filePath, arena);
+        arena.setHero(heroes.getFirst());
         return arena;
     }
 
