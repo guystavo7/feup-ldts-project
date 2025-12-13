@@ -79,4 +79,9 @@ public class AnimatedSprite extends Node {
         AnimatedSprite p = (AnimatedSprite) o;
         return this.hashCode() == p.hashCode();
     }
+
+    @Override
+    public void update() {
+
+    }
 }

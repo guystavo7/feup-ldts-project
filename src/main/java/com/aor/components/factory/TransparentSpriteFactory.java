@@ -10,7 +10,7 @@ import java.io.IOException;
 public class TransparentSpriteFactory implements GenericSpriteFactory {
     @Override
     public GenericSprite newSprite(Vector2d position, String filePath) throws IOException {
-        return new SolidSprite(position, filePath);
+        return new TransparentSprite(position, filePath);
     }
 
     @Override

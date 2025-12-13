@@ -104,6 +104,10 @@ public class Utils {
         return new Vector2d(v1.getX() + v2.getX(), v1.getY() + v2.getY());
     }
 
+    public static Vector2d vectorSub(Vector2d v1, Vector2d v2) {
+        return new Vector2d(v1.getX() - v2.getX(), v1.getY() - v2.getY());
+    }
+
     public static Vector2d normalizedVector(Vector2d v) {
         double x = v.getX();
         double y = v.getY();
@@ -133,7 +137,7 @@ public class Utils {
         TerminalSize terminalSize = new TerminalSize(GameData.SCREEN_WIDTH, GameData.SCREEN_HEIGHT);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         terminalFactory.setForceAWTOverSwing(true);

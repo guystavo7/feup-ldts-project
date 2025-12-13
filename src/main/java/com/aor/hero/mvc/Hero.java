@@ -6,6 +6,7 @@ import com.aor.hero.states.*;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Hero implements GameElement {
     private HeroController heroController;
     private HeroModel heroModel;
 
-    public Hero(Vector2d position, Arena arena) {
+    public Hero(Vector2d position, Arena arena) throws IOException {
         heroModel = new HeroModel(position, new Vector2d(0, 0), new Vector2d(0, 0));
         HashMap<Class, List<String>> filePaths = new HashMap<>();
         HashMap<Class, List<String>> filePaths_v1 = new HashMap<>();

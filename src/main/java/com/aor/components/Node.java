@@ -33,4 +33,9 @@ public abstract class Node {
     public void setOffset(Vector2d offset) {
         this.offset = offset;
     }
+    public Vector2d getOffset(){
+        return offset;
+    }
+
+    public abstract void update();
 }
