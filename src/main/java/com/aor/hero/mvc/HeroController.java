@@ -13,6 +13,7 @@ import com.aor.mvc.GenericController;
 import com.aor.utils.Timer;
 
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class HeroController implements GenericController {
@@ -21,6 +22,8 @@ public class HeroController implements GenericController {
 
     //Colliders
     private final BoxCollider boxCollider;
+    private final BoxCollider hitBox;
+
     private final BoxCollider groundCollider;
     private final BoxCollider leftWallCollider;
     private final BoxCollider rightWallCollider;
@@ -38,6 +41,7 @@ public class HeroController implements GenericController {
 
         this.model = (HeroModel) model;
         this.boxCollider = new BoxCollider(this.model.getPosition(), width, height, playerTag);
+        this.hitBox = new BoxCollider(this.model.getPosition(), new Vector2d(1, 1), 5, 7, playerTag);
         this.rigidBody = new RigidBody(this.model.getPosition(), initialVelocity, arena, boxCollider);
 
         //Ground collider
@@ -74,6 +78,11 @@ public class HeroController implements GenericController {
     public boolean checkIfRightSliding() {
         rightWallCollider.update(model.getPosition());
         return !arena.detectCollision(rightWallCollider.getPosition(), rightWallCollider, GameData.TILE_TAG).isEmpty() && model.getDirection().getX() > 0;
+    }
+
+    private void checkCollisionsWithHitBox() {
+        hitBox.update(model.getPosition());
+        arena.detectCollision(hitBox.getPosition(), hitBox, GameData.ALL_COLLIDERS);
     }
 
     private void dash(double delta) {
@@ -134,7 +143,6 @@ public class HeroController implements GenericController {
         //Update rigidBody and boxColliders and model
         model.setPosition(rigidBody.move());
         rigidBody.update(model.getPosition());
-        groundCollider.update(model.getPosition());
 
         //Timers updates
         jumpBufferTimer.update(delta);
@@ -144,6 +152,7 @@ public class HeroController implements GenericController {
 
         //Check for transitions
         model.getState().transition(this, delta);
+        checkCollisionsWithHitBox();
     }
 
     public RigidBody getRigidBody() {

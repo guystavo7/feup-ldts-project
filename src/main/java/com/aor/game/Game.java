@@ -12,6 +12,8 @@ import com.aor.GameLoader.GameLoader;
 import com.aor.game.state.*;
 import com.aor.utils.Timer;
 import com.aor.utils.Utils;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -26,6 +28,7 @@ public class Game {
 
     private Arena arena;
     private Queue<String> arenaMaps;
+    private Queue<String> backgroundMaps;
 
     private Timer transitionTimer;
 
@@ -58,32 +61,36 @@ public class Game {
 
             isRunning = true;
             arenaMaps = new ArrayDeque<>();
+            backgroundMaps = new ArrayDeque<>();
 
             for (int i = 1; i < 6; i++) {
-                String path = "src/main/resources/Maps/map" + i + ".csv";
-                arenaMaps.add(path);
+                String mapPath = "src/main/resources/Maps/map" + i + ".csv";
+                String bgPath = "src/main/resources/Maps/bg" + i + ".csv";
+                arenaMaps.add(mapPath);
+                backgroundMaps.add(bgPath);
             }
 
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), "src/main/resources/Maps/bg1.csv");
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
             transitionTimer = new Timer(0.5, false);
             gameState = new MenuState(this);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            isRunning = false;
         }
     }
 
     public void resetArena() throws IOException {
-        arena = new GameLoader().arenaBuilder(arenaMaps.peek(), "src/main/resources/Maps/bg1.csv");
+        arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
         transitionTimer.start();
     }
 
     public void nextArena() throws IOException {
         arenaMaps.poll();
+        backgroundMaps.poll();
         String newArena = arenaMaps.peek();
 
         if (newArena != null) {
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), "src/main/resources/Maps/bg1.csv");
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
             transitionTimer.start();
 
         } else {
@@ -102,6 +109,13 @@ public class Game {
         double previousTime = System.nanoTime();
 
         while (isRunning) {
+            try {
+                KeyStroke key = screen.pollInput();
+                if (key != null && key.getKeyType().equals(KeyType.EOF)) isRunning = false;
+            } catch (IOException e) {
+                isRunning = false;
+            }
+
             double currentTime = System.nanoTime();
             double delta = currentTime - previousTime;
 
@@ -112,7 +126,7 @@ public class Game {
                     gameState.update(delta);
                     gameState.transition(delta);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    isRunning = false;
                 }
 
             } else {
@@ -121,6 +135,7 @@ public class Game {
                     try {
                         Thread.sleep((long) sleepTime);
                     } catch (InterruptedException e) {
+                        isRunning = false;
                         Thread.currentThread().interrupt();
                     }
                 }

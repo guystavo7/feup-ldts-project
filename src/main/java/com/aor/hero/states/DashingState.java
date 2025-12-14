@@ -26,7 +26,6 @@ public class DashingState implements HeroState {
         }
 
         if (direction.getX() == 0 && direction.getY() == 0) direction.setX(1);
-
         onEnter(delta);
     }
 

@@ -30,13 +30,15 @@ public class GameData {
 
     public static final double GROUND_FRICTION = 15d;
     public static final double AIR_FRICTION = 8d;
-    public static final double DASH_FRICTION = 12d;
+    public static final double DASH_FRICTION = 15d;
 
     public static final double HORIZONTAL_ACCELERATION = 10d;
     public static final double GRAVITY_ACCELERATION = 5d;
 
-    public static final double JUMP_FORCE = -2d;
-    public static final double DASH_FORCE = 3.4d;
+    public static final double JUMP_FORCE = -1.8d;
+    public static final double DASH_FORCE = 3.8d;
+    public static final double WALL_JUMP_FORCE_HORIZONTAL = 1.5d;
+    public static final double WALL_JUMP_FORCE_VERTICAL = -1.2d;
 
     public static final double JUMP_BUFFER_TIME = 0.15d;
     public static final double COYOTE_TIME = 0.15d;
@@ -68,6 +70,8 @@ public class GameData {
         imagePaths.put("flower", "src/main/resources/misc/flower.png");
         imagePaths.put("G00", "src/main/resources/misc/grass0.png");
         imagePaths.put("G01", "src/main/resources/misc/grass1.png");
+        imagePaths.put("A00", "src/main/resources/Tree/tree0.png");
+        imagePaths.put("A01", "src/main/resources/Tree/tree1.png");
 
         return imagePaths;
     }

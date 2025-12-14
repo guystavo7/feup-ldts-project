@@ -104,9 +104,9 @@ public class Arena {
         for (BoxCollider tileBoxCollider : boxColliders) {
             if (!boxCollider.isColliding(tileBoxCollider)) continue;
 
-            if (searchTag.equals(GameData.ALL_COLLIDERS) || searchTag.equals(tileBoxCollider.getTag())) {
+            if (searchTag.equals(GameData.ALL_COLLIDERS) || searchTag.equals(tileBoxCollider.getTag()) || tileBoxCollider.getTag().equals(GameData.INV_WALL_TAG)) {
                 tileBoxCollider.firstCollide();
-                if ((tileBoxCollider.getTag().equals(GameData.TILE_TAG) || tileBoxCollider.getTag().equals(GameData.INV_WALL_TAG))) colliders.add(tileBoxCollider);
+                colliders.add(tileBoxCollider);
             }
         }
 

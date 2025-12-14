@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GroundedSpike extends Tile {
     public GroundedSpike(Vector2d position) throws IOException {
-        super(position, new Vector2d(0, 3), 8, 5, GameData.tileImgsPath.get("spike"), GameData.SPIKE_TAG);
+        super(position, new Vector2d(0, 3), 6, 5, GameData.tileImgsPath.get("spike"), GameData.SPIKE_TAG);
         super.getBoxCollider().setTag(GameData.SPIKE_TAG);
     }
 }

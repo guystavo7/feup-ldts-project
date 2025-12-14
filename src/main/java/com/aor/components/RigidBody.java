@@ -62,8 +62,8 @@ public class RigidBody extends Node {
     }
 
     public Vector2d move() {
-        double x = moveX(getPosition(), GameData.ALL_COLLIDERS);
-        double y = moveY(new Vector2d(x, getPosition().getY()), GameData.ALL_COLLIDERS);
+        double x = moveX(getPosition(), GameData.TILE_TAG);
+        double y = moveY(new Vector2d(x, getPosition().getY()), GameData.TILE_TAG);
         return new Vector2d(x, y);
     }
 
