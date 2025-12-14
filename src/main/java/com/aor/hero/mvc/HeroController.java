@@ -45,8 +45,8 @@ public class HeroController implements GenericController {
         this.rigidBody = new RigidBody(this.model.getPosition(), initialVelocity, arena, boxCollider);
 
         //Ground collider
-        Vector2d groundColliderOffset =  new Vector2d(2, height - 1d);
-        this.groundCollider = new BoxCollider(this.model.getPosition(), groundColliderOffset, 4, 2, playerTag);
+        Vector2d groundColliderOffset =  new Vector2d(1, height - 1d);
+        this.groundCollider = new BoxCollider(this.model.getPosition(), groundColliderOffset, 6, 2, playerTag);
 
         //Left wall collider
         Vector2d leftWallOffset = new Vector2d(-1, 0);
