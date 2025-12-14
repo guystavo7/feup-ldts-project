@@ -33,7 +33,7 @@ class TestRigidBody {
         Mockito.when(stubArena.detectCollision(Mockito.any(Vector2d.class), Mockito.any(BoxCollider.class), "colliders")).thenReturn(new ArrayList<>());
         Vector2d newVelocity = new Vector2d(5, 5);
         rb.setVelocity(newVelocity);
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
 
         Assertions.assertEquals(newPos, new Vector2d(5, 5));
     }
@@ -45,7 +45,7 @@ class TestRigidBody {
         Vector2d newVelocity = new Vector2d(-5, -5);
         rb.setVelocity(newVelocity);
 
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
         Assertions.assertEquals(newPos, new Vector2d(-5, -5));
     }
 
@@ -56,7 +56,7 @@ class TestRigidBody {
         Vector2d newVelocity = new Vector2d(0, 0);
         rb.setVelocity(newVelocity);
 
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
         Assertions.assertEquals(newPos, new Vector2d(0, 0));
     }
 
@@ -72,7 +72,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
 
         //Should move and his topleft should be (2, 0)
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
         Assertions.assertEquals(newPos, new Vector2d(7 - 5, 0));
     }
 
@@ -88,7 +88,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
 
         //Should move and his topleft should (-2, 0)
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
         Assertions.assertEquals(newPos, new Vector2d(-5 + 3, 0));
     }
 
@@ -104,7 +104,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
 
         //Should move and his topleft should (0, -2)
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
         Assertions.assertEquals(newPos, new Vector2d(0, -5 + 3));
     }
 
@@ -120,7 +120,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
 
         //Should move and his topleft should (0, 2)
-        Vector2d newPos = rb.move();
+        Vector2d newPos = rb.move(1);
         Assertions.assertEquals(newPos, new Vector2d(0, 7 - 5));
     }
 

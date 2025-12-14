@@ -141,7 +141,7 @@ public class HeroController implements GenericController {
         rigidBody.setVelocity(model.getVelocity());
 
         //Update rigidBody and boxColliders and model
-        model.setPosition(rigidBody.move());
+        model.setPosition(rigidBody.move(delta));
         rigidBody.update(model.getPosition());
 
         //Timers updates

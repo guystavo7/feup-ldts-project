@@ -24,26 +24,27 @@ public class GameData {
     public static final String VOID_TILE_TAG = "void";
     public static final String INV_WALL_TAG = "inv";
 
-    public static final double MAX_HORIZONTAL_VELOCITY = 1d;
-    public static final double MAX_VERTICAL_VELOCITY = 1d;
-    public static final double MAX_VERTICAL_VELOCITY_FALLING = 1.5d;
+    public static final double MAX_HORIZONTAL_VELOCITY = 50d;
+    public static final double MAX_VERTICAL_VELOCITY = 80d;
+    public static final double MAX_VERTICAL_VELOCITY_FALLING = 100d;
 
-    public static final double GROUND_FRICTION = 15d;
-    public static final double AIR_FRICTION = 8d;
-    public static final double DASH_FRICTION = 15d;
+    public static final double GROUND_FRICTION = 300d;
+    public static final double AIR_FRICTION = 260d;
+    public static final double DASH_FRICTION = 600d;
 
-    public static final double HORIZONTAL_ACCELERATION = 10d;
-    public static final double GRAVITY_ACCELERATION = 5d;
+    public static final double HORIZONTAL_ACCELERATION = 200d;
+    public static final double GRAVITY_ACCELERATION = 270d;
+    public static final double GRAVITY_ACCELERATION_FALLING = 350d;
 
-    public static final double JUMP_FORCE = -1.8d;
-    public static final double DASH_FORCE = 3.8d;
-    public static final double WALL_JUMP_FORCE_HORIZONTAL = 1.5d;
-    public static final double WALL_JUMP_FORCE_VERTICAL = -1.2d;
+    public static final double JUMP_FORCE = -110d;
+    public static final double DASH_FORCE = 180d;
+    public static final double WALL_JUMP_FORCE_HORIZONTAL = 90d;
+    public static final double WALL_JUMP_FORCE_VERTICAL = -90d;
 
     public static final double JUMP_BUFFER_TIME = 0.15d;
     public static final double COYOTE_TIME = 0.15d;
     public static final double DASH_TIME = 0.25d;
-    public static final double WALL_JUMP_TIME = 0.15d;
+    public static final double WALL_JUMP_TIME = 0.10d;
 
     public static final double STRAWBERRY_SPEED = 0.1d;
     public static final double STRAWBERRY_TIME = 0.5d;

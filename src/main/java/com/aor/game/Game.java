@@ -75,8 +75,6 @@ public class Game {
             gameState = new MenuState(this);
 
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro");
-
             isRunning = false;
         }
     }

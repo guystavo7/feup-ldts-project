@@ -62,7 +62,7 @@ public class FallingState implements HeroState {
 
         Vector2d target = new Vector2d(maxHorizontalVelocity, GameData.MAX_VERTICAL_VELOCITY_FALLING);
         double xVelocity = Utils.moveTowards(current.getX(), target.getX(), maxHorizontalDelta);
-        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.GRAVITY_ACCELERATION * delta);
+        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.GRAVITY_ACCELERATION_FALLING * delta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }

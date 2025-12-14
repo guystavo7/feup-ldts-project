@@ -27,8 +27,8 @@ public class RigidBody extends Node {
         this.boxCollider = boxCollider;
     }
 
-    private double moveX(Vector2d pos, String tag) {
-        Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX(), 0), pos);
+    private double moveX(Vector2d pos, double delta, String tag) {
+        Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX() * delta, 0), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider, tag);
 
         for (BoxCollider collider : boxColliders) {
@@ -44,8 +44,8 @@ public class RigidBody extends Node {
         return newPos.getX();
     }
 
-    private double moveY(Vector2d pos, String tag) {
-        Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY()), pos);
+    private double moveY(Vector2d pos, double delta, String tag) {
+        Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY() * delta), pos);
         List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider, tag);
 
         for (BoxCollider collider : boxColliders) {
@@ -61,9 +61,9 @@ public class RigidBody extends Node {
         return newPos.getY();
     }
 
-    public Vector2d move() {
-        double x = moveX(getPosition(), GameData.TILE_TAG);
-        double y = moveY(new Vector2d(x, getPosition().getY()), GameData.TILE_TAG);
+    public Vector2d move(double delta) {
+        double x = moveX(getPosition(), delta, GameData.TILE_TAG);
+        double y = moveY(new Vector2d(x, getPosition().getY()), delta, GameData.TILE_TAG);
         return new Vector2d(x, y);
     }
 
