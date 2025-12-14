@@ -73,6 +73,11 @@ public class RigidBody extends Node {
         boxCollider.update(position);
     }
 
+    @Override
+    public void update() {
+
+    }
+
     public Vector2d getVelocity() {
         return velocity;
     }

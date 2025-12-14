@@ -57,5 +57,10 @@ public class BoxCollider extends Node {
     public void setTag(String tag) {
          this.tag=tag;
     }
+
+    @Override
+    public void update() {
+
+    }
 }
 

@@ -104,6 +104,10 @@ public class Utils {
         return new Vector2d(v1.getX() + v2.getX(), v1.getY() + v2.getY());
     }
 
+    public static Vector2d vectorSub(Vector2d v1, Vector2d v2) {
+        return new Vector2d(v1.getX() - v2.getX(), v1.getY() - v2.getY());
+    }
+
     public static Vector2d normalizedVector(Vector2d v) {
         double x = v.getX();
         double y = v.getY();

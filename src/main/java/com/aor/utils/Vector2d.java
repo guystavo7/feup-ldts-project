@@ -1,10 +1,16 @@
 package com.aor.utils;
 
 import java.util.Objects;
+import java.util.Vector;
 
 public class Vector2d implements Cloneable {
     private double x;
     private double y;
+
+    public Vector2d(Vector2d other){
+        this.x = other.getX();
+        this.y = other.getY();
+    }
 
     public Vector2d(double x, double y) {
         this.x = x;
@@ -49,6 +55,17 @@ public class Vector2d implements Cloneable {
         this.y *= k;
 
         return this;
+    }
+
+    public Vector2d subVector(Vector2d other) {
+        this.x -= other.getX();
+        this.y -= other.getY();
+
+        return this;
+    }
+
+    public double module(){
+        return Math.sqrt(x * x + y * y);
     }
 
     public Vector2d normalize() {

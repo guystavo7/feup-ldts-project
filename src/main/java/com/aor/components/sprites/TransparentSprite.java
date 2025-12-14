@@ -91,4 +91,9 @@ public class TransparentSprite extends Node implements GenericSprite {
         SolidSprite p = (SolidSprite) o;
         return this.hashCode() == p.hashCode();
     }
+
+    @Override
+    public void update() {
+
+    }
 }

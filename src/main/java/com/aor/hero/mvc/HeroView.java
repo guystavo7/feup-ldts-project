@@ -1,15 +1,19 @@
 package com.aor.hero.mvc;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.aor.components.sprites.AnimatedSprite;
 import com.aor.components.factory.TransparentSpriteFactory;
+import com.aor.components.sprites.AnimatedSprite;
+import com.aor.components.sprites.HairComponent;
 import com.aor.hero.states.DashingState;
 import com.aor.hero.states.IdleState;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
+import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class HeroView implements GenericView {
@@ -19,7 +23,10 @@ public class HeroView implements GenericView {
     private AnimatedSprite currentSprite;
     private Class currentState;
 
-    public HeroView(GenericModel model, Map<Class, List<String>> filePaths, Map<Class, List<String>> filesPaths_v1) {
+    private List<HairComponent> hair=new ArrayList<>();
+    private List<HairComponent> hair_v1=new ArrayList<>();
+
+    public HeroView(GenericModel model, Map<Class, List<String>> filePaths, Map<Class, List<String>> filesPaths_v1) throws IOException {
         try {
             this.model = (HeroModel) model;
             TransparentSpriteFactory factory = new TransparentSpriteFactory();
@@ -31,6 +38,22 @@ public class HeroView implements GenericView {
 
             currentState = IdleState.class;
             currentSprite = sprites.get(currentState);
+
+            hair.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,"src/main/resources/Hero/hair/hair0.png"));
+
+            hair.add(new HairComponent(hair.get(0).getPosition(),new Vector2d(0,0),hair.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1.png"));
+            hair.add(new HairComponent(hair.get(1).getPosition(),new Vector2d(0,0),hair.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1.png"));
+
+            hair.add(new HairComponent(hair.get(2).getPosition(),new Vector2d(0,0),hair.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair2.png"));
+
+            hair_v1.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,"src/main/resources/Hero/hair/hair0_v1.png"));
+
+
+            hair_v1.add(new HairComponent(hair_v1.get(0).getPosition(),new Vector2d(0,0),hair_v1.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1_v1.png"));
+            hair_v1.add(new HairComponent(hair_v1.get(1).getPosition(),new Vector2d(0,0),hair_v1.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1_v1.png"));
+
+            hair_v1.add(new HairComponent(hair_v1.get(2).getPosition(),new Vector2d(0,0),hair_v1.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair2_v1.png"));
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,6 +84,7 @@ public class HeroView implements GenericView {
         checkState();
         currentSprite.update(model.getPosition(), delta);
 
+
         if(model.isFacingRight()){
             currentSprite.normal();
 //            for (AttachedSprite h:hair){
@@ -77,6 +101,27 @@ public class HeroView implements GenericView {
 //        for (AttachedSprite h:hair){
 //            h.draw(graphics);
 //        }
+        for (HairComponent h:hair){
+            h.update(delta);
+        }
+        for (HairComponent h:hair_v1){
+            h.update(delta);
+        }
+
+
+        if (!model.canDash()) {
+            for (HairComponent h:hair_v1){
+                h.draw(graphics);
+            }
+        } else {
+            for (HairComponent h:hair){
+                h.draw(graphics);
+            }
+        }
+
+
         currentSprite.draw(graphics);
+
+
     }
 }
