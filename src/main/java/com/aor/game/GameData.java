@@ -1,5 +1,7 @@
 package com.aor.game;
 
+import com.aor.utils.Utils;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -59,23 +61,23 @@ public class GameData {
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            imagePaths.put("T" + id, GameData.class.getClassLoader().getResource("Tiles/tile0" + id + ".png").getPath());
+            imagePaths.put("T" + id, Utils.createTempFile("Tiles/tile0" + id + ".png"));
         }
 
         for (Integer i = 0; i < 8; i++) {
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            imagePaths.put("F" + id, GameData.class.getClassLoader().getResource("Background/bg0" + id + ".png").getPath());
+            imagePaths.put("F" + id, Utils.createTempFile("Background/bg0" + id + ".png"));
         }
 
-        imagePaths.put("strawberry", GameData.class.getClassLoader().getResource("misc/strawberry.png").getPath());
-        imagePaths.put("spike", GameData.class.getClassLoader().getResource("misc/Spike.png").getPath());
-        imagePaths.put("flower", GameData.class.getClassLoader().getResource("misc/flower.png").getPath());
-        imagePaths.put("G00", GameData.class.getClassLoader().getResource("misc/grass0.png").getPath());
-        imagePaths.put("G01", GameData.class.getClassLoader().getResource("misc/grass1.png").getPath());
-        imagePaths.put("A00", GameData.class.getClassLoader().getResource("Tree/tree0.png").getPath());
-        imagePaths.put("A01", GameData.class.getClassLoader().getResource("Tree/tree1.png").getPath());
+        imagePaths.put("strawberry", Utils.createTempFile("misc/strawberry.png"));
+        imagePaths.put("spike", Utils.createTempFile("misc/Spike.png"));
+        imagePaths.put("flower", Utils.createTempFile("misc/flower.png"));
+        imagePaths.put("G00", Utils.createTempFile("misc/grass0.png"));
+        imagePaths.put("G01", Utils.createTempFile("misc/grass1.png"));
+        imagePaths.put("A00", Utils.createTempFile("Tree/tree0.png"));
+        imagePaths.put("A01", Utils.createTempFile("Tree/tree1.png"));
 
         return imagePaths;
     }

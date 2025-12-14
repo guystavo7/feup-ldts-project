@@ -13,6 +13,7 @@ import com.aor.hero.states.DashingState;
 import com.aor.hero.states.IdleState;
 import com.aor.mvc.GenericModel;
 import com.aor.mvc.GenericView;
+import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -39,15 +40,15 @@ public class HeroView implements GenericView {
             currentState = IdleState.class;
             currentSprite = sprites.get(currentState);
 
-            hair.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,getClass().getClassLoader().getResource("Hero/hair/hair0.png").getPath()));
-            hair.add(new HairComponent(hair.get(0).getPosition(),new Vector2d(0,0),hair.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,getClass().getClassLoader().getResource("Hero/hair/hair1.png").getPath()));
-            hair.add(new HairComponent(hair.get(1).getPosition(),new Vector2d(0,0),hair.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,getClass().getClassLoader().getResource("Hero/hair/hair1.png").getPath()));
-            hair.add(new HairComponent(hair.get(2).getPosition(),new Vector2d(0,0),hair.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,getClass().getClassLoader().getResource("Hero/hair/hair2.png").getPath()));
+            hair.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50, Utils.createTempFile("Hero/hair/hair0.png")));
+            hair.add(new HairComponent(hair.get(0).getPosition(),new Vector2d(0,0),hair.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,Utils.createTempFile("Hero/hair/hair1.png")));
+            hair.add(new HairComponent(hair.get(1).getPosition(),new Vector2d(0,0),hair.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,Utils.createTempFile("Hero/hair/hair1.png")));
+            hair.add(new HairComponent(hair.get(2).getPosition(),new Vector2d(0,0),hair.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,Utils.createTempFile("Hero/hair/hair2.png")));
 
-            hair_v1.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,getClass().getClassLoader().getResource("Hero/hair/hair0_v1.png").getPath()));
-            hair_v1.add(new HairComponent(hair_v1.get(0).getPosition(),new Vector2d(0,0),hair_v1.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,getClass().getClassLoader().getResource("Hero/hair/hair1_v1.png").getPath()));
-            hair_v1.add(new HairComponent(hair_v1.get(1).getPosition(),new Vector2d(0,0),hair_v1.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,getClass().getClassLoader().getResource("Hero/hair/hair1_v1.png").getPath()));
-            hair_v1.add(new HairComponent(hair_v1.get(2).getPosition(),new Vector2d(0,0),hair_v1.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,getClass().getClassLoader().getResource("Hero/hair/hair2_v1.png").getPath()));
+            hair_v1.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,Utils.createTempFile("Hero/hair/hair0_v1.png")));
+            hair_v1.add(new HairComponent(hair_v1.get(0).getPosition(),new Vector2d(0,0),hair_v1.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,Utils.createTempFile("Hero/hair/hair1_v1.png")));
+            hair_v1.add(new HairComponent(hair_v1.get(1).getPosition(),new Vector2d(0,0),hair_v1.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,Utils.createTempFile("Hero/hair/hair1_v1.png")));
+            hair_v1.add(new HairComponent(hair_v1.get(2).getPosition(),new Vector2d(0,0),hair_v1.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,Utils.createTempFile("Hero/hair/hair2_v1.png")));
 
 
         } catch (Exception e) {

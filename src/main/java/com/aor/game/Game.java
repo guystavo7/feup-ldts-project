@@ -64,10 +64,10 @@ public class Game {
             backgroundMaps = new ArrayDeque<>();
 
             for (int i = 1; i < 6; i++) {
-                String mapPath = getClass().getClassLoader().getResource("Maps/map" + i + ".csv").getPath();
-                String bgPath = getClass().getClassLoader().getResource("Maps/bg" + i + ".csv").getPath();
+                String mapPath = Utils.createTempFile("Maps/map" + i + ".csv");
+                String backgroundPath = Utils.createTempFile("Maps/bg" + i + ".csv");
                 arenaMaps.add(mapPath);
-                backgroundMaps.add(bgPath);
+                backgroundMaps.add(backgroundPath);
             }
 
             arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
@@ -75,6 +75,7 @@ public class Game {
             gameState = new MenuState(this);
 
         } catch (Exception e) {
+            e.printStackTrace();
             isRunning = false;
         }
     }

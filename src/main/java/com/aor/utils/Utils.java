@@ -20,12 +20,30 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
 //A class that holds some useful methods
 public class Utils {
     private Utils() {}
+
+    public static String createTempFile(String path) {
+        try {
+            InputStream is = Utils.class.getResourceAsStream("/" + path);
+            Path tempFile = Files.createTempFile("temp-resource-", "-" + path.replace("/", "-"));
+            tempFile.toFile().deleteOnExit();
+
+            Files.copy(is, tempFile, StandardCopyOption.REPLACE_EXISTING);
+
+            return tempFile.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static List<List<Pixel>> XFLipPixeis(List<List<Pixel>> p){
         int height=p.size();
@@ -128,7 +146,9 @@ public class Utils {
     }
 
     public static Font loadSquaredFont() throws FontFormatException, IOException {
-        File fontFile = new File(Utils.class.getClassLoader().getResource("square.ttf").getPath());
+        String path = createTempFile("Fonts/square.ttf");
+        File fontFile = new File(path);
+
         return Font.createFont(Font.TRUETYPE_FONT, fontFile);
     }
 
@@ -155,4 +175,6 @@ public class Utils {
 
         return terminal;
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.aor.game.state;
 import com.aor.components.sprites.SolidSprite;
 import com.aor.game.Game;
 import com.aor.utils.Timer;
+import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -18,7 +19,9 @@ public class EndState implements GameState {
         try {
             this.game = game;
             this.timer = new Timer(3, false);
-            finalText = new SolidSprite(new Vector2d(51.5, 61.5), "src/main/resources/misc/endText.png");
+
+            String finalTextPath = Utils.createTempFile("src/main/resources/misc/endText.png");
+            finalText = new SolidSprite(new Vector2d(51.5, 61.5), finalTextPath);
 
             timer.start();
         } catch (IOException e) {

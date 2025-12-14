@@ -3,6 +3,7 @@ package com.aor.game.state;
 import com.aor.components.sprites.SolidSprite;
 import com.aor.game.Game;
 import com.aor.game.InputHandler;
+import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
@@ -18,8 +19,12 @@ public class MenuState implements GameState {
     public MenuState(Game game) {
         try {
             this.game = game;
-            menuSprite = new SolidSprite(new Vector2d(36.5, 30), "src/main/resources/misc/titleScreen.png");
-            textMenu = new SolidSprite(new Vector2d(43, 80), "src/main/resources/misc/titleText.png");
+
+            String menuSpritePath = Utils.createTempFile("misc/titleScreen.png");
+            String textMenuPath = Utils.createTempFile("misc/titleText.png");
+
+            menuSprite = new SolidSprite(new Vector2d(36.5, 30), menuSpritePath);
+            textMenu = new SolidSprite(new Vector2d(43, 80), textMenuPath);
         } catch (IOException e) {
             game.setIsRunning(false);
         }
