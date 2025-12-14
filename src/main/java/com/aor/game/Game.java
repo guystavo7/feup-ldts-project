@@ -64,8 +64,8 @@ public class Game {
             backgroundMaps = new ArrayDeque<>();
 
             for (int i = 1; i < 6; i++) {
-                String mapPath = "src/main/resources/Maps/map" + i + ".csv";
-                String bgPath = "src/main/resources/Maps/bg" + i + ".csv";
+                String mapPath = getClass().getClassLoader().getResource("Maps/map" + i + ".csv").getPath();
+                String bgPath = getClass().getClassLoader().getResource("Maps/bg" + i + ".csv").getPath();
                 arenaMaps.add(mapPath);
                 backgroundMaps.add(bgPath);
             }
@@ -75,6 +75,8 @@ public class Game {
             gameState = new MenuState(this);
 
         } catch (Exception e) {
+            System.out.println("Ocorreu um erro");
+
             isRunning = false;
         }
     }
@@ -134,6 +136,7 @@ public class Game {
                 if (sleepTime > 0) {
                     try {
                         Thread.sleep((long) sleepTime);
+
                     } catch (InterruptedException e) {
                         isRunning = false;
                         Thread.currentThread().interrupt();
@@ -166,6 +169,7 @@ public class Game {
     }
 
     public void close() throws IOException {
+        if (screen == null) return;
         screen.close();
         terminal.close();
     }

@@ -128,7 +128,7 @@ public class Utils {
     }
 
     public static Font loadSquaredFont() throws FontFormatException, IOException {
-        File fontFile = new File("src/main/resources/square.ttf");
+        File fontFile = new File(Utils.class.getClassLoader().getResource("square.ttf").getPath());
         return Font.createFont(Font.TRUETYPE_FONT, fontFile);
     }
 

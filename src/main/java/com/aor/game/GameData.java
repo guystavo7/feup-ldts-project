@@ -58,23 +58,23 @@ public class GameData {
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            imagePaths.put("T" + id, "src/main/resources/Tiles/tile0" + id + ".png");
+            imagePaths.put("T" + id, GameData.class.getClassLoader().getResource("Tiles/tile0" + id + ".png").getPath());
         }
 
         for (Integer i = 0; i < 8; i++) {
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            imagePaths.put("F" + id, "src/main/resources/Background/bg0" + id + ".png");
+            imagePaths.put("F" + id, GameData.class.getClassLoader().getResource("Background/bg0" + id + ".png").getPath());
         }
 
-        imagePaths.put("strawberry", "src/main/resources/misc/strawberry.png");
-        imagePaths.put("spike", "src/main/resources/misc/Spike.png");
-        imagePaths.put("flower", "src/main/resources/misc/flower.png");
-        imagePaths.put("G00", "src/main/resources/misc/grass0.png");
-        imagePaths.put("G01", "src/main/resources/misc/grass1.png");
-        imagePaths.put("A00", "src/main/resources/Tree/tree0.png");
-        imagePaths.put("A01", "src/main/resources/Tree/tree1.png");
+        imagePaths.put("strawberry", GameData.class.getClassLoader().getResource("misc/strawberry.png").getPath());
+        imagePaths.put("spike", GameData.class.getClassLoader().getResource("misc/Spike.png").getPath());
+        imagePaths.put("flower", GameData.class.getClassLoader().getResource("misc/flower.png").getPath());
+        imagePaths.put("G00", GameData.class.getClassLoader().getResource("misc/grass0.png").getPath());
+        imagePaths.put("G01", GameData.class.getClassLoader().getResource("misc/grass1.png").getPath());
+        imagePaths.put("A00", GameData.class.getClassLoader().getResource("Tree/tree0.png").getPath());
+        imagePaths.put("A01", GameData.class.getClassLoader().getResource("Tree/tree1.png").getPath());
 
         return imagePaths;
     }
