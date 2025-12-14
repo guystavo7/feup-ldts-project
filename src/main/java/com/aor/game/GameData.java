@@ -45,6 +45,9 @@ public class GameData {
     public static final double DASH_TIME = 0.25d;
     public static final double WALL_JUMP_TIME = 0.15d;
 
+    public static final double STRAWBERRY_SPEED = 0.1d;
+    public static final double STRAWBERRY_TIME = 0.5d;
+
     private static HashMap<String, String> imagePaths;
 
     private static Map<String ,String> tileImgPathLoader(){

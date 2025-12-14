@@ -23,8 +23,8 @@ public class HeroView implements GenericView {
     private AnimatedSprite currentSprite;
     private Class currentState;
 
-    private List<HairComponent> hair=new ArrayList<>();
-    private List<HairComponent> hair_v1=new ArrayList<>();
+    private List<HairComponent> hair = new ArrayList<>();
+    private List<HairComponent> hair_v1 = new ArrayList<>();
 
     public HeroView(GenericModel model, Map<Class, List<String>> filePaths, Map<Class, List<String>> filesPaths_v1) throws IOException {
         try {
@@ -32,26 +32,21 @@ public class HeroView implements GenericView {
             TransparentSpriteFactory factory = new TransparentSpriteFactory();
 
             for (Class state : filePaths.keySet()) {
-                sprites.put(state, new AnimatedSprite(this.model.getPosition(), filePaths.get(state), 10, factory));
-                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), filesPaths_v1.get(state), 10, factory));
+                sprites.put(state, new AnimatedSprite(this.model.getPosition(), filePaths.get(state), 5, factory));
+                sprites_v1.put(state, new AnimatedSprite(this.model.getPosition(), filesPaths_v1.get(state), 5, factory));
             }
 
             currentState = IdleState.class;
             currentSprite = sprites.get(currentState);
 
             hair.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,"src/main/resources/Hero/hair/hair0.png"));
-
             hair.add(new HairComponent(hair.get(0).getPosition(),new Vector2d(0,0),hair.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1.png"));
             hair.add(new HairComponent(hair.get(1).getPosition(),new Vector2d(0,0),hair.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1.png"));
-
             hair.add(new HairComponent(hair.get(2).getPosition(),new Vector2d(0,0),hair.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair2.png"));
 
             hair_v1.add(new HairComponent(this.model.getPosition(),new Vector2d(3,2),this.model,new Vector2d(4,4),new Vector2d(-4,0),new Vector2d(-2,2),50,"src/main/resources/Hero/hair/hair0_v1.png"));
-
-
             hair_v1.add(new HairComponent(hair_v1.get(0).getPosition(),new Vector2d(0,0),hair_v1.get(0),new Vector2d(0,2),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1_v1.png"));
             hair_v1.add(new HairComponent(hair_v1.get(1).getPosition(),new Vector2d(0,0),hair_v1.get(1),new Vector2d(0,1),new Vector2d(-0.5,0.5),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair1_v1.png"));
-
             hair_v1.add(new HairComponent(hair_v1.get(2).getPosition(),new Vector2d(0,0),hair_v1.get(2),new Vector2d(0,1),new Vector2d(0,0),new Vector2d(-0.5,0.5),50,"src/main/resources/Hero/hair/hair2_v1.png"));
 
 
@@ -85,29 +80,18 @@ public class HeroView implements GenericView {
         currentSprite.update(model.getPosition(), delta);
 
 
-        if(model.isFacingRight()){
+        if (model.isFacingRight()){
             currentSprite.normal();
-//            for (AttachedSprite h:hair){
-//                h.normal();
-//            }
+        } else {
+            currentSprite.xFlip();
         }
 
-        else {
-            currentSprite.xFlip();
-//            for (AttachedSprite h:hair){
-//                h.xFlip();
-//            }
-        }
-//        for (AttachedSprite h:hair){
-//            h.draw(graphics);
-//        }
         for (HairComponent h:hair){
             h.update(delta);
         }
         for (HairComponent h:hair_v1){
             h.update(delta);
         }
-
 
         if (!model.canDash()) {
             for (HairComponent h:hair_v1){
@@ -121,7 +105,5 @@ public class HeroView implements GenericView {
 
 
         currentSprite.draw(graphics);
-
-
     }
 }

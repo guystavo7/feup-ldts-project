@@ -20,6 +20,7 @@ public class TileView implements GenericView {
 
     @Override
     public void update(TextGraphics graphics, double delta) {
+        sprite.update(tileModel.getPosition());
         sprite.draw(graphics);
     }
 }

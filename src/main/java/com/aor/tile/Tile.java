@@ -32,4 +32,8 @@ public class Tile implements GameElement {
     public BoxCollider getBoxCollider() {
         return tileController.getBoxCollider();
     }
+
+    public void setSpeed(Vector2d speed) {
+        tileController.setSpeed(speed);
+    }
 }

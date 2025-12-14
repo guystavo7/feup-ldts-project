@@ -15,10 +15,14 @@ public class MenuState implements GameState {
     private SolidSprite menuSprite;
     private SolidSprite textMenu;
 
-    public MenuState(Game game) throws IOException {
-        this.game = game;
-        menuSprite = new SolidSprite(new Vector2d(36.5, 30), "src/main/resources/misc/titleScreen.png");
-        textMenu = new SolidSprite(new Vector2d(43, 80), "src/main/resources/misc/titleText.png");
+    public MenuState(Game game) {
+        try {
+            this.game = game;
+            menuSprite = new SolidSprite(new Vector2d(36.5, 30), "src/main/resources/misc/titleScreen.png");
+            textMenu = new SolidSprite(new Vector2d(43, 80), "src/main/resources/misc/titleText.png");
+        } catch (IOException e) {
+            game.setIsRunning(false);
+        }
     }
 
     @Override

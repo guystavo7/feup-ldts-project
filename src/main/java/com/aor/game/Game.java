@@ -169,4 +169,13 @@ public class Game {
         screen.close();
         terminal.close();
     }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
+    public void resetGame() {
+        setup();
+    }
+
 }

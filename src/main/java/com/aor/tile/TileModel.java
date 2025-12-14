@@ -39,6 +39,10 @@ public class TileModel implements GenericModel {
         height = GameData.TILE_HEIGHT;
     }
 
+    public void setPosition(Vector2d position) {
+        this.position = position;
+    }
+
     public String getFilePath() {
         return filePath;
     }
