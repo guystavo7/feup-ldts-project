@@ -13,7 +13,7 @@ public class WallJumpState implements HeroState {
 
     public WallJumpState(GenericModel model, GenericController controller, double delta) {
         this.model = (HeroModel) model;
-        ((HeroController) controller).getSfx().changeMusic(GameData.sfxPaths.get("jump"), false, true);
+        ((HeroController) controller).playJumpSFX();
         onEnter(delta);
     }
 

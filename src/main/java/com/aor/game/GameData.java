@@ -2,6 +2,7 @@ package com.aor.game;
 
 import com.aor.utils.Utils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class GameData {
     public static final int TILE_HEIGHT = 8;
 
     public static Map<String ,String> tileImgsPath = tileImgPathLoader();
-    public static Map<String, String> sfxPaths = getSfxPath();
+    public static Map<String, File> sfxFiles = getSfxFiles();
     
     public static final String PLAYER_TAG = "player";
     public static final String TILE_TAG = "tile";
@@ -83,15 +84,15 @@ public class GameData {
         return imagePaths;
     }
 
-    private static Map<String, String> getSfxPath() {
-        if (sfxPaths != null) return sfxPaths;
+    private static Map<String, File> getSfxFiles() {
+        if (sfxFiles != null) return sfxFiles;
 
-        sfxPaths = new HashMap<>();
-        sfxPaths.put("ost1", Utils.createTempFile("Music/ost1.wav"));
-        sfxPaths.put("dash", Utils.createTempFile("Music/dash.wav"));
-        sfxPaths.put("jump", Utils.createTempFile("Music/jump.wav"));
+        sfxFiles = new HashMap<>();
+        sfxFiles.put("ost1", new File(Utils.createTempFile("Music/ost1.wav")));
+        sfxFiles.put("dash", new File(Utils.createTempFile("Music/dash.wav")));
+        sfxFiles.put("jump", new File(Utils.createTempFile("Music/jump.wav")));
 
-        return sfxPaths;
+        return sfxFiles;
     }
 
 }

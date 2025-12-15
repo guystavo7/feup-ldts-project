@@ -1,34 +1,30 @@
 package com.aor.music;
 
+import com.aor.game.Game;
+import com.aor.game.GameData;
+
 import javax.sound.sampled.*;
 import java.io.File;
 
 public class MusicPlayer implements AutoCloseable {
     private Clip clip;
 
-    public MusicPlayer() {
+    public MusicPlayer(String path, boolean loop, boolean autoStart) {
         try {
             clip = AudioSystem.getClip();
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(GameData.sfxFiles.get(path));
+                clip.open(audioStream);
+
+                if (loop) clip.loop(Clip.LOOP_CONTINUOUSLY);
+                if (autoStart) start();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void changeMusic(String path, boolean loop, boolean autoStart) {
-        try {
-            this.close();
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(path));
-            clip.open(audioStream);
-
-            if (loop) clip.loop(Clip.LOOP_CONTINUOUSLY);
-            if (autoStart) start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
     public void start(){
+        clip.setFramePosition(0);
         clip.start();
     }
 
@@ -41,7 +37,6 @@ public class MusicPlayer implements AutoCloseable {
         if (clip.isRunning()) clip.stop();
         clip.close();
     }
-
 }
 
 

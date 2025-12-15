@@ -15,7 +15,7 @@ public class RunningState implements GameState {
 
     public RunningState(Game game) {
         this.game = game;
-        game.getMusicPlayer().changeMusic(GameData.sfxPaths.get("ost1"), true, true);
+        game.getMusicPlayer().start();
     }
 
     @Override

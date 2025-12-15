@@ -30,7 +30,8 @@ public class HeroController implements GenericController {
     private final BoxCollider rightWallCollider;
 
     private final Arena arena;
-    private final MusicPlayer sfx;
+    private final MusicPlayer jumpSFX;
+    private final MusicPlayer dashSFX;
 
     //Timers
     private final Timer jumpBufferTimer;
@@ -59,7 +60,8 @@ public class HeroController implements GenericController {
         this.rightWallCollider = new BoxCollider(this.model.getPosition(), rightWallOffset, 2, 8, playerTag);
 
         this.arena = arena;
-        this.sfx = new MusicPlayer();
+        this.jumpSFX = new MusicPlayer("jump", false, false);
+        this.dashSFX = new MusicPlayer("dash", false, false);
 
         //Timers
         this.jumpBufferTimer = new Timer(GameData.JUMP_BUFFER_TIME, false);
@@ -158,6 +160,14 @@ public class HeroController implements GenericController {
         checkCollisionsWithHitBox();
     }
 
+    public void playDashSFX() {
+        this.dashSFX.start();
+    }
+
+    public void playJumpSFX() {
+        this.jumpSFX.start();
+    }
+
     public RigidBody getRigidBody() {
         return rigidBody;
     }
@@ -184,9 +194,5 @@ public class HeroController implements GenericController {
 
     public Timer getWallJumpTimer() {
         return wallJumpTimer;
-    }
-
-    public MusicPlayer getSfx() {
-        return sfx;
     }
 }

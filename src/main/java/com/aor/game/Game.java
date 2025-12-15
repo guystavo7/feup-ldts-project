@@ -68,7 +68,7 @@ public class Game {
             resetGame();
 
             transitionTimer = new Timer(0.5, false);
-            musicPlayer = new MusicPlayer();
+            musicPlayer = new MusicPlayer("ost1", true, false);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ public class DashingState implements HeroState {
         this.model = (HeroModel) model;
         this.direction = ((HeroModel) model).getDirection();
         this.lastState = lastState;
-        ((HeroController) controller).getSfx().changeMusic(GameData.sfxPaths.get("dash"), false, true);
+        ((HeroController) controller).playDashSFX();
 
         if (direction.getX() == 0 && direction.getY() == 0) {
             if (this.model.isFacingRight()) {

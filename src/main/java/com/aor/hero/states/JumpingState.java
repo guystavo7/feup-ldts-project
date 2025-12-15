@@ -14,7 +14,7 @@ public class JumpingState implements HeroState {
 
     public JumpingState(GenericModel model, GenericController controller, double delta) {
         this.model = (HeroModel) model;
-        ((HeroController) controller).getSfx().changeMusic(GameData.sfxPaths.get("jump"), false, true);
+        ((HeroController) controller).playJumpSFX();
         onEnter(delta);
     }
 
