@@ -83,7 +83,7 @@ public class Game {
 
 
             isRunning = true;
-            arena = new GameLoader().arenaBulder("src/main/java/com/aor/GameLoader/loadTiles1.txt");
+            arena = new GameLoader().arenaBulder("src/main/resources/Tiles/loadTiles2.txt");
 
         } catch (Exception e) {
             e.printStackTrace();
