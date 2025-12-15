@@ -35,7 +35,7 @@ public class SlidingState implements HeroState {
             model.setCanDash(true);
 
         } else if (controller.getJumpBufferTimer().isRunning()) {
-            model.setState(new WallJumpState(model, delta));
+            model.setState(new WallJumpState(model, controller, delta));
             controller.getWallJumpTimer().start();
 
             controller.getCoyoteTimer().interrupt();

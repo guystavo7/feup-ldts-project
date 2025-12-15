@@ -3,6 +3,7 @@ package com.aor.hero.states;
 import com.aor.game.GameData;
 import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
+import com.aor.mvc.GenericController;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
@@ -10,8 +11,9 @@ import com.aor.utils.Vector2d;
 public class WallJumpState implements HeroState {
     private HeroModel model;
 
-    public WallJumpState(GenericModel model, double delta) {
+    public WallJumpState(GenericModel model, GenericController controller, double delta) {
         this.model = (HeroModel) model;
+        ((HeroController) controller).getSfx().changeMusic(GameData.sfxPaths.get("jump"), false, true);
         onEnter(delta);
     }
 

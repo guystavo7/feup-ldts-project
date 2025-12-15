@@ -7,6 +7,7 @@ import com.aor.game.GameData;
 import com.aor.game.InputHandler;
 import com.aor.hero.states.SlidingState;
 import com.aor.hero.states.DashingState;
+import com.aor.music.MusicPlayer;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.*;
 import com.aor.mvc.GenericController;
@@ -29,6 +30,7 @@ public class HeroController implements GenericController {
     private final BoxCollider rightWallCollider;
 
     private final Arena arena;
+    private final MusicPlayer sfx;
 
     //Timers
     private final Timer jumpBufferTimer;
@@ -57,6 +59,7 @@ public class HeroController implements GenericController {
         this.rightWallCollider = new BoxCollider(this.model.getPosition(), rightWallOffset, 2, 8, playerTag);
 
         this.arena = arena;
+        this.sfx = new MusicPlayer();
 
         //Timers
         this.jumpBufferTimer = new Timer(GameData.JUMP_BUFFER_TIME, false);
@@ -87,7 +90,7 @@ public class HeroController implements GenericController {
 
     private void dash(double delta) {
         model.getState().onExit(delta);
-        model.setState(new DashingState(model, model.getState().getClass(), delta));
+        model.setState(new DashingState(model, this, model.getState().getClass(), delta));
 
         model.setCanDash(false);
 
@@ -181,5 +184,9 @@ public class HeroController implements GenericController {
 
     public Timer getWallJumpTimer() {
         return wallJumpTimer;
+    }
+
+    public MusicPlayer getSfx() {
+        return sfx;
     }
 }

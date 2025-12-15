@@ -1,7 +1,10 @@
 package com.aor.game.state;
 
 import com.aor.game.Game;
+import com.aor.game.GameData;
 import com.aor.game.InputHandler;
+import com.aor.music.MusicPlayer;
+import com.aor.utils.Utils;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.awt.event.KeyEvent;
@@ -12,6 +15,7 @@ public class RunningState implements GameState {
 
     public RunningState(Game game) {
         this.game = game;
+        game.getMusicPlayer().changeMusic(GameData.sfxPaths.get("ost1"), true, true);
     }
 
     @Override

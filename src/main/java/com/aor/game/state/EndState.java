@@ -19,11 +19,12 @@ public class EndState implements GameState {
         try {
             this.game = game;
             this.timer = new Timer(3, false);
+            game.getMusicPlayer().stop();
 
-            String finalTextPath = Utils.createTempFile("src/main/resources/misc/endText.png");
+            String finalTextPath = Utils.createTempFile("misc/endText.png");
             finalText = new SolidSprite(new Vector2d(51.5, 61.5), finalTextPath);
-
             timer.start();
+
         } catch (IOException e) {
             game.setIsRunning(false);
         }
@@ -35,7 +36,6 @@ public class EndState implements GameState {
         TextGraphics graphics = game.getScreen().newTextGraphics();
         finalText.draw(graphics);
         game.getScreen().refresh(Screen.RefreshType.DELTA);
-
         timer.update(delta / 1_000_000_000d);
     }
 

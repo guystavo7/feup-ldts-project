@@ -3,6 +3,7 @@ package com.aor.hero.states;
 import com.aor.game.GameData;
 import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
+import com.aor.mvc.GenericController;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
@@ -12,10 +13,11 @@ public class DashingState implements HeroState {
     private Vector2d direction;
     private Class lastState;
 
-    public DashingState(GenericModel model, Class lastState, double delta) {
+    public DashingState(GenericModel model, GenericController controller, Class lastState, double delta) {
         this.model = (HeroModel) model;
         this.direction = ((HeroModel) model).getDirection();
         this.lastState = lastState;
+        ((HeroController) controller).getSfx().changeMusic(GameData.sfxPaths.get("dash"), false, true);
 
         if (direction.getX() == 0 && direction.getY() == 0) {
             if (this.model.isFacingRight()) {

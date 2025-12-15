@@ -3,6 +3,7 @@ package com.aor.components;
 import java.util.List;
 
 import com.aor.game.Arena;
+import com.aor.game.Game;
 import com.aor.game.GameData;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
@@ -27,9 +28,10 @@ public class RigidBody extends Node {
         this.boxCollider = boxCollider;
     }
 
-    private double moveX(Vector2d pos, double delta, String tag) {
+    private double moveX(Vector2d pos, double delta) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(velocity.getX() * delta, 0), pos);
-        List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider, tag);
+        List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider, GameData.TILE_TAG);
+        boxColliders.addAll(arena.detectCollision(newPos, this.boxCollider, GameData.INV_WALL_TAG));
 
         for (BoxCollider collider : boxColliders) {
             if (velocity.getX() > 0 && (newPos.getX() + this.boxCollider.getWidth()) > collider.getPosition().getX()) {
@@ -44,9 +46,10 @@ public class RigidBody extends Node {
         return newPos.getX();
     }
 
-    private double moveY(Vector2d pos, double delta, String tag) {
+    private double moveY(Vector2d pos, double delta) {
         Vector2d newPos = Utils.vectorSum(new Vector2d(0, velocity.getY() * delta), pos);
-        List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider, tag);
+        List<BoxCollider> boxColliders = arena.detectCollision(newPos, this.boxCollider, GameData.TILE_TAG);
+        boxColliders.addAll(arena.detectCollision(newPos, this.boxCollider, GameData.INV_WALL_TAG));
 
         for (BoxCollider collider : boxColliders) {
             if (velocity.getY() > 0 && (newPos.getY() + this.boxCollider.getHeight()) > collider.getPosition().getY()) {
@@ -62,8 +65,8 @@ public class RigidBody extends Node {
     }
 
     public Vector2d move(double delta) {
-        double x = moveX(getPosition(), delta, GameData.TILE_TAG);
-        double y = moveY(new Vector2d(x, getPosition().getY()), delta, GameData.TILE_TAG);
+        double x = moveX(getPosition(), delta);
+        double y = moveY(new Vector2d(x, getPosition().getY()), delta);
         return new Vector2d(x, y);
     }
 

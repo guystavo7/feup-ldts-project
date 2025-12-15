@@ -27,7 +27,7 @@ public class IdleState implements HeroState {
             model.setState(new GroundedState(model, delta));
 
         } else if (controller.getJumpBufferTimer().isRunning()) {
-            model.setState(new JumpingState(model, delta));
+            model.setState(new JumpingState(model, controller, delta));
 
             controller.getCoyoteTimer().interrupt();
             controller.getJumpBufferTimer().interrupt();

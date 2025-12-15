@@ -32,7 +32,6 @@ public class Game {
     private Queue<String> backgroundMaps;
 
     private Timer transitionTimer;
-
     private MusicPlayer musicPlayer;
 
     public void setup() {
@@ -66,21 +65,30 @@ public class Game {
             arenaMaps = new ArrayDeque<>();
             backgroundMaps = new ArrayDeque<>();
 
-            for (int i = 1; i < 6; i++) {
-                String mapPath = Utils.createTempFile("Maps/map" + i + ".csv");
-                String backgroundPath = Utils.createTempFile("Maps/bg" + i + ".csv");
-                arenaMaps.add(mapPath);
-                backgroundMaps.add(backgroundPath);
-            }
+            resetGame();
 
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
             transitionTimer = new Timer(0.5, false);
-            gameState = new MenuState(this);
-            musicPlayer=new MusicPlayer("src/main/resources/Music/Celeste_Pico-8_OST_ 02_-_Foundation_(Tier_1).wav");
+            musicPlayer = new MusicPlayer();
 
         } catch (Exception e) {
             e.printStackTrace();
             isRunning = false;
+        }
+    }
+
+    public void resetGame() {
+        for (int i = 1; i < 6; i++) {
+            String mapPath = Utils.createTempFile("Maps/map" + i + ".csv");
+            String backgroundPath = Utils.createTempFile("Maps/bg" + i + ".csv");
+            arenaMaps.add(mapPath);
+            backgroundMaps.add(backgroundPath);
+        }
+
+        try {
+            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
+            gameState = new MenuState(this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -112,7 +120,7 @@ public class Game {
         double frames = 60;
         double framePerNanoSecond = 1_000_000_000d / frames;
         double previousTime = System.nanoTime();
-        musicPlayer.start();
+
         while (isRunning) {
             try {
                 KeyStroke key = screen.pollInput();
@@ -158,32 +166,27 @@ public class Game {
     public void setGameState(GameState newGameState) {
         gameState = newGameState;
     }
-
     public Screen getScreen() {
         return screen;
     }
-
     public Timer getTransitionTimer() {
         return transitionTimer;
     }
-
     public Arena getArena() {
         return arena;
+    }
+    public MusicPlayer getMusicPlayer() {
+        return musicPlayer;
     }
 
     public void close() throws IOException {
         if (screen == null) return;
-        musicPlayer.close();
         screen.close();
         terminal.close();
     }
 
     public void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
-    }
-
-    public void resetGame() {
-        setup();
     }
 
 }

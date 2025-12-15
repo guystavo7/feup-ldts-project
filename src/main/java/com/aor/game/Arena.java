@@ -103,8 +103,7 @@ public class Arena {
 
         for (BoxCollider tileBoxCollider : boxColliders) {
             if (!boxCollider.isColliding(tileBoxCollider)) continue;
-
-            if (searchTag.equals(GameData.ALL_COLLIDERS) || searchTag.equals(tileBoxCollider.getTag()) || tileBoxCollider.getTag().equals(GameData.INV_WALL_TAG)) {
+            if (searchTag.equals(GameData.ALL_COLLIDERS) || searchTag.equals(tileBoxCollider.getTag())) {
                 tileBoxCollider.firstCollide();
                 colliders.add(tileBoxCollider);
             }

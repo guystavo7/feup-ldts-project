@@ -36,7 +36,6 @@ public class Utils {
             InputStream is = Utils.class.getResourceAsStream("/" + path);
             Path tempFile = Files.createTempFile("temp-resource-", "-" + path.replace("/", "-"));
             tempFile.toFile().deleteOnExit();
-
             Files.copy(is, tempFile, StandardCopyOption.REPLACE_EXISTING);
 
             return tempFile.toString();

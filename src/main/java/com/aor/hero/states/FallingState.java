@@ -25,7 +25,7 @@ public class FallingState implements HeroState {
     @Override
     public void transition(HeroController controller, double delta) {
         if (controller.getCoyoteTimer().isRunning() && controller.getJumpBufferTimer().isRunning()) {
-            model.setState(new JumpingState(model, delta));
+            model.setState(new JumpingState(model, controller, delta));
 
             controller.getJumpBufferTimer().interrupt();
             controller.getCoyoteTimer().interrupt();
