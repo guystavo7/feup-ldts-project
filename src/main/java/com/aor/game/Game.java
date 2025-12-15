@@ -10,6 +10,7 @@ import java.util.Queue;
 
 import com.aor.GameLoader.GameLoader;
 import com.aor.game.state.*;
+import com.aor.music.MusicPlayer;
 import com.aor.utils.Timer;
 import com.aor.utils.Utils;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -31,6 +32,8 @@ public class Game {
     private Queue<String> backgroundMaps;
 
     private Timer transitionTimer;
+
+    private MusicPlayer musicPlayer;
 
     public void setup() {
         try {
@@ -73,6 +76,7 @@ public class Game {
             arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
             transitionTimer = new Timer(0.5, false);
             gameState = new MenuState(this);
+            musicPlayer=new MusicPlayer("src/main/resources/Music/Celeste_Pico-8_OST_ 02_-_Foundation_(Tier_1).wav");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,7 +112,7 @@ public class Game {
         double frames = 60;
         double framePerNanoSecond = 1_000_000_000d / frames;
         double previousTime = System.nanoTime();
-
+        musicPlayer.start();
         while (isRunning) {
             try {
                 KeyStroke key = screen.pollInput();
@@ -169,6 +173,7 @@ public class Game {
 
     public void close() throws IOException {
         if (screen == null) return;
+        musicPlayer.close();
         screen.close();
         terminal.close();
     }
