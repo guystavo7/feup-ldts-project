@@ -1,5 +1,6 @@
-package com.aor.GameLoader;
+package com.aor.game_loader.loaders;
 
+import com.aor.elements.GameElement;
 import com.aor.utils.Vector2d;
 
 import java.io.IOException;

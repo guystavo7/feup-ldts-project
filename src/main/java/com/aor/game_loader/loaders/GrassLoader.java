@@ -1,7 +1,7 @@
-package com.aor.GameLoader;
+package com.aor.game_loader.loaders;
 
 import com.aor.game.GameData;
-import com.aor.gameElements.BackgroundBlock;
+import com.aor.elements.BackgroundBlock;
 import com.aor.utils.Vector2d;
 
 import java.io.IOException;

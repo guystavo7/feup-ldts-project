@@ -1,7 +1,6 @@
-package com.aor.GameLoader;
+package com.aor.game_loader.loaders;
 
-import com.aor.gameElements.EmptyBlock;
-import com.aor.gameElements.EndBlock;
+import com.aor.elements.EndBlock;
 import com.aor.utils.Vector2d;
 
 import java.io.IOException;

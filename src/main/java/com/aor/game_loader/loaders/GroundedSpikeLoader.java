@@ -1,8 +1,6 @@
-package com.aor.GameLoader;
+package com.aor.game_loader.loaders;
 
-import com.aor.game.GameData;
-import com.aor.gameElements.GroundedSpike;
-import com.aor.tile.Tile;
+import com.aor.elements.GroundedSpike;
 import com.aor.utils.Vector2d;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.aor.gameElements;
+package com.aor.elements;
 
 import com.aor.game.GameData;
 import com.aor.tile.Tile;
@@ -21,9 +21,6 @@ public class Strawberry extends Tile {
         goingUp = true;
     }
 
-    public void  kill(){
-        active=false;
-    }
 
     @Override
     public void update(TextGraphics graphics, double delta){

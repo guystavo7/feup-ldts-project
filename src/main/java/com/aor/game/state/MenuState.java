@@ -20,8 +20,8 @@ public class MenuState implements GameState {
         try {
             this.game = game;
 
-            String menuSpritePath = Utils.createTempFile("misc/titleScreen.png");
-            String textMenuPath = Utils.createTempFile("misc/titleText.png");
+            String menuSpritePath = Utils.createTempFile("Misc/titleScreen.png");
+            String textMenuPath = Utils.createTempFile("Misc/titleText.png");
 
             menuSprite = new SolidSprite(new Vector2d(36.5, 30), menuSpritePath);
             textMenu = new SolidSprite(new Vector2d(43, 80), textMenuPath);

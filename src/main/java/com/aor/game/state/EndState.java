@@ -21,7 +21,7 @@ public class EndState implements GameState {
             this.timer = new Timer(3, false);
             game.getMusicPlayer().stop();
 
-            String finalTextPath = Utils.createTempFile("misc/endText.png");
+            String finalTextPath = Utils.createTempFile("Misc/endText.png");
             finalText = new SolidSprite(new Vector2d(51.5, 61.5), finalTextPath);
             timer.start();
 

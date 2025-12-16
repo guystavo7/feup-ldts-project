@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aor.components.BoxCollider;
-import com.aor.gameElements.*;
+import com.aor.elements.*;
 import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
-
-import javax.swing.*;
 
 public class Arena {
     private Hero hero;

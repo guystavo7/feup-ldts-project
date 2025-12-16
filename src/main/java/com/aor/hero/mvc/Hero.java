@@ -1,6 +1,6 @@
 package com.aor.hero.mvc;
 
-import com.aor.GameLoader.GameElement;
+import com.aor.elements.GameElement;
 import com.aor.game.Arena;
 import com.aor.hero.states.*;
 import com.aor.utils.Utils;

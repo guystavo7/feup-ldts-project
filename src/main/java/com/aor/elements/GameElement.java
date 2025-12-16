@@ -1,4 +1,4 @@
-package com.aor.GameLoader;
+package com.aor.elements;
 
 public interface GameElement {
 }

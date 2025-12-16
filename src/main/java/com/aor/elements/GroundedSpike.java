@@ -1,4 +1,4 @@
-package com.aor.gameElements;
+package com.aor.elements;
 
 import com.aor.game.GameData;
 import com.aor.tile.Tile;

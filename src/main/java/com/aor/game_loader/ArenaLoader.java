@@ -1,4 +1,4 @@
-package com.aor.GameLoader;
+package com.aor.game_loader;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -9,12 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.aor.game.Arena;
-import com.aor.gameElements.*;
+import com.aor.elements.*;
+import com.aor.game_loader.loaders.*;
 import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 
-public class GameLoader {
+public class ArenaLoader {
     Map<Character,GameElementLoader> loader=Map.of(
             'T', new TileLoader() ,
             'E', new EndBlockLoader(),
@@ -27,71 +28,44 @@ public class GameLoader {
             'C', new FlowerLoader(),
             'A', new TreeLoader());
 
-    public List<GameElement> load16x16file(String filePath) throws IOException {
-        List<GameElement>res = new ArrayList<>();
-        DataInputStream data = new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
-        StringBuilder sbdata = new StringBuilder();
-        boolean possible=true;
-        while (possible){
-            try {
-                Byte cdata=data.readByte();
-                char c=(char)cdata.byteValue();
-                sbdata.append(c);
-            }
-            catch (Exception e){
-                possible=false;
-            }
+    public <T> List<T> convert(List<GameElement> elems){
+        List<T> res= new ArrayList<>();
+        for (GameElement e : elems) {
+            res.add((T) e);
         }
-        String sdata=sbdata.toString();
-
-        String[] divdata= sdata.split("[,]");
-        int counter=0;
-
-        for(String d:  divdata){
-            d=d.trim();
-            if(!d.equals("")){
-                Vector2d pos=new Vector2d((float) counter%16,(float) ((int)counter/16));
-                res.add(loader.get(d.charAt(0)).Parse(d.substring(1),pos));
-
-            }
-            counter++;
-
-        }
-
-        data.close();
-        return res;
+        return res ;
     }
 
 
     public  List<GameElement> load16x16File(String filePath, Character id) throws IOException {
         List<GameElement>res=new ArrayList<>();
         DataInputStream data=new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
-        StringBuilder sbdata=new StringBuilder();
+        StringBuilder stringBuilder=new StringBuilder();
 
         boolean possible=true;
 
         while (possible){
             try {
-                Byte cdata=data.readByte();
-                char c=(char)cdata.byteValue();
+                Byte character=data.readByte();
+                char c=(char)character.byteValue();
                 if(c != '\n' && c != '\r'){
-                    sbdata.append(c);
+                    stringBuilder.append(c);
                 }
             }
             catch (Exception e){
                 possible=false;
             }
         }
-        String sdata=sbdata.toString();
+        String stringData=stringBuilder.toString();
 
-        String[] divdata = sdata.split("[,]");
+        String[] elementData = stringData.split("[,]");
         int counter=0;
 
-        for(String d:divdata){
-            d=d.trim();
-            if( !(d.isEmpty()) && d.charAt(0) == id){
+        for(String elementInfo:elementData){
+            elementInfo=elementInfo.trim();
+            if( !(elementInfo.isEmpty()) && elementInfo.charAt(0) == id){
                 Vector2d pos = new Vector2d((float) (counter % 16) * 8,(float) ((int) counter / 16) * 8);
-                res.add( loader.get(id).Parse(d.substring(1),pos));
+                res.add( loader.get(id).Parse(elementInfo.substring(1),pos));
 
             }
             counter++;
@@ -135,7 +109,6 @@ public class GameLoader {
     }
 
     public Arena arenaBuilder(String filePath, String backgroundPath) throws IOException {
-
         List<Tile> tiles=loadTile16x16file(filePath);
         List<Strawberry> strawberries=loadStrawberry16x16file(filePath);
         List<EndBlock> endBlocks=loadEndBlock16x16file(filePath);
@@ -151,11 +124,5 @@ public class GameLoader {
         return arena;
     }
 
-    public <T> List<T> convert(List<GameElement> elems){
-        List<T> res= new ArrayList<>();
-        for (GameElement e : elems) {
-            res.add((T) e);
-        }
-        return res ;
-    }
+
 }

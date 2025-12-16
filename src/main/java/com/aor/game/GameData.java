@@ -73,11 +73,11 @@ public class GameData {
             imagePaths.put("F" + id, Utils.createTempFile("Background/bg0" + id + ".png"));
         }
 
-        imagePaths.put(STRAWBERRY_TAG, Utils.createTempFile("misc/strawberry.png"));
-        imagePaths.put(SPIKE_TAG, Utils.createTempFile("misc/Spike.png"));
-        imagePaths.put("flower", Utils.createTempFile("misc/flower.png"));
-        imagePaths.put("G00", Utils.createTempFile("misc/grass0.png"));
-        imagePaths.put("G01", Utils.createTempFile("misc/grass1.png"));
+        imagePaths.put(STRAWBERRY_TAG, Utils.createTempFile("Misc/strawberry.png"));
+        imagePaths.put(SPIKE_TAG, Utils.createTempFile("Misc/Spike.png"));
+        imagePaths.put("flower", Utils.createTempFile("Misc/flower.png"));
+        imagePaths.put("G00", Utils.createTempFile("Misc/grass0.png"));
+        imagePaths.put("G01", Utils.createTempFile("Misc/grass1.png"));
         imagePaths.put("A00", Utils.createTempFile("Tree/tree0.png"));
         imagePaths.put("A01", Utils.createTempFile("Tree/tree1.png"));
 

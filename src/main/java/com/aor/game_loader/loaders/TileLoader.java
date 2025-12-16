@@ -1,4 +1,4 @@
-package com.aor.GameLoader;
+package com.aor.game_loader.loaders;
 
 import com.aor.tile.*;
 import com.aor.game.GameData;

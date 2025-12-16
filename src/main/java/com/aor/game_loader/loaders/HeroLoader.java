@@ -1,4 +1,4 @@
-package com.aor.GameLoader;
+package com.aor.game_loader.loaders;
 
 import com.aor.game.Arena;
 import com.aor.hero.mvc.Hero;
@@ -6,12 +6,12 @@ import com.aor.utils.Vector2d;
 
 import java.io.IOException;
 
-public class HeroLoader implements GameElementLoader{
+public class HeroLoader implements GameElementLoader {
     Arena arena;
-    HeroLoader(){
+    public HeroLoader(){
         this.arena=null;
     }
-    void setArena(Arena arena){
+    public void setArena(Arena arena){
         this.arena=arena;
     }
     Arena getArena(){

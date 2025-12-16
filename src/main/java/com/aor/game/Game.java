@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-import com.aor.GameLoader.GameLoader;
+import com.aor.game_loader.ArenaLoader;
 import com.aor.game.state.*;
 import com.aor.music.MusicPlayer;
 import com.aor.utils.Timer;
@@ -85,7 +85,7 @@ public class Game {
         }
 
         try {
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
+            arena = new ArenaLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
             gameState = new MenuState(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class Game {
     }
 
     public void resetArena() throws IOException {
-        arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
+        arena = new ArenaLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
         transitionTimer.start();
     }
 
@@ -103,7 +103,7 @@ public class Game {
         String newArena = arenaMaps.peek();
 
         if (newArena != null) {
-            arena = new GameLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
+            arena = new ArenaLoader().arenaBuilder(arenaMaps.peek(), backgroundMaps.peek());
             transitionTimer.start();
 
         } else {

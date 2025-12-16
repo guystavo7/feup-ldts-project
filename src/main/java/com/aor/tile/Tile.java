@@ -2,7 +2,7 @@ package com.aor.tile;
 
 import java.io.IOException;
 
-import com.aor.GameLoader.GameElement;
+import com.aor.elements.GameElement;
 import com.aor.components.BoxCollider;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;

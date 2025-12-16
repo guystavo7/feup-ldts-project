@@ -156,7 +156,7 @@ public class Utils {
         TerminalSize terminalSize = new TerminalSize(GameData.SCREEN_WIDTH, GameData.SCREEN_HEIGHT);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         terminalFactory.setForceAWTOverSwing(true);
