@@ -1,6 +1,6 @@
 package com.aor.hero.mvc;
 
-import com.aor.components.Positionable;
+import com.aor.components.sprites.Positionable;
 import com.aor.hero.states.FallingState;
 import com.aor.hero.states.HeroState;
 import com.aor.mvc.GenericModel;

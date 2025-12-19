@@ -11,32 +11,37 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 
 public class SolidSprite extends Node implements GenericSprite {
-    private Integer width;
-    private Integer height;
-    private TextImage pixels;
-    private TextImage xFlippedImg;
-    private TextImage normalImg;
+    private final Integer width;
+    private final Integer height;
+
+    private TextImage currentImg;
+    private final TextImage xFlippedImg;
+    private final TextImage normalImg;
 
     public SolidSprite(Vector2d position, String filePath) throws IOException {
         super(position);
+
         this.normalImg = Utils.loadImage(filePath);
         this.xFlippedImg = Utils.loadXFlippedImage(filePath);
-        this.pixels = normalImg;
-        this.width = pixels.getSize().getColumns();
-        this.height = pixels.getSize().getRows();
+        this.currentImg = normalImg;
+
+        this.width = currentImg.getSize().getColumns();
+        this.height = currentImg.getSize().getRows();
     }
 
     public SolidSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
         super(position, offset);
+
         this.normalImg = Utils.loadImage(filePath);
         this.xFlippedImg = Utils.loadXFlippedImage(filePath);
-        this.pixels = normalImg;
-        this.width = pixels.getSize().getColumns();
-        this.height = pixels.getSize().getRows();
+        this.currentImg = normalImg;
+
+        this.width = currentImg.getSize().getColumns();
+        this.height = currentImg.getSize().getRows();
     }
 
     public void draw(TextGraphics graphics){
-        graphics.drawImage(new TerminalPosition((int) getPosition().getX(), (int) getPosition().getY()), pixels);
+        graphics.drawImage(new TerminalPosition((int) getPosition().getX(), (int) getPosition().getY()), currentImg);
     }
     
     public int getWidth(){
@@ -47,15 +52,15 @@ public class SolidSprite extends Node implements GenericSprite {
     }
 
     public void xFlip(){
-        pixels=xFlippedImg;
+        currentImg = xFlippedImg;
     }
     public void normal(){
-        pixels=normalImg;
+        currentImg = normalImg;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pixels, getPosition());
+        return Objects.hash(currentImg, getPosition());
     }
 
     public boolean equals(Object o){
@@ -65,10 +70,5 @@ public class SolidSprite extends Node implements GenericSprite {
 
         SolidSprite p = (SolidSprite) o;
         return this.hashCode() == p.hashCode();
-    }
-
-    @Override
-    public void update() {
-
     }
 }

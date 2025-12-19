@@ -7,14 +7,14 @@ import com.aor.utils.Vector2d;
 
 
 public class TileModel implements GenericModel {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     private Vector2d position;
-    private Vector2d offset;
+    private final Vector2d offset;
 
-    private String filePath;
-    private String tag;
+    private final String filePath;
+    private final String tag;
 
     public TileModel(Vector2d position, Vector2d offset, int width, int height, String filePath, String tag){
         this.position = position;

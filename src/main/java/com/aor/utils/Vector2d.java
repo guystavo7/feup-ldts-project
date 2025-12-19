@@ -1,7 +1,6 @@
 package com.aor.utils;
 
 import java.util.Objects;
-import java.util.Vector;
 
 public class Vector2d implements Cloneable {
     private double x;

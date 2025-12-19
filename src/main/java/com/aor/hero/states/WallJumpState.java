@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.StateTag;
 import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericController;
@@ -9,7 +10,8 @@ import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
 public class WallJumpState implements HeroState {
-    private HeroModel model;
+    private final HeroModel model;
+    public static final StateTag tag = StateTag.WALL_JUMPING;
 
     public WallJumpState(GenericModel model, GenericController controller, double delta) {
         this.model = (HeroModel) model;
@@ -27,14 +29,10 @@ public class WallJumpState implements HeroState {
     }
 
     @Override
-    public void onExit(double delta) {
-
-    }
+    public void onExit(double delta) {}
 
     @Override
-    public void update(double delta) {
-
-    }
+    public void update(double delta) {}
 
     @Override
     public void transition(HeroController controller, double delta) {
@@ -52,5 +50,10 @@ public class WallJumpState implements HeroState {
         double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.GRAVITY_ACCELERATION);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
+    }
+
+    @Override
+    public StateTag getTag() {
+        return tag;
     }
 }

@@ -1,7 +1,6 @@
 package com.aor.components.factory;
 
 import com.aor.components.sprites.GenericSprite;
-import com.aor.components.sprites.SolidSprite;
 import com.aor.components.sprites.TransparentSprite;
 import com.aor.utils.Vector2d;
 

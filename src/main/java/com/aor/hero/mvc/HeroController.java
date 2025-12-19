@@ -14,7 +14,6 @@ import com.aor.mvc.GenericController;
 import com.aor.utils.Timer;
 
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class HeroController implements GenericController {
@@ -92,7 +91,7 @@ public class HeroController implements GenericController {
 
     private void dash(double delta) {
         model.getState().onExit(delta);
-        model.setState(new DashingState(model, this, model.getState().getClass(), delta));
+        model.setState(new DashingState(model, this, model.getState().getTag(), delta));
 
         model.setCanDash(false);
 

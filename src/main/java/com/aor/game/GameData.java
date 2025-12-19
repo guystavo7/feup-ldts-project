@@ -1,10 +1,11 @@
 package com.aor.game;
 
+import com.aor.hero.StateTag;
+import com.aor.hero.states.*;
 import com.aor.utils.Utils;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GameData {
     private GameData() {}
@@ -12,12 +13,11 @@ public class GameData {
     public static final int SCREEN_WIDTH = 128;
     public static final int SCREEN_HEIGHT = 128;
 
-    // static varibles
     public static final int TILE_WIDTH = 8;
     public static final int TILE_HEIGHT = 8;
 
-    public static Map<String ,String> tileImgsPath = tileImgPathLoader();
-    public static Map<String, File> sfxFiles = getSfxFiles();
+    private static Map<String ,String> tilesImgPath;
+    private static Map<String, File> sfxFiles;
     
     public static final String PLAYER_TAG = "player";
     public static final String TILE_TAG = "tile";
@@ -53,38 +53,36 @@ public class GameData {
     public static final double STRAWBERRY_SPEED = 0.1d;
     public static final double STRAWBERRY_TIME = 0.5d;
 
-    private static HashMap<String, String> imagePaths;
+    public static Map<String ,String> getTileImgPath(){
+        if (tilesImgPath != null) return tilesImgPath;
 
-    private static Map<String ,String> tileImgPathLoader(){
-        if (imagePaths != null) return imagePaths;
-
-        imagePaths = new HashMap<>();
+        tilesImgPath = new HashMap<>();
         for(Integer i = 0; i < 37; i++){
             String id = i.toString();
             if (i < 10) id = "0" + id;
 
-            imagePaths.put("T" + id, Utils.createTempFile("Tiles/tile0" + id + ".png"));
+            tilesImgPath.put("T" + id, Utils.createTempFile("Tiles/tile0" + id + ".png"));
         }
 
         for (Integer i = 0; i < 8; i++) {
             String id = i.toString();
-            if (i < 10) id = "0" + id;
+            id = "0" + id;
 
-            imagePaths.put("F" + id, Utils.createTempFile("Background/bg0" + id + ".png"));
+            tilesImgPath.put("F" + id, Utils.createTempFile("Background/bg0" + id + ".png"));
         }
 
-        imagePaths.put(STRAWBERRY_TAG, Utils.createTempFile("Misc/strawberry.png"));
-        imagePaths.put(SPIKE_TAG, Utils.createTempFile("Misc/Spike.png"));
-        imagePaths.put("flower", Utils.createTempFile("Misc/flower.png"));
-        imagePaths.put("G00", Utils.createTempFile("Misc/grass0.png"));
-        imagePaths.put("G01", Utils.createTempFile("Misc/grass1.png"));
-        imagePaths.put("A00", Utils.createTempFile("Tree/tree0.png"));
-        imagePaths.put("A01", Utils.createTempFile("Tree/tree1.png"));
+        tilesImgPath.put(STRAWBERRY_TAG, Utils.createTempFile("Misc/strawberry.png"));
+        tilesImgPath.put(SPIKE_TAG, Utils.createTempFile("Misc/Spike.png"));
+        tilesImgPath.put("flower", Utils.createTempFile("Misc/flower.png"));
+        tilesImgPath.put("G00", Utils.createTempFile("Misc/grass0.png"));
+        tilesImgPath.put("G01", Utils.createTempFile("Misc/grass1.png"));
+        tilesImgPath.put("A00", Utils.createTempFile("Tree/tree0.png"));
+        tilesImgPath.put("A01", Utils.createTempFile("Tree/tree1.png"));
 
-        return imagePaths;
+        return tilesImgPath;
     }
 
-    private static Map<String, File> getSfxFiles() {
+    public static Map<String, File> getSfxFiles() {
         if (sfxFiles != null) return sfxFiles;
 
         sfxFiles = new HashMap<>();
@@ -95,4 +93,70 @@ public class GameData {
         return sfxFiles;
     }
 
+    public static Map<StateTag, List<String>> getHeroFilePaths() {
+        EnumMap<StateTag, List<String>> filePaths = new EnumMap<>(StateTag.class);
+
+        List<String> runningFiles = new ArrayList<>();
+        runningFiles.add(Utils.createTempFile("Hero/Running/running0.png"));
+        runningFiles.add(Utils.createTempFile("Hero/Running/running1.png"));
+        runningFiles.add(Utils.createTempFile("Hero/Running/running2.png"));
+        runningFiles.add(Utils.createTempFile("Hero/Running/running0.png"));
+        runningFiles.add(Utils.createTempFile("Hero/Running/running1.png"));
+        runningFiles.add(Utils.createTempFile("Hero/Running/running2.png"));
+        filePaths.put(GroundedState.tag, runningFiles);
+
+        List<String> jumpingFiles = new ArrayList<>();
+        jumpingFiles.add(Utils.createTempFile("Hero/Jumping/jumping.png"));
+        filePaths.put(JumpingState.tag, jumpingFiles);
+
+        List<String> slidingFiles = new ArrayList<>();
+        slidingFiles.add(Utils.createTempFile("Hero/Sliding/sliding.png"));
+        filePaths.put(SlidingState.tag, slidingFiles);
+
+        List<String> idleFiles = new ArrayList<>();
+        idleFiles.add(Utils.createTempFile("Hero/Idle/idle.png"));
+        filePaths.put(IdleState.tag, idleFiles);
+
+        List<String> fallingFiles = new ArrayList<>();
+        fallingFiles.add(Utils.createTempFile("Hero/Falling/falling.png"));
+        filePaths.put(FallingState.tag, fallingFiles);
+
+        List<String> wallJumpingFiles = new ArrayList<>();
+        wallJumpingFiles.add(Utils.createTempFile("Hero/Idle/idle.png"));
+        filePaths.put(WallJumpState.tag, wallJumpingFiles);
+
+        return filePaths;
+    }
+
+    public static Map<StateTag, List<String>> getHeroDashlessFilePaths() {
+        EnumMap<StateTag, List<String>> filePathsDashless = new EnumMap<>(StateTag.class);
+
+        List<String> runningFilesDashless = new ArrayList<>();
+        runningFilesDashless.add(Utils.createTempFile("Hero/Running/running0_v1.png"));
+        runningFilesDashless.add(Utils.createTempFile("Hero/Running/running1_v1.png"));
+        runningFilesDashless.add(Utils.createTempFile("Hero/Running/running2_v1.png"));
+        filePathsDashless.put(GroundedState.tag, runningFilesDashless);
+
+        List<String> jumpingFilesDashless = new ArrayList<>();
+        jumpingFilesDashless.add(Utils.createTempFile("Hero/Jumping/jumping_v1.png"));
+        filePathsDashless.put(JumpingState.tag, jumpingFilesDashless);
+
+        List<String> slidingFilesDashless = new ArrayList<>();
+        slidingFilesDashless.add(Utils.createTempFile("Hero/Sliding/sliding_v1.png"));
+        filePathsDashless.put(SlidingState.tag, slidingFilesDashless);
+
+        List<String> idleFilesDashless = new ArrayList<>();
+        idleFilesDashless.add(Utils.createTempFile("Hero/Idle/idle_v1.png"));
+        filePathsDashless.put(IdleState.tag, idleFilesDashless);
+
+        List<String> fallingFilesDashless = new ArrayList<>();
+        fallingFilesDashless.add(Utils.createTempFile("Hero/Falling/falling_v1.png"));
+        filePathsDashless.put(FallingState.tag, fallingFilesDashless);
+
+        List<String> wallJumpingFilesDashless = new ArrayList<>();
+        wallJumpingFilesDashless.add(Utils.createTempFile("Hero/WallJumping/wallJumping_v1.png"));
+        filePathsDashless.put(WallJumpState.tag, wallJumpingFilesDashless);
+
+        return filePathsDashless;
+    }
 }

@@ -1,7 +1,7 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
 import com.aor.utils.Vector2d;
 
 public interface Positionable {
-    public Vector2d getPosition();
+    Vector2d getPosition();
 }

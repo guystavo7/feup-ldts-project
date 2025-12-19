@@ -1,10 +1,8 @@
 package com.aor.music;
 
-import com.aor.game.Game;
 import com.aor.game.GameData;
 
 import javax.sound.sampled.*;
-import java.io.File;
 
 public class MusicPlayer implements AutoCloseable {
     private Clip clip;
@@ -12,7 +10,7 @@ public class MusicPlayer implements AutoCloseable {
     public MusicPlayer(String path, boolean loop, boolean autoStart) {
         try {
             clip = AudioSystem.getClip();
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(GameData.sfxFiles.get(path));
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(GameData.getSfxFiles().get(path));
                 clip.open(audioStream);
 
                 if (loop) clip.loop(Clip.LOOP_CONTINUOUSLY);

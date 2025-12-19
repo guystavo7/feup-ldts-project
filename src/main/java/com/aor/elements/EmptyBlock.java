@@ -9,12 +9,12 @@ import java.io.IOException;
 
 public class EmptyBlock extends Tile {
     public EmptyBlock(Vector2d position, Vector2d offset, int width, int height, String tag) throws IOException {
-        super(position, offset, width, height, GameData.tileImgsPath.get("spike"), GameData.SPIKE_TAG);
+        super(position, offset, width, height, GameData.getTileImgPath().get(GameData.SPIKE_TAG), GameData.SPIKE_TAG);
         super.getBoxCollider().setTag(tag);
     }
 
     @Override
-    public void update(TextGraphics graphics, double delta){
+    public void update(TextGraphics graphics, double delta) {
 
     }
 }

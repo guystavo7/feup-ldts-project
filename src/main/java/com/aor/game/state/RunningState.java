@@ -1,10 +1,7 @@
 package com.aor.game.state;
 
 import com.aor.game.Game;
-import com.aor.game.GameData;
 import com.aor.game.InputHandler;
-import com.aor.music.MusicPlayer;
-import com.aor.utils.Utils;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.awt.event.KeyEvent;

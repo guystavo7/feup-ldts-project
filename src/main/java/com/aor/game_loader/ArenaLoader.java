@@ -16,7 +16,7 @@ import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 
 public class ArenaLoader {
-    Map<Character,GameElementLoader> loader=Map.of(
+    Map<Character,GameElementLoader> loader = Map.of(
             'T', new TileLoader() ,
             'E', new EndBlockLoader(),
             'S', new GroundedSpikeLoader(),
@@ -28,50 +28,52 @@ public class ArenaLoader {
             'C', new FlowerLoader(),
             'A', new TreeLoader());
 
-    public <T> List<T> convert(List<GameElement> elems){
+    public <T> List<T> convert(List<GameElement> elements){
         List<T> res= new ArrayList<>();
-        for (GameElement e : elems) {
+        for (GameElement e : elements) {
             res.add((T) e);
         }
         return res ;
     }
 
-
     public  List<GameElement> load16x16File(String filePath, Character id) throws IOException {
-        List<GameElement>res=new ArrayList<>();
-        DataInputStream data=new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
-        StringBuilder stringBuilder=new StringBuilder();
+        List<GameElement> res = new ArrayList<>();
+        DataInputStream data = null;
 
-        boolean possible=true;
+        try {
+            data = new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));
+            StringBuilder stringBuilder = new StringBuilder();
 
-        while (possible){
-            try {
-                Byte character=data.readByte();
-                char c=(char)character.byteValue();
-                if(c != '\n' && c != '\r'){
-                    stringBuilder.append(c);
+            boolean possible = true;
+            while (possible) {
+                try {
+                    Byte character = data.readByte();
+                    char c = (char) character.byteValue();
+                    if (c != '\n' && c != '\r') {
+                        stringBuilder.append(c);
+                    }
+                } catch (Exception e) {
+                    possible = false;
                 }
             }
-            catch (Exception e){
-                possible=false;
+            String stringData = stringBuilder.toString();
+            String[] elementData = stringData.split(",");
+            int counter = 0;
+
+            for (String elementInfo : elementData) {
+                elementInfo = elementInfo.trim();
+                if (!(elementInfo.isEmpty()) && elementInfo.charAt(0) == id) {
+                    Vector2d pos = new Vector2d((int)(counter % 16d) * 8d,  (int) (counter / 16d) * 8d);
+                    res.add(loader.get(id).parse(elementInfo.substring(1), pos));
+                }
+                counter++;
             }
-        }
-        String stringData=stringBuilder.toString();
 
-        String[] elementData = stringData.split("[,]");
-        int counter=0;
-
-        for(String elementInfo:elementData){
-            elementInfo=elementInfo.trim();
-            if( !(elementInfo.isEmpty()) && elementInfo.charAt(0) == id){
-                Vector2d pos = new Vector2d((float) (counter % 16) * 8,(float) ((int) counter / 16) * 8);
-                res.add( loader.get(id).Parse(elementInfo.substring(1),pos));
-
-            }
-            counter++;
+        } finally {
+            assert data != null;
+            data.close();
         }
 
-        data.close();
         return res;
     }
     public List<Tile> loadTile16x16file(String filePath) throws IOException {
@@ -123,6 +125,4 @@ public class ArenaLoader {
         arena.setHero(heroes.getFirst());
         return arena;
     }
-
-
 }

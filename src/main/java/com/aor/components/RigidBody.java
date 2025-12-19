@@ -3,7 +3,6 @@ package com.aor.components;
 import java.util.List;
 
 import com.aor.game.Arena;
-import com.aor.game.Game;
 import com.aor.game.GameData;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
@@ -74,11 +73,6 @@ public class RigidBody extends Node {
     public void update(Vector2d position) {
         super.update(position);
         boxCollider.update(position);
-    }
-
-    @Override
-    public void update() {
-
     }
 
     public Vector2d getVelocity() {

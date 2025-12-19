@@ -1,8 +1,8 @@
 package com.aor.utils;
 
 public class Timer {
-    private double remaingTime;
-    private double duration;
+    private double remainingTime;
+    private final double duration;
     private boolean running = false;
 
     public Timer(double duration, boolean autoStart) {
@@ -12,7 +12,7 @@ public class Timer {
 
     public void start() {
         running = true;
-        remaingTime = duration;
+        remainingTime = duration;
     }
 
     public boolean isRunning() {
@@ -21,15 +21,15 @@ public class Timer {
 
     public void interrupt() {
         running = false;
-        remaingTime = 0f;
+        remainingTime = 0f;
     }
 
     public void update(double delta) {
-        if (running) remaingTime -= delta;
-        if (remaingTime <= 0) interrupt();
+        if (running) remainingTime -= delta;
+        if (remainingTime <= 0) interrupt();
     }
 
-    public double getRemaingTime() {
-        return remaingTime;
+    public double getRemainingTime() {
+        return remainingTime;
     }
 }

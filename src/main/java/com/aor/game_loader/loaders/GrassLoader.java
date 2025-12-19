@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class GrassLoader implements GameElementLoader {
     @Override
-    public BackgroundBlock Parse(String data, Vector2d position) throws IOException {
+    public BackgroundBlock parse(String data, Vector2d position) throws IOException {
         String type = "G" + data;
         Vector2d offset = new Vector2d(1, 2);
         int width = 6;
@@ -20,6 +20,6 @@ public class GrassLoader implements GameElementLoader {
             height = 4;
         }
 
-        return new BackgroundBlock(position, offset, width, height, GameData.tileImgsPath.get(type));
+        return new BackgroundBlock(position, offset, width, height, GameData.getTileImgPath().get(type));
     }
 }

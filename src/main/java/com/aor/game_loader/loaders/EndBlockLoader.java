@@ -8,7 +8,7 @@ import java.io.IOException;
 public class EndBlockLoader implements GameElementLoader {
 
     @Override
-    public EndBlock Parse(String data, Vector2d pos) throws IOException {
+    public EndBlock parse(String data, Vector2d pos) throws IOException {
         return new EndBlock(pos);
     }
 }

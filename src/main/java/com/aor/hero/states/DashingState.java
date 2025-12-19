@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.StateTag;
 import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericController;
@@ -9,11 +10,12 @@ import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
 public class DashingState implements HeroState {
-    private HeroModel model;
-    private Vector2d direction;
-    private Class lastState;
+    private final HeroModel model;
+    private final Vector2d direction;
+    private final StateTag lastState;
+    public static final StateTag tag = StateTag.DASHING;
 
-    public DashingState(GenericModel model, GenericController controller, Class lastState, double delta) {
+    public DashingState(GenericModel model, GenericController controller, StateTag lastState, double delta) {
         this.model = (HeroModel) model;
         this.direction = ((HeroModel) model).getDirection();
         this.lastState = lastState;
@@ -62,7 +64,12 @@ public class DashingState implements HeroState {
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
     }
 
-    public Class getLastState() {
+    public StateTag getLastState() {
         return lastState;
+    }
+
+    @Override
+    public StateTag getTag() {
+        return tag;
     }
 }

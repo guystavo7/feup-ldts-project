@@ -17,21 +17,16 @@ public class Arena {
     private boolean isArenaCompleted = false;
 
     private List<Tile> generalTiles = new ArrayList<>();
-    private List<BoxCollider> boxColliders = new ArrayList<>();
+    private final List<BoxCollider> boxColliders = new ArrayList<>();
 
-    private List<Tile> tiles;
+    private final List<EndBlock> endBlocks;
+    private final List<GroundedSpike> spikes;
 
-    private List<Strawberry> strawberries;
-    private List<EndBlock> endBlocks;
-    private List<GroundedSpike> spikes;
-
-    private List<GroundVoidBlock> voids;
-    private List<BackgroundBlock> background;
+    private final List<GroundVoidBlock> voids;
+    private final List<BackgroundBlock> background;
 
     public Arena(Hero hero, List<Tile> tiles, List<Strawberry> strawberries, List<EndBlock> endBlocks, List<GroundedSpike> spikes, List<GroundVoidBlock> voids, List<BackgroundBlock> background) {
         this.hero = hero;
-        this.tiles = tiles;
-        this.strawberries = strawberries;
         this.endBlocks = endBlocks;
         this.spikes = spikes;
         this.voids = voids;
@@ -120,7 +115,10 @@ public class Arena {
             t.update(graphics, delta);
         }
 
-        hero.update(graphics, delta);
+        if (hero != null) {
+            hero.update(graphics, delta);
+        }
+
         isHeroDead = !checkIfHeroIsDead();
         isArenaCompleted = checkIfLevelComplete();
     }

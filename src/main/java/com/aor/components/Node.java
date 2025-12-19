@@ -21,21 +21,19 @@ public abstract class Node {
         this.position = Utils.vectorSum(newPos, offset);
     }
 
-    //Getters and Setters
+    //Getter
     public Vector2d getPosition() {
         return position;
-    }
-
-    public void setPosition(Vector2d position) {
-        this.position = position;
-    }
-
-    public void setOffset(Vector2d offset) {
-        this.offset = offset;
     }
     public Vector2d getOffset(){
         return offset;
     }
 
-    public abstract void update();
+    //Setters
+    public void setPosition(Vector2d position) {
+        this.position = position;
+    }
+    public void setOffset(Vector2d offset) {
+        this.offset = offset;
+    }
 }

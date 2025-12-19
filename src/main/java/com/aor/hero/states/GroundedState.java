@@ -1,6 +1,7 @@
 package com.aor.hero.states;
 
 import com.aor.game.GameData;
+import com.aor.hero.StateTag;
 import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericModel;
@@ -9,7 +10,8 @@ import com.aor.utils.Vector2d;
 
 
 public class GroundedState implements HeroState {
-    private HeroModel model;
+    private final HeroModel model;
+    public static final StateTag tag = StateTag.GROUNDED;
 
     public GroundedState(GenericModel model, double delta) {
         this.model = (HeroModel) model;
@@ -65,5 +67,10 @@ public class GroundedState implements HeroState {
         double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.GRAVITY_ACCELERATION * delta);
 
         model.setVelocity(new Vector2d(xVelocity, yVelocity));
+    }
+
+    @Override
+    public StateTag getTag() {
+        return tag;
     }
 }

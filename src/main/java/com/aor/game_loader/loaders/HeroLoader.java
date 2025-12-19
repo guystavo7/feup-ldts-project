@@ -19,7 +19,7 @@ public class HeroLoader implements GameElementLoader {
     }
 
     @Override
-    public Hero Parse(String data, Vector2d pos) throws IOException {
+    public Hero parse(String data, Vector2d pos) throws IOException {
         return new Hero(pos,arena);
     }
 

@@ -19,27 +19,27 @@ public class TimerTest {
 
         //0 seconds passed
         Assertions.assertTrue(timer.isRunning());
-        Assertions.assertEquals(5f, timer.getRemaingTime());
+        Assertions.assertEquals(5f, timer.getRemainingTime());
 
         //1 second passed
         timer.update(1);
         Assertions.assertTrue(timer.isRunning());
-        Assertions.assertEquals(4f, timer.getRemaingTime());
+        Assertions.assertEquals(4f, timer.getRemainingTime());
 
         //5 seconds passed
         timer.update(4);
         Assertions.assertFalse(timer.isRunning());
-        Assertions.assertEquals(0f, timer.getRemaingTime());
+        Assertions.assertEquals(0f, timer.getRemainingTime());
 
         //6 seconds passed
         timer.update(1);
         Assertions.assertFalse(timer.isRunning());
-        Assertions.assertEquals(0f, timer.getRemaingTime());
+        Assertions.assertEquals(0f, timer.getRemainingTime());
 
         //Restart timer
         timer.start();
         Assertions.assertTrue(timer.isRunning());
-        Assertions.assertEquals(5f, timer.getRemaingTime());
+        Assertions.assertEquals(5f, timer.getRemainingTime());
     }
 
     @Test

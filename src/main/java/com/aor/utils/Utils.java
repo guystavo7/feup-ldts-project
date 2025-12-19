@@ -1,6 +1,6 @@
 package com.aor.utils;
 
-import com.aor.components.Pixel;
+import com.aor.components.sprites.Pixel;
 import com.aor.game.GameData;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -156,7 +156,7 @@ public class Utils {
         TerminalSize terminalSize = new TerminalSize(GameData.SCREEN_WIDTH, GameData.SCREEN_HEIGHT);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         terminalFactory.setForceAWTOverSwing(true);

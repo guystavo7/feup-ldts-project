@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class PausedState implements GameState {
-    private Game game;
+    private final Game game;
 
     public PausedState(Game game) {
         this.game = game;

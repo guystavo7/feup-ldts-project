@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class Strawberry extends Tile {
     private boolean active = true;
-    private Timer timer;
+    private final Timer timer;
     private boolean goingUp;
 
     public Strawberry(Vector2d position) throws IOException {
-        super(position, new Vector2d(1, -5), 6, 8 ,GameData.tileImgsPath.get("strawberry"), GameData.STRAWBERRY_TAG);
+        super(position, new Vector2d(1, -5), 6, 8 ,GameData.getTileImgPath().get(GameData.STRAWBERRY_TAG), GameData.STRAWBERRY_TAG);
         super.getBoxCollider().setTag(GameData.STRAWBERRY_TAG);
 
         timer = new Timer(GameData.STRAWBERRY_TIME, true);
@@ -25,7 +25,6 @@ public class Strawberry extends Tile {
     @Override
     public void update(TextGraphics graphics, double delta){
         active = !super.getBoxCollider().getCollidedOnce();
-
         if (active) {
             if (!timer.isRunning()) {
                 goingUp = !goingUp;

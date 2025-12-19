@@ -2,15 +2,15 @@ package com.aor.game;
 import java.util.HashMap;
 import java.util.Map;
 
-enum KeyState {
-    UP, //Key not pressed
-    DOWN, //Key pressed
-    CONSUMED //Key pressed and consumed but not released yet
-}
-
 public class InputHandler {
     private static InputHandler instance;
     private final Map<Integer, KeyState> keysPressed;
+
+    enum KeyState {
+        UP, //Key not pressed
+        DOWN, //Key pressed
+        CONSUMED //Key pressed and consumed but not released yet
+    }
 
     private InputHandler() {
         keysPressed = new HashMap<>();

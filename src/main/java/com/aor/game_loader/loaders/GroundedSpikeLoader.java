@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class GroundedSpikeLoader implements GameElementLoader {
     @Override
-    public GroundedSpike Parse(String data, Vector2d pos) throws IOException {// format
+    public GroundedSpike parse(String data, Vector2d pos) throws IOException {// format
         return new GroundedSpike(pos);
     }
 }

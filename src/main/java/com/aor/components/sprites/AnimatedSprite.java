@@ -10,11 +10,10 @@ import com.aor.components.factory.GenericSpriteFactory;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-//TO DO : generic sprite <>
 public class AnimatedSprite extends Node {
-    private List<GenericSprite> frames = new ArrayList<>();
+    private final List<GenericSprite> frames = new ArrayList<>();
     private double currentFrame;
-    private double frameSpeed;
+    private final double frameSpeed;
 
     public AnimatedSprite(Vector2d position, List<String> imgPaths, double frameSpeed, GenericSpriteFactory factory) throws IOException {
         super(position, new Vector2d(0, 0));
@@ -57,8 +56,6 @@ public class AnimatedSprite extends Node {
         frames.get((int) currentFrame).setPosition(newPos);
     }
 
-
-
     public int getWidth(){
         return frames.get((int) currentFrame).getWidth();
     }
@@ -78,10 +75,5 @@ public class AnimatedSprite extends Node {
 
         AnimatedSprite p = (AnimatedSprite) o;
         return this.hashCode() == p.hashCode();
-    }
-
-    @Override
-    public void update() {
-
     }
 }

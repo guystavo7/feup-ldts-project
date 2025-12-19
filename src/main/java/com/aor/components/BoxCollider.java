@@ -2,13 +2,11 @@ package com.aor.components;
 
 import com.aor.utils.Vector2d;
 
-import javax.swing.*;
-
 public class BoxCollider extends Node {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private String tag;
-    private boolean collidedOnce=false;
+    private boolean collidedOnce = false;
 
     public BoxCollider(Vector2d position, int width, int height, String tag) {
         super(position);
@@ -55,12 +53,7 @@ public class BoxCollider extends Node {
         return tag;
     }
     public void setTag(String tag) {
-         this.tag=tag;
-    }
-
-    @Override
-    public void update() {
-
+         this.tag = tag;
     }
 }
 

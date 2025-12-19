@@ -5,15 +5,16 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 
 public interface GenericSprite {
-    public void draw(TextGraphics graphics);
-    public int getWidth();
-    public int getHeight();
-    public void xFlip();
-    public void normal();
+    void draw(TextGraphics graphics);
+    int getWidth();
+    int getHeight();
 
-    public Vector2d getPosition();
-    public void setPosition( Vector2d pos);
-    public int hashCode();
+    void xFlip();
+    void normal();
 
-    public boolean equals(Object o);
+    Vector2d getPosition();
+    void setPosition( Vector2d pos);
+    int hashCode();
+
+    boolean equals(Object o);
 }
