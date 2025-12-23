@@ -35,6 +35,14 @@ public class AnimatedSprite extends Node {
         this.frameSpeed = frameSpeed;
     }
 
+    public double getCurrentFrame() {
+        return currentFrame;
+    }
+
+    public GenericSprite getCurrentFrameSprite(){
+        return frames.get((int) currentFrame);
+    }
+
     public final void draw(TextGraphics graphics){
         frames.get((int) currentFrame).draw(graphics);
     }
