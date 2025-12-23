@@ -19,7 +19,7 @@ public class TestSprite {
         graphicsStub = Mockito.mock(TextGraphics.class);
 
         try {
-            sprite = new SolidSprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/running0.png");
+            sprite = new SolidSprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/Running/running0.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,14 +28,14 @@ public class TestSprite {
     @Test
     void testGetters() {
         Assertions.assertEquals(sprite.getHeight(), 8);
-        Assertions.assertEquals(sprite.getWidth(), 8);
+        Assertions.assertEquals(sprite.getWidth(), 7);
         Assertions.assertEquals(sprite.getPosition(), new Vector2d(0, 0));
     }
 
     @Test
     void testEquals() {
         try {
-            SolidSprite s = new SolidSprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/running1.png");
+            SolidSprite s = new SolidSprite(new Vector2d(0, 0), new Vector2d(0, 0), "src/main/resources/Hero/Running/running1.png");
             Assertions.assertNotEquals(s, sprite);
             Assertions.assertEquals(sprite, sprite);
 

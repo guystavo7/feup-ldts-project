@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'info.solidsoft.pitest' version '1.15.0'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 application {
@@ -30,16 +29,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-shadowJar {
-    archiveBaseName.set('meu-app')
-    archiveClassifier.set('')
-    archiveVersion.set('')
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21) // ou 8, 11...
-    }
 }

@@ -23,7 +23,7 @@ class TestVector2d {
         Vector2d v2 = new Vector2d(5, 2);
 
         v1.addVector(v2);
-        Assertions.assertEquals(v1, new Vector2d(6, 3));
+        Assertions.assertEquals(new Vector2d(6, 3), v1);
     }
 
     @Test
@@ -31,7 +31,7 @@ class TestVector2d {
         int scalar = 5;
 
         v1.scalarProduct(scalar);
-        Assertions.assertEquals(v1, new Vector2d(5, 5));
+        Assertions.assertEquals(new Vector2d(5, 5), v1);
     }
 
     @Test
@@ -42,7 +42,6 @@ class TestVector2d {
         Assertions.assertTrue(v1.getX() == 0 && v1.getY() == 5);
     }
 
-
     @Test
     void testToString() {
         String s = "(1.0, 1.0)";
@@ -50,8 +49,55 @@ class TestVector2d {
     }
 
     @Test
-    void testNormalize() {
+    void testNormalize1() {
         Vector2d normalizedVector = new Vector2d(1 / Math.sqrt(2), 1 / Math.sqrt(2));
         Assertions.assertEquals(normalizedVector, v1.normalize());
+    }
+
+    @Test
+    void testNormalize2() {
+        Vector2d v2 = new Vector2d(0, 0);
+        v2.normalize();
+        Assertions.assertEquals(new Vector2d(0, 0), v2.normalize());
+    }
+
+    @Test
+    void testCloneConstructor() {
+        Vector2d otherVector = new Vector2d(v1);
+        Assertions.assertEquals(v1, otherVector);
+    }
+
+    @Test
+    void testClone() {
+        Vector2d cloneVector = v1.clone();
+        Assertions.assertEquals(v1, cloneVector);
+    }
+
+    @Test
+    void testSubVector() {
+        Vector2d v2 = new Vector2d(1, 2);
+        v1.subVector(v2);
+
+        Assertions.assertEquals(new Vector2d(0, -1), v1);
+    }
+
+    @Test
+    void testModule() {
+        Assertions.assertEquals(Math.sqrt(2), v1.module());
+    }
+
+    @Test
+    void testEquals1() {
+        Assertions.assertTrue(v1.equals(v1));
+    }
+
+    @Test
+    void testEquals2() {
+        Assertions.assertFalse(v1.equals(null));
+    }
+
+    @Test
+    void testEquals3() {
+        Assertions.assertFalse(v1.equals(new Object()));
     }
 }

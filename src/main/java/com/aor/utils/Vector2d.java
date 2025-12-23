@@ -6,7 +6,7 @@ public class Vector2d implements Cloneable {
     private double x;
     private double y;
 
-    public Vector2d(Vector2d other){
+    public Vector2d(Vector2d other) {
         this.x = other.getX();
         this.y = other.getY();
     }
@@ -68,7 +68,7 @@ public class Vector2d implements Cloneable {
     }
 
     public Vector2d normalize() {
-        double module = Math.sqrt(x * x + y * y);
+        double module = module();
         if (module == 0) return this;
 
         scalarProduct(1 / module);
