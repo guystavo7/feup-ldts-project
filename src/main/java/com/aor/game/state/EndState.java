@@ -43,5 +43,4 @@ public class EndState implements GameState {
     public void transition(double delta) {
         if (!timer.isRunning()) game.resetGame();
     }
-
 }

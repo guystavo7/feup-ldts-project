@@ -4,10 +4,9 @@ import com.aor.hero.StateTag;
 import com.aor.hero.mvc.HeroController;
 
 public interface HeroState {
-    public void onEnter(double delta);
-    public void onExit(double delta);
-    public void update(double delta);
-    public void getVelocity(double delta);
-    public void transition(HeroController controller, double delta);
+    void onEnter(double delta);
+    void update(double delta);
+    void getVelocity(double delta);
+    void transition(HeroController controller, double delta);
     StateTag getTag();
 }

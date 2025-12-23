@@ -29,10 +29,7 @@ public class WallJumpState implements HeroState {
     }
 
     @Override
-    public void onExit(double delta) {}
-
-    @Override
-    public void update(double delta) {}
+    public void update(double delta) {getVelocity(delta);}
 
     @Override
     public void transition(HeroController controller, double delta) {
@@ -42,15 +39,7 @@ public class WallJumpState implements HeroState {
     }
 
     @Override
-    public void getVelocity(double delta) {
-        Vector2d current = model.getVelocity();
-
-        Vector2d target = new Vector2d(0, GameData.MAX_VERTICAL_VELOCITY);
-        double xVelocity = current.getX();
-        double yVelocity = Utils.moveTowards(current.getY(), target.getY(), GameData.GRAVITY_ACCELERATION);
-
-        model.setVelocity(new Vector2d(xVelocity, yVelocity));
-    }
+    public void getVelocity(double delta) {}
 
     @Override
     public StateTag getTag() {

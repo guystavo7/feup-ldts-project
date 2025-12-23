@@ -14,6 +14,9 @@ import com.aor.mvc.GenericController;
 import com.aor.utils.Timer;
 
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.event.KeyEvent;
 
 public class HeroController implements GenericController {
@@ -59,8 +62,33 @@ public class HeroController implements GenericController {
         this.rightWallCollider = new BoxCollider(this.model.getPosition(), rightWallOffset, 2, 8, playerTag);
 
         this.arena = arena;
-        this.jumpSFX = new MusicPlayer("jump", false, false);
-        this.dashSFX = new MusicPlayer("dash", false, false);
+
+        MusicPlayer sound;
+        try {
+            Clip jumpClip = AudioSystem.getClip();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(GameData.getSfxFiles().get("jump"));
+            jumpClip.open(audioInputStream);
+
+            sound = new MusicPlayer(jumpClip, false, false);
+        } catch (Exception e) {
+            System.err.println("Cannot open jump SFX");
+            sound = null;
+        }
+
+        this.jumpSFX = sound;
+
+        try {
+            Clip dashClip = AudioSystem.getClip();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(GameData.getSfxFiles().get("dash"));
+            dashClip.open(audioInputStream);
+
+            sound = new MusicPlayer(dashClip, false, false);
+        } catch (Exception e) {
+            System.err.println("Cannot open dash SFX");
+            sound = null;
+        }
+
+        this.dashSFX = sound;
 
         //Timers
         this.jumpBufferTimer = new Timer(GameData.JUMP_BUFFER_TIME, false);
@@ -90,7 +118,6 @@ public class HeroController implements GenericController {
     }
 
     private void dash(double delta) {
-        model.getState().onExit(delta);
         model.setState(new DashingState(model, this, model.getState().getTag(), delta));
 
         model.setCanDash(false);
@@ -162,7 +189,6 @@ public class HeroController implements GenericController {
     public void playDashSFX() {
         this.dashSFX.start();
     }
-
     public void playJumpSFX() {
         this.jumpSFX.start();
     }
@@ -170,27 +196,21 @@ public class HeroController implements GenericController {
     public RigidBody getRigidBody() {
         return rigidBody;
     }
-
     public BoxCollider getBoxCollider() {
         return boxCollider;
     }
-
     public BoxCollider getGroundCollider() {
         return groundCollider;
     }
-
     public Timer getCoyoteTimer() {
         return coyoteTimer;
     }
-
     public Timer getDashTimer() {
         return dashTimer;
     }
-
     public Timer getJumpBufferTimer() {
         return jumpBufferTimer;
     }
-
     public Timer getWallJumpTimer() {
         return wallJumpTimer;
     }

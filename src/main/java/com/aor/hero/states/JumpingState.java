@@ -26,9 +26,6 @@ public class JumpingState implements HeroState {
     }
 
     @Override
-    public void onExit(double delta) {}
-
-    @Override
     public void update(double delta) {
         getVelocity(delta);
     }

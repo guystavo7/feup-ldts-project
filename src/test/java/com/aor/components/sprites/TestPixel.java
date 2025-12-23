@@ -1,6 +1,5 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
-import com.aor.components.sprites.Pixel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

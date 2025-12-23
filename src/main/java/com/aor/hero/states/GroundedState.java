@@ -22,9 +22,6 @@ public class GroundedState implements HeroState {
     public void onEnter(double delta) {}
 
     @Override
-    public void onExit(double delta) {}
-
-    @Override
     public void transition(HeroController controller, double delta) {
         if (controller.getJumpBufferTimer().isRunning()) {
             model.setState(new JumpingState(model, controller, delta));

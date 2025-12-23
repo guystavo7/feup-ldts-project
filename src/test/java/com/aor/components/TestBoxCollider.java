@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
+
 class TestBoxCollider {
     BoxCollider boxCollider;
 
@@ -80,5 +82,50 @@ class TestBoxCollider {
     void testIsColliding9() {
         //Check collision with itself
         Assertions.assertFalse(boxCollider.isColliding(boxCollider));
+    }
+
+    @Test
+    void testIsColliding10() {
+        //Check collision with topleft and botleft touching
+        BoxCollider otherBox = new BoxCollider(new Vector2d(4, 5), 2, 5, "tile");
+        Assertions.assertTrue(boxCollider.isColliding(otherBox));
+    }
+
+    @Test
+    void testIsColliding11() {
+        //Check collision with topright and botright touching
+        BoxCollider otherBox = new BoxCollider(new Vector2d(14, 5), 2, 5, "tile");
+        Assertions.assertTrue(boxCollider.isColliding(otherBox));
+    }
+
+    @Test
+    void testIsColliding12() {
+        //Check collision with topleft and topright touching
+        BoxCollider otherBox = new BoxCollider(new Vector2d(5, 4), 10, 2, "tile");
+        Assertions.assertTrue(boxCollider.isColliding(otherBox));
+    }
+
+    @Test
+    void testIsColliding13() {
+        //Check collision with botleft and botright touching
+        BoxCollider otherBox = new BoxCollider(new Vector2d(5, 9), 10, 2, "tile");
+        Assertions.assertTrue(boxCollider.isColliding(otherBox));
+    }
+
+    @Test
+    void testGetters() {
+        Assertions.assertEquals(10, boxCollider.getWidth());
+        Assertions.assertEquals(5, boxCollider.getHeight());
+        Assertions.assertEquals("tile", boxCollider.getTag());
+
+        boxCollider.setTag("inv");
+        Assertions.assertEquals("inv", boxCollider.getTag());
+    }
+
+    @Test
+    void testCollideOnce() {
+        Assertions.assertFalse(boxCollider.getCollidedOnce());
+        boxCollider.firstCollide();
+        Assertions.assertTrue(boxCollider.getCollidedOnce());
     }
 }

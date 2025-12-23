@@ -57,18 +57,4 @@ public class SolidSprite extends Node implements GenericSprite {
     public void normal(){
         currentImg = normalImg;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(currentImg, getPosition());
-    }
-
-    public boolean equals(Object o){
-        if (this == o) return true;
-        if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-
-        SolidSprite p = (SolidSprite) o;
-        return this.hashCode() == p.hashCode();
-    }
 }

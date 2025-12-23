@@ -1,16 +1,10 @@
-package com.aor.components;
+package com.aor.components.sprites;
 
 import com.aor.components.factory.GenericSpriteFactory;
 import com.aor.components.factory.TransparentSpriteFactory;
-import com.aor.components.sprites.AnimatedSprite;
-import com.aor.components.sprites.GenericSprite;
-import com.aor.components.sprites.SolidSprite;
-import com.aor.components.sprites.TransparentSprite;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

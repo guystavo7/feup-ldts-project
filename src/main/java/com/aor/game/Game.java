@@ -20,6 +20,10 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 public class Game {
     private Terminal terminal;
     private Screen screen;
@@ -34,12 +38,12 @@ public class Game {
     private Timer transitionTimer;
     private MusicPlayer musicPlayer;
 
-    public Game() {
+    public void startGame() {
         setup();
-        start();
+        startLoop();
     }
 
-    public void setup() {
+    private void setup() {
         try {
             Font font = Utils.loadSquaredFont();
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -73,7 +77,12 @@ public class Game {
             resetGame();
 
             transitionTimer = new Timer(0.5, false);
-            musicPlayer = new MusicPlayer("ost1", true, false);
+
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(GameData.getSfxFiles().get("ost1"));
+            clip.open(audioInputStream);
+
+            musicPlayer = new MusicPlayer(clip, true, false);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,7 +90,7 @@ public class Game {
         }
     }
 
-    public void start() {
+    private void startLoop() {
         double frames = 60;
         double framePerNanoSecond = 1_000_000_000d / frames;
         double previousTime = System.nanoTime();
@@ -125,7 +134,7 @@ public class Game {
         }
     }
 
-    public void update(double delta) {
+    private void update(double delta) {
         try {
             gameState.update(delta);
             gameState.transition(delta);
@@ -170,7 +179,7 @@ public class Game {
         }
     }
 
-    public void close() {
+    private void close() {
         if (screen == null) return;
         try {
             screen.close();
@@ -195,7 +204,6 @@ public class Game {
     public MusicPlayer getMusicPlayer() {
         return musicPlayer;
     }
-
 
     //Setters
     public void setIsRunning(boolean isRunning) {

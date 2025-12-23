@@ -39,9 +39,6 @@ public class DashingState implements HeroState {
     }
 
     @Override
-    public void onExit(double delta) {}
-
-    @Override
     public void transition(HeroController controller, double delta) {
         if (!controller.getDashTimer().isRunning()) {
             model.setState(new FallingState(model, delta));

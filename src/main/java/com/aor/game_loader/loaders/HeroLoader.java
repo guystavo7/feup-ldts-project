@@ -4,6 +4,7 @@ import com.aor.game.Arena;
 import com.aor.hero.mvc.Hero;
 import com.aor.utils.Vector2d;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 
 public class HeroLoader implements GameElementLoader {

@@ -21,9 +21,6 @@ public class IdleState implements HeroState {
     public void onEnter(double delta) {}
 
     @Override
-    public void onExit(double delta) {}
-
-    @Override
     public void transition(HeroController controller, double delta) {
         if (model.getDirection().getX() != 0) {
             model.setState(new GroundedState(model, delta));
