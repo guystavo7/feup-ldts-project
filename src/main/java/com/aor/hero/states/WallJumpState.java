@@ -9,7 +9,7 @@ import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
-public class WallJumpState implements HeroState {
+public class WallJumpState implements HeroState, EnterableState {
     private final HeroModel model;
     public static final StateTag tag = StateTag.WALL_JUMPING;
 

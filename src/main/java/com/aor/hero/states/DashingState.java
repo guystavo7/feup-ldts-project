@@ -9,7 +9,7 @@ import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
-public class DashingState implements HeroState {
+public class DashingState implements HeroState, EnterableState {
     private final HeroModel model;
     private final Vector2d direction;
     private final StateTag lastState;

@@ -8,17 +8,12 @@ import com.aor.mvc.GenericModel;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
-public class FallingState implements HeroState {
+public class FallingState implements HeroState{
     private final HeroModel model;
     public static final StateTag tag = StateTag.FALLING;
 
     public FallingState(GenericModel model, double delta) {
         this.model = (HeroModel) model;
-    }
-
-    @Override
-    public void onEnter(double delta) {
-
     }
 
     @Override

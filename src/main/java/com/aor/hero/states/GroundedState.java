@@ -15,11 +15,7 @@ public class GroundedState implements HeroState {
 
     public GroundedState(GenericModel model, double delta) {
         this.model = (HeroModel) model;
-        onEnter(delta);
     }
-
-    @Override
-    public void onEnter(double delta) {}
 
     @Override
     public void transition(HeroController controller, double delta) {

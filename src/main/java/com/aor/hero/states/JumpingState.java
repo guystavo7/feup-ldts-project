@@ -10,7 +10,7 @@ import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
 
-public class JumpingState implements HeroState {
+public class JumpingState implements HeroState, EnterableState {
     private final HeroModel model;
     public static final StateTag tag = StateTag.JUMPING;
 

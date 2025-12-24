@@ -192,16 +192,6 @@ public class HeroController implements GenericController {
     public void playJumpSFX() {
         this.jumpSFX.start();
     }
-
-    public RigidBody getRigidBody() {
-        return rigidBody;
-    }
-    public BoxCollider getBoxCollider() {
-        return boxCollider;
-    }
-    public BoxCollider getGroundCollider() {
-        return groundCollider;
-    }
     public Timer getCoyoteTimer() {
         return coyoteTimer;
     }
