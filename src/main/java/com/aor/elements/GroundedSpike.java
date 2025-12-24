@@ -11,4 +11,10 @@ public class GroundedSpike extends Tile {
         super(position, new Vector2d(0, 3), 6, 5, GameData.getTileImgPath().get("spike"), GameData.SPIKE_TAG);
         super.getBoxCollider().setTag(GameData.SPIKE_TAG);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if( this.getClass()!=o.getClass()){return false;}
+        return super.equals(o);
+    }
 }

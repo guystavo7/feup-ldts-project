@@ -1,6 +1,7 @@
 package com.aor.game_loader;
 
 import com.aor.elements.GameElement;
+import com.aor.elements.GroundedSpike;
 import com.aor.game.GameData;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
@@ -25,48 +26,58 @@ public class TestArenaLoader {
     ArenaLoader arenaLoader;
     Map<String,String> TileImagePaths= GameData.getTileImgPath();
     List<String> TileCodes;
+    List<String> SpikeCodes;
     boolean setupOnce=false;
     @BeforeEach
     void setup(){
         if(!setupOnce) {
             TileCodes = new ArrayList<>();
+            SpikeCodes=List.of("S");
             arenaLoader = new ArenaLoader();
             for (String s : TileImagePaths.keySet()) {
                 if (s.startsWith("T")) {
                     TileCodes.add(s);
                 }
+
             }
-            TileCodes.add("  ");
             setupOnce=true;
         }
     }
 
 
+    interface GameElementGenerator{
+        GameElement gen(String data,Vector2d pos) throws IOException;
+    }
 
-    @Property(tries=1)
-    void TestTileLoader(@ForAll int seed ) throws IOException {
-        setup();
+    List<GameElement> ExpectedGameElementListAndFileGenerator(int seed,GameElementGenerator generator,List<String> elementCodes) throws IOException {
+        List<GameElement> gameElements=new ArrayList<>();
+
+
         File file=new File(testLoaderFilename);
         if(!file.exists()){
             file.createNewFile();
             file.setReadable(true);
             file.setExecutable(true);
         }
-
+//List<String>
         BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter(testLoaderFilename));
         Random random=new Random();
         random.setSeed(seed);
-        List<Tile>tiles=new ArrayList<>();
         StringBuilder encodingStringBuilder=new StringBuilder();
         for(int j=0;j<16;j++){
-          for(int i=0;i<16;i++){
-                Integer randomId=random.nextInt()%TileCodes.size();
-                randomId=randomId<0?-randomId:randomId;
-                String tileCode=TileCodes.get(randomId);
-                if(!tileCode.equals("  ")) {
-                    tiles.add(new Tile(new Vector2d(i * 8, j * 8), TileImagePaths.get(tileCode), GameData.TILE_TAG));
+            for(int i=0;i<16;i++){
+                int randomId=random.nextInt();
+                if(randomId>=0) {
+                    randomId%=elementCodes.size();
+                    String elementCode=elementCodes.get(randomId);
+                    gameElements.add(generator.gen(elementCode,new Vector2d(i * 8, j * 8)));
+                    //tiles.add(new Tile(new Vector2d(i * 8, j * 8), TileImagePaths.get(tileCode), GameData.TILE_TAG));
+                    encodingStringBuilder.append(elementCode+",");
                 }
-                encodingStringBuilder.append(tileCode+",");
+                else {
+                    encodingStringBuilder.append("   ,");
+                }
+
             }
             encodingStringBuilder.append("\n");
         }
@@ -74,12 +85,33 @@ public class TestArenaLoader {
         bufferedWriter.write(encoingString);
         bufferedWriter.flush();
         bufferedWriter.close();
-        List<Tile> tiles1= arenaLoader.loadTile16x16file(testLoaderFilename);
-         Assertions.assertEquals( tiles1,tiles);
-
-        //file.deleteOnExit();
 
 
+        return gameElements;
+    }
+
+    public <T> List<T> convert(List<GameElement> elements){
+        List<T> res= new ArrayList<>();
+        for (GameElement e : elements) {
+            res.add((T) e);
+        }
+        return res ;
+    }
+
+    @Property(tries=100)
+    void TestTileLoader(@ForAll int seed ) throws IOException {
+        setup();
+        List<Tile> expectedTiles = convert(ExpectedGameElementListAndFileGenerator(seed,(String data,Vector2d pos)->new Tile(pos, TileImagePaths.get(data), GameData.TILE_TAG),TileCodes));
+        List<Tile> tiles= arenaLoader.loadTile16x16file(testLoaderFilename);
+         Assertions.assertEquals( tiles,expectedTiles);
+    }
+
+    @Property(tries=100)
+    void TestGroundedSpikeLoader(@ForAll int seed ) throws IOException {
+        setup();
+        List<GroundedSpike> expectedSpikes = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new GroundedSpike(pos),SpikeCodes));
+        List<GroundedSpike> spikes= arenaLoader.loadSpike16x16file(testLoaderFilename);
+        Assertions.assertEquals( spikes,expectedSpikes);
     }
 
 
