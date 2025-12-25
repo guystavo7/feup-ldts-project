@@ -43,4 +43,10 @@ public class Strawberry extends Tile {
     public boolean isActive() {
         return active;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if( this.getClass()!=o.getClass()){return false;}
+        return super.equals(o);
+    }
 }

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'info.solidsoft.pitest' version '1.15.0'
+    id 'groovy'
 }
 
 application {
@@ -20,6 +21,7 @@ pitest {
 }
 
 dependencies {
+    testImplementation 'net.jqwik:jqwik:1.9.2'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'

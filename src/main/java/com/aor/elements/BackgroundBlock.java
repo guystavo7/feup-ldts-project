@@ -13,4 +13,15 @@ public class BackgroundBlock  extends Tile {
     public BackgroundBlock(Vector2d position, Vector2d offset, int width, int height, String path) throws IOException {
         super(position, offset, width, height, path, " ");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if( this.getClass()!=o.getClass()){return false;}
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
