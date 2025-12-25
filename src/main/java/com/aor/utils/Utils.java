@@ -44,9 +44,9 @@ public class Utils {
         }
     }
 
-    public static List<List<Pixel>> XFLipPixeis(List<List<Pixel>> p){
-        int height=p.size();
-        int width=p.getFirst().size();
+    public static List<List<Pixel>> xFlipPixels(List<List<Pixel>> p){
+        int height = p.size();
+        int width = p.getFirst().size();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width/2; x++) {
                 Pixel temp=p.get(y).get(x);
@@ -57,7 +57,7 @@ public class Utils {
         return p;
     }
 
-    public static List<List<Pixel>> loadPixeis(String path) throws IOException {
+    public static List<List<Pixel>> loadPixels(String path) throws IOException {
         File file = new File(path);
         BufferedImage image = ImageIO.read(file);
 
@@ -67,9 +67,8 @@ public class Utils {
         List<List<Pixel>> res=new ArrayList<>();
 
         for (int y = 0; y < height; y++) {
-            res.add(new ArrayList<Pixel>());
+            res.add(new ArrayList<>());
             for (int x = 0; x < width; x++) {
-
                 res.getLast().add(new Pixel(image.getRGB(x, y)));
             }
         }
@@ -77,7 +76,7 @@ public class Utils {
         return res;
     }
 
-    public static TextImage createTextImage(List<List<Pixel>> p){
+    public static TextImage createTextImage(List<List<Pixel>> p) {
         int width = p.getFirst().size();
         int height = p.size();
 
@@ -96,23 +95,22 @@ public class Utils {
     }
 
     public static List<List<Pixel>> loadTransparentImage(String path) throws IOException {
-        return loadPixeis(path);
+        return loadPixels(path);
     }
     public static List<List<Pixel>> loadXFlippedTransparentImage(String path) throws IOException {
         List<List<Pixel>> p=loadTransparentImage(path);
-        p=XFLipPixeis(p);
+        p= xFlipPixels(p);
 
         return p;
     }
 
-
     public static TextImage loadImage(String path) throws IOException {
-        return createTextImage(loadPixeis(path));
+        return createTextImage(loadPixels(path));
     }
 
     public static TextImage loadXFlippedImage(String path) throws IOException {
-        List<List<Pixel>> p=loadPixeis(path);
-        XFLipPixeis(p);
+        List<List<Pixel>> p= loadPixels(path);
+        xFlipPixels(p);
 
         return  createTextImage(p);
     }

@@ -18,6 +18,8 @@ public class SolidSprite extends Node implements GenericSprite {
     private final TextImage xFlippedImg;
     private final TextImage normalImg;
 
+    private final String filePath;
+
     public SolidSprite(Vector2d position, String filePath) throws IOException {
         super(position);
 
@@ -27,6 +29,8 @@ public class SolidSprite extends Node implements GenericSprite {
 
         this.width = currentImg.getSize().getColumns();
         this.height = currentImg.getSize().getRows();
+
+        this.filePath = filePath;
     }
 
     public SolidSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
@@ -38,6 +42,8 @@ public class SolidSprite extends Node implements GenericSprite {
 
         this.width = currentImg.getSize().getColumns();
         this.height = currentImg.getSize().getRows();
+
+        this.filePath = filePath;
     }
 
     public void draw(TextGraphics graphics){
@@ -56,5 +62,20 @@ public class SolidSprite extends Node implements GenericSprite {
     }
     public void normal(){
         currentImg = normalImg;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filePath, getPosition());
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+
+        SolidSprite p = (SolidSprite) o;
+        return this.hashCode() == p.hashCode();
     }
 }

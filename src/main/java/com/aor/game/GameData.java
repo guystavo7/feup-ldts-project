@@ -100,9 +100,6 @@ public class GameData {
         runningFiles.add(Utils.createTempFile("Hero/Running/running0.png"));
         runningFiles.add(Utils.createTempFile("Hero/Running/running1.png"));
         runningFiles.add(Utils.createTempFile("Hero/Running/running2.png"));
-        runningFiles.add(Utils.createTempFile("Hero/Running/running0.png"));
-        runningFiles.add(Utils.createTempFile("Hero/Running/running1.png"));
-        runningFiles.add(Utils.createTempFile("Hero/Running/running2.png"));
         filePaths.put(GroundedState.tag, runningFiles);
 
         List<String> jumpingFiles = new ArrayList<>();

@@ -53,17 +53,13 @@ public class HeroView implements GenericView {
         }
     }
 
-    public AnimatedSprite getAnimatedSprite() {
-        return currentSprite;
-    }
-
     private void checkState() {
         Map<StateTag, AnimatedSprite> map = sprites;
         if (!model.canDash()) map = spritesDashless;
 
         if (currentState != model.getState().getTag()) {
             currentState = model.getState().getTag();
-            if (model.getState() instanceof DashingState) currentState = ((DashingState) model.getState()).getLastState();
+            if (model.getState() instanceof DashingState dashingState) currentState = dashingState.getLastState();
             currentSprite = map.get(currentState);
         }
     }
@@ -97,5 +93,9 @@ public class HeroView implements GenericView {
         }
 
         currentSprite.draw(graphics);
+    }
+
+    public AnimatedSprite getAnimatedSprite() {
+        return currentSprite;
     }
 }

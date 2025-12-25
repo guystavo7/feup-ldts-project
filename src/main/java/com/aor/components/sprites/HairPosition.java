@@ -66,7 +66,7 @@ public class HairPosition extends Node implements Positionable {
         }
     }
 
-    public void update(double delta){
+    public void update(double delta) {
         move(delta);
         setPosition(new Vector2d(alignedX(), alignedY()));
     }
