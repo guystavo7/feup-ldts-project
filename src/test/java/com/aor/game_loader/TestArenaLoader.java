@@ -1,9 +1,6 @@
 package com.aor.game_loader;
 
-import com.aor.elements.GameElement;
-import com.aor.elements.GroundVoidBlock;
-import com.aor.elements.GroundedSpike;
-import com.aor.elements.Strawberry;
+import com.aor.elements.*;
 import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.game.GenericArena;
@@ -26,6 +23,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+interface GameElementGenerator{
+    GameElement gen(String data,Vector2d pos) throws IOException;
+}
 
 public class TestArenaLoader {
     String testLoaderFilename="src/test/java/com/aor/game_loader/TestLoaderFile.txt";
@@ -39,14 +39,19 @@ public class TestArenaLoader {
     List<String> groundedVoidBlockCodes;
     List<String> strawberryCodes;
     List<String> heroCodes;
-    List<String> grassCodes;
-    List<String> flowerCodes;
-    List<String> treeCodes;
+
+
+    List<String> BackgroundCodes;
+
+    Map<String,GameElementGenerator> BackgroundMaker;
+
     boolean setupOnce=false;
     @BeforeEach
     void setup(){
         if(!setupOnce) {
             tileCodes = new ArrayList<>();
+            BackgroundCodes= new ArrayList<>();
+            BackgroundCodes.addAll(List.of("G00","G01","A00","A01","C"));
 
             endBlockCodes=List.of("E");
             spikeCodes=List.of("S");
@@ -55,9 +60,15 @@ public class TestArenaLoader {
             strawberryCodes=List.of("B");
             heroCodes=List.of("H");
 
-            grassCodes=List.of("G");
-            flowerCodes=List.of("C");
-            treeCodes=List.of("A");
+
+
+            BackgroundMaker=new HashMap<>();
+            BackgroundMaker.put("F", (String data, Vector2d pos)->new BackgroundBlock(pos,TileImagePaths.get(data)));
+            BackgroundMaker.put("G",(String data, Vector2d pos)->new BackgroundBlock(pos, (data.equals("G01")?new Vector2d(1, 4):new Vector2d(1, 2)), 6, (data.equals("G01")?4:6), GameData.getTileImgPath().get(data)));
+
+            BackgroundMaker.put("A",(String data, Vector2d pos)->new BackgroundBlock(pos,TileImagePaths.get(data)));
+            BackgroundMaker.put("C",(String data, Vector2d pos)-> new BackgroundBlock(pos, new Vector2d(1, 1), 5, 7, GameData.getTileImgPath().get("flower")) );
+
 
             arenaLoader = new ArenaLoader();
             arena= Mockito.mock(GenericArena.class);
@@ -66,6 +77,9 @@ public class TestArenaLoader {
                 if (s.startsWith("T")) {
                     tileCodes.add(s);
                 }
+                if (s.startsWith("F")) {
+                    BackgroundCodes.add(s);
+                }
 
             }
             setupOnce=true;
@@ -73,9 +87,7 @@ public class TestArenaLoader {
     }
 
 
-    interface GameElementGenerator{
-        GameElement gen(String data,Vector2d pos) throws IOException;
-    }
+
 
     List<GameElement> ExpectedGameElementListAndFileGenerator(int seed,GameElementGenerator generator,List<String> elementCodes) throws IOException {
         List<GameElement> gameElements=new ArrayList<>();
@@ -172,6 +184,15 @@ public class TestArenaLoader {
         List<Hero> heros= arenaLoader.loadHero16x16file(testLoaderFilename,arena);
         Assertions.assertEquals(heros,expectedHeros);
     }
+
+    @Property(tries=100)
+    void TestBackgroundLoader(@ForAll int seed ) throws IOException {
+        setup();
+        List<BackgroundBlock> expectedBackground = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->BackgroundMaker.get(data.substring(0,1)).gen(data,pos),BackgroundCodes));
+        List<BackgroundBlock> background= arenaLoader.loadBackground16x16file(testLoaderFilename);
+        Assertions.assertEquals(new HashSet<>(background),new HashSet<>(expectedBackground));
+    }
+
 
 
 }

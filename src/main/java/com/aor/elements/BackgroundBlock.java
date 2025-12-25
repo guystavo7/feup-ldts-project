@@ -19,4 +19,9 @@ public class BackgroundBlock  extends Tile {
         if( this.getClass()!=o.getClass()){return false;}
         return super.equals(o);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

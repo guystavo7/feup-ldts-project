@@ -60,6 +60,6 @@ public class Tile implements GameElement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(tileView, tileModel, tileController);
+        return Objects.hash(position,tag,filePath);
     }
 }
