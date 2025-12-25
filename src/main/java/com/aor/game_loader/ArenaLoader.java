@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.aor.game.Arena;
 import com.aor.elements.*;
+import com.aor.game.GenericArena;
 import com.aor.game_loader.loaders.*;
 import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
@@ -95,7 +96,7 @@ public class ArenaLoader {
         return this.convert(load16x16File(filePath, 'B'));
     }
 
-    public List<Hero> loadHero16x16file(String filePath, Arena arena) throws IOException {
+    public List<Hero> loadHero16x16file(String filePath, GenericArena arena) throws IOException {
         ((HeroLoader)loader.get('H')).setArena(arena);
         return this.convert(load16x16File(filePath, 'H'));
     }

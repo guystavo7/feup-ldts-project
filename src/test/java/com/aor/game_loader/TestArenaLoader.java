@@ -1,8 +1,13 @@
 package com.aor.game_loader;
 
 import com.aor.elements.GameElement;
+import com.aor.elements.GroundVoidBlock;
 import com.aor.elements.GroundedSpike;
+import com.aor.elements.Strawberry;
+import com.aor.game.Arena;
 import com.aor.game.GameData;
+import com.aor.game.GenericArena;
+import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 import net.jqwik.api.Arbitrary;
@@ -11,6 +16,7 @@ import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mockito;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,19 +30,41 @@ import java.util.*;
 public class TestArenaLoader {
     String testLoaderFilename="src/test/java/com/aor/game_loader/TestLoaderFile.txt";
     ArenaLoader arenaLoader;
+    GenericArena arena;
     Map<String,String> TileImagePaths= GameData.getTileImgPath();
-    List<String> TileCodes;
-    List<String> SpikeCodes;
+    List<String> tileCodes;
+    List<String> spikeCodes;
+    List<String> endBlockCodes;
+
+    List<String> groundedVoidBlockCodes;
+    List<String> strawberryCodes;
+    List<String> heroCodes;
+    List<String> grassCodes;
+    List<String> flowerCodes;
+    List<String> treeCodes;
     boolean setupOnce=false;
     @BeforeEach
     void setup(){
         if(!setupOnce) {
-            TileCodes = new ArrayList<>();
-            SpikeCodes=List.of("S");
+            tileCodes = new ArrayList<>();
+
+            endBlockCodes=List.of("E");
+            spikeCodes=List.of("S");
+
+            groundedVoidBlockCodes=List.of("V");
+            strawberryCodes=List.of("B");
+            heroCodes=List.of("H");
+
+            grassCodes=List.of("G");
+            flowerCodes=List.of("C");
+            treeCodes=List.of("A");
+
             arenaLoader = new ArenaLoader();
+            arena= Mockito.mock(GenericArena.class);
+
             for (String s : TileImagePaths.keySet()) {
                 if (s.startsWith("T")) {
-                    TileCodes.add(s);
+                    tileCodes.add(s);
                 }
 
             }
@@ -64,15 +92,22 @@ public class TestArenaLoader {
         Random random=new Random();
         random.setSeed(seed);
         StringBuilder encodingStringBuilder=new StringBuilder();
-        for(int j=0;j<16;j++){
-            for(int i=0;i<16;i++){
+
+        boolean endEarly=false;// in case of hero, we just want to generate it once;
+        for(int j=0;j<16 ;j++){
+            for(int i=0;i<16 ;i++){
                 int randomId=random.nextInt();
-                if(randomId>=0) {
+                if(randomId>=0  && !endEarly) {
                     randomId%=elementCodes.size();
                     String elementCode=elementCodes.get(randomId);
                     gameElements.add(generator.gen(elementCode,new Vector2d(i * 8, j * 8)));
+
                     //tiles.add(new Tile(new Vector2d(i * 8, j * 8), TileImagePaths.get(tileCode), GameData.TILE_TAG));
                     encodingStringBuilder.append(elementCode+",");
+                    if(elementCodes.contains("H")){
+                        endEarly=true;
+                    }
+
                 }
                 else {
                     encodingStringBuilder.append("   ,");
@@ -101,7 +136,7 @@ public class TestArenaLoader {
     @Property(tries=100)
     void TestTileLoader(@ForAll int seed ) throws IOException {
         setup();
-        List<Tile> expectedTiles = convert(ExpectedGameElementListAndFileGenerator(seed,(String data,Vector2d pos)->new Tile(pos, TileImagePaths.get(data), GameData.TILE_TAG),TileCodes));
+        List<Tile> expectedTiles = convert(ExpectedGameElementListAndFileGenerator(seed,(String data,Vector2d pos)->new Tile(pos, TileImagePaths.get(data), GameData.TILE_TAG),tileCodes));
         List<Tile> tiles= arenaLoader.loadTile16x16file(testLoaderFilename);
          Assertions.assertEquals( tiles,expectedTiles);
     }
@@ -109,9 +144,33 @@ public class TestArenaLoader {
     @Property(tries=100)
     void TestGroundedSpikeLoader(@ForAll int seed ) throws IOException {
         setup();
-        List<GroundedSpike> expectedSpikes = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new GroundedSpike(pos),SpikeCodes));
+        List<GroundedSpike> expectedSpikes = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new GroundedSpike(pos),spikeCodes));
         List<GroundedSpike> spikes= arenaLoader.loadSpike16x16file(testLoaderFilename);
         Assertions.assertEquals( spikes,expectedSpikes);
+    }
+
+    @Property(tries=100)
+    void TestGroundedVoidBlockLoader(@ForAll int seed ) throws IOException {
+        setup();
+        List<GroundVoidBlock> expectedGroundedVoidBlocks = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new GroundVoidBlock(pos),groundedVoidBlockCodes));
+        List<GroundVoidBlock> groundedVoidBlocks= arenaLoader.loadVoid16x16file(testLoaderFilename);
+        Assertions.assertEquals( groundedVoidBlocks,expectedGroundedVoidBlocks);
+    }
+
+    @Property(tries=100)
+    void TestStrawberryLoader(@ForAll int seed ) throws IOException {
+        setup();
+        List<Strawberry> expectedStrawberries = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new Strawberry(pos),strawberryCodes));
+        List<Strawberry> strawberries= arenaLoader.loadStrawberry16x16file(testLoaderFilename);
+        Assertions.assertEquals( strawberries,expectedStrawberries);
+    }
+
+    @Property(tries=10)
+    void TestHeroLoader(@ForAll int seed ) throws IOException {
+        setup();
+        List<Hero> expectedHeros = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new Hero(pos,arena),heroCodes));
+        List<Hero> heros= arenaLoader.loadHero16x16file(testLoaderFilename,arena);
+        Assertions.assertEquals(heros,expectedHeros);
     }
 
 

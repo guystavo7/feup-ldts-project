@@ -10,7 +10,7 @@ import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Arena {
+public class Arena implements GenericArena {
     private Hero hero;
 
     private boolean isHeroDead = false;

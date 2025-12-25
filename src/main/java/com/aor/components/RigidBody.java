@@ -4,23 +4,24 @@ import java.util.List;
 
 import com.aor.game.Arena;
 import com.aor.game.GameData;
+import com.aor.game.GenericArena;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
 public class RigidBody extends Node {
-    private final Arena arena;
+    private final GenericArena arena;
     private final BoxCollider boxCollider;
 
     private Vector2d velocity;
 
-    public RigidBody(Vector2d position, Vector2d velocity, Arena arena, BoxCollider boxCollider) {
+    public RigidBody(Vector2d position, Vector2d velocity, GenericArena arena, BoxCollider boxCollider) {
         super(position);
         this.velocity = velocity;
         this.arena = arena;
         this.boxCollider = boxCollider;
     }
 
-    public RigidBody(Vector2d position, Vector2d offset, Vector2d velocity, Arena arena, BoxCollider boxCollider) {
+    public RigidBody(Vector2d position, Vector2d offset, Vector2d velocity, GenericArena arena, BoxCollider boxCollider) {
         super(position, offset);
         this.velocity = velocity;
         this.arena = arena;

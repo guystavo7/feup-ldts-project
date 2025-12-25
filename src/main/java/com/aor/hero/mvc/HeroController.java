@@ -4,6 +4,7 @@ import com.aor.components.BoxCollider;
 import com.aor.components.RigidBody;
 import com.aor.game.Arena;
 import com.aor.game.GameData;
+import com.aor.game.GenericArena;
 import com.aor.game.InputHandler;
 import com.aor.hero.states.SlidingState;
 import com.aor.hero.states.DashingState;
@@ -28,7 +29,7 @@ public class HeroController implements GenericController {
     private final BoxCollider leftWallCollider;
     private final BoxCollider rightWallCollider;
 
-    private final Arena arena;
+    private final GenericArena arena;
     private final MusicPlayer jumpSFX;
     private final MusicPlayer dashSFX;
 
@@ -38,7 +39,7 @@ public class HeroController implements GenericController {
     private final Timer dashTimer;
     private final Timer wallJumpTimer;
 
-    public HeroController(GenericModel model, Vector2d initialVelocity, int width, int height, Arena arena) {
+    public HeroController(GenericModel model, Vector2d initialVelocity, int width, int height, GenericArena arena) {
         String playerTag = GameData.PLAYER_TAG;
 
         this.model = (HeroModel) model;

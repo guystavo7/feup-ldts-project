@@ -9,5 +9,11 @@ public class GroundVoidBlock extends EmptyBlock {
     public GroundVoidBlock(Vector2d position) throws IOException {
         super(position, new Vector2d(0, 8), 8, 8, GameData.VOID_TILE_TAG);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if( this.getClass()!=o.getClass()){return false;}
+        return super.equals(o);
+    }
 }
 

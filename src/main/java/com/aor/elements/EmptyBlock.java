@@ -17,4 +17,9 @@ public class EmptyBlock extends Tile {
     public void update(TextGraphics graphics, double delta) {
 
     }
+    @Override
+    public boolean equals(Object o) {
+        if( this.getClass()!=o.getClass()){return false;}
+        return super.equals(o);
+    }
 }
