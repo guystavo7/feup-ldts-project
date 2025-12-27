@@ -10,7 +10,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Vector;
 
 public class Hero implements GameElement {
     Vector2d position;

@@ -21,4 +21,11 @@ public class TestPixel {
         String red = "#ff0000";
         Assertions.assertEquals(red, pixel.toString());
     }
+
+    @Test
+    void testEquals() {
+        Pixel p = new Pixel(6);
+        Assertions.assertEquals(new Pixel(6), p);
+        Assertions.assertNotEquals(new Pixel(7), p);
+    }
 }

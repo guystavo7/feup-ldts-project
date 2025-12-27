@@ -19,6 +19,8 @@ public class TransparentSprite extends Node implements GenericSprite {
     private final List<List<Pixel>> xFlippedImg;
     private final List<List<Pixel>> normalImg;
 
+    private final String filePath;
+
     public TransparentSprite(Vector2d position, String filePath) throws IOException {
         super(position);
 
@@ -28,16 +30,20 @@ public class TransparentSprite extends Node implements GenericSprite {
 
         this.width = currentImg.getFirst().size();
         this.height = currentImg.size();
+        this.filePath = filePath;
     }
 
 
     public TransparentSprite(Vector2d position, Vector2d offset, String filePath) throws IOException {
         super(position, offset);
+
         this.normalImg = Utils.loadTransparentImage(filePath);
         xFlippedImg = Utils.loadXFlippedTransparentImage(filePath);
         currentImg = normalImg;
+
         this.width = currentImg.getFirst().size();
         this.height = currentImg.size();
+        this.filePath = filePath;
     }
 
     public void draw(TextGraphics graphics){
@@ -59,18 +65,16 @@ public class TransparentSprite extends Node implements GenericSprite {
     public int getHeight(){
         return height;
     }
-
     public void xFlip(){
         currentImg = xFlippedImg;
     }
-
     public void normal(){
         currentImg = normalImg;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currentImg, getPosition());
+        return Objects.hash(filePath, getPosition());
     }
 
     public boolean equals(Object o){

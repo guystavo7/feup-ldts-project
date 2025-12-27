@@ -1,5 +1,7 @@
 package com.aor.components.sprites;
 
+import java.util.Objects;
+
 public class Pixel {
     private final String argbColor;
     private final String rgbColor;
@@ -19,5 +21,20 @@ public class Pixel {
     }
     public Short getAlpha() {
         return alpha;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(argbColor);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
+
+        Pixel p = (Pixel) o;
+        return this.hashCode() == p.hashCode();
     }
 }
