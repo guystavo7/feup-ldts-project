@@ -22,11 +22,11 @@ import java.awt.event.KeyEvent;
 
 public class HeroController implements GenericController {
     private final HeroModel model;
-    private final RigidBody rigidBody;
+    protected final RigidBody rigidBody;
 
     //Colliders
-    private final BoxCollider boxCollider;
-    private final BoxCollider hitBox;
+    protected final BoxCollider boxCollider;
+    protected final BoxCollider hitBox;
 
     private final BoxCollider groundCollider;
     private final BoxCollider leftWallCollider;
@@ -187,6 +187,14 @@ public class HeroController implements GenericController {
         checkCollisionsWithHitBox();
     }
 
+    public BoxCollider getHitBox() {
+        return hitBox;
+    }
+
+    public BoxCollider getBoxCollider() {
+        return boxCollider;
+    }
+
     public void playDashSFX() {
         this.dashSFX.start();
     }
@@ -204,5 +212,8 @@ public class HeroController implements GenericController {
     }
     public Timer getWallJumpTimer() {
         return wallJumpTimer;
+    }
+    public void setVelocity(Vector2d velocity){
+        model.setVelocity(velocity);
     }
 }

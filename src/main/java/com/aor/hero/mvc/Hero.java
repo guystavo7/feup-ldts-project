@@ -15,13 +15,14 @@ import java.util.Vector;
 public class Hero implements GameElement {
     Vector2d position;
     GenericArena arena;
-    private final HeroView heroView;
-    private final HeroController heroController;
+    protected final HeroModel heroModel;
+    protected final HeroView heroView;
+    protected final HeroController heroController;
 
     public Hero(Vector2d position, GenericArena arena) {
         this.position=position;
         this.arena=arena;
-        HeroModel heroModel = new HeroModel(position, new Vector2d(0, 0), new Vector2d(0, 0));
+        heroModel = new HeroModel(position, new Vector2d(0, 0), new Vector2d(0, 0));
         EnumMap<StateTag, List<String>> filePaths = (EnumMap<StateTag, List<String>>) GameData.getHeroFilePaths();
         EnumMap<StateTag, List<String>> filePathsDashless = (EnumMap<StateTag, List<String>>) GameData.getHeroDashlessFilePaths();
 

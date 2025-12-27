@@ -9,7 +9,7 @@ import com.aor.mvc.GenericModel;
 import com.aor.utils.Vector2d;
 
 public class HeroModel implements GenericModel, Positionable {
-    private Vector2d position;
+    protected Vector2d position;
     private Vector2d velocity;
     private Vector2d direction;
     private HeroState state;
