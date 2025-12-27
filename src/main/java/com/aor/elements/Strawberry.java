@@ -1,5 +1,6 @@
 package com.aor.elements;
 
+import com.aor.components.BoxCollider;
 import com.aor.game.GameData;
 import com.aor.tile.Tile;
 import com.aor.utils.Timer;
@@ -48,5 +49,10 @@ public class Strawberry extends Tile {
     public boolean equals(Object o) {
         if( this.getClass()!=o.getClass()){return false;}
         return super.equals(o);
+    }
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return super.getBoxCollider();
     }
 }

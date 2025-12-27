@@ -148,6 +148,7 @@ public class TestArenaLoader {
     @Property(tries=100)
     void TestTileLoader(@ForAll int seed ) throws IOException {
         setup();
+
         List<Tile> expectedTiles = convert(ExpectedGameElementListAndFileGenerator(seed,(String data,Vector2d pos)->new Tile(pos, TileImagePaths.get(data), GameData.TILE_TAG),tileCodes));
         List<Tile> tiles= arenaLoader.loadTile16x16file(testLoaderFilename);
          Assertions.assertEquals( tiles,expectedTiles);

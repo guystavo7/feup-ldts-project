@@ -4,6 +4,7 @@ import com.aor.game.GameData;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Vector2d;
 
+import java.util.Objects;
 
 
 public class TileModel implements GenericModel {
@@ -59,5 +60,19 @@ public class TileModel implements GenericModel {
 
     public String getTag() {
         return tag;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj.getClass()!=this.getClass() )return false;
+        if(obj==this)return true;
+        TileModel o=(TileModel) obj;
+
+        return o.hashCode()==hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, offset, width,  height, filePath, tag);
     }
 }

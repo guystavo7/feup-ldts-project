@@ -18,6 +18,12 @@ public class TileController implements GenericController {
         speed = new Vector2d(0, 0);
     }
 
+    public TileController(GenericModel tileModel, String tag, BoxCollider boxCollider){
+        this.tileModel = (TileModel) tileModel;
+        this.boxCollider = boxCollider;
+        speed = new Vector2d(0, 0);
+    }
+
     @Override
     public void update(double delta) {
         Vector2d nextPosition = Utils.vectorSum(tileModel.getPosition(), speed);
@@ -32,4 +38,10 @@ public class TileController implements GenericController {
     public void setSpeed(Vector2d speed) {
         this.speed = speed;
     }
+    public Vector2d getSpeed(){return speed;}
+
+    public TileModel getTileModel(){
+        return tileModel;
+    }
+
 }
