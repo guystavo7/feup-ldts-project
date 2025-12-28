@@ -33,7 +33,7 @@ public class JumpingState implements HeroState, EnterableState {
     @Override
     public void transition(HeroController controller, double delta) {
         if (model.getVelocity().getY() >= 0) {
-            model.setState(new FallingState(model, delta));
+            model.setState(new FallingState(model));
 
         } else if (controller.checkIfLeftSliding() || controller.checkIfRightSliding()) {
             model.setState(new SlidingState(model, delta));

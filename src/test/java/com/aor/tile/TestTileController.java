@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class TestTileController {
+class TestTileController {
     TileController tileController;
     BoxCollider mockedBoxCollider;
     TileModel mockedModel;
@@ -19,18 +19,18 @@ public class TestTileController {
     @Test
     void TestUpdate(){
         Mockito.when(mockedModel.getPosition()).thenReturn(new Vector2d(0,0));
-        tileController=new TileController(mockedModel," ",mockedBoxCollider);
+        tileController=new TileController(mockedModel, mockedBoxCollider);
         tileController.update(1);
         Mockito.verify(mockedBoxCollider,Mockito.times(1)).update(Mockito.any(Vector2d.class));
     }
     @Test
     void TestGetCollider(){
-        tileController=new TileController(mockedModel," ",mockedBoxCollider);
+        tileController = new TileController(mockedModel, mockedBoxCollider);
         Assertions.assertEquals(tileController.getBoxCollider(),mockedBoxCollider);
     }
     @Test
     void TestSetAndGetSpeed(){
-        tileController=new TileController(mockedModel," ",mockedBoxCollider);
+        tileController=new TileController(mockedModel ,mockedBoxCollider);
         Vector2d speed=new Vector2d(1,1);
         tileController.setSpeed(speed);
         Assertions.assertEquals(speed,tileController.getSpeed());

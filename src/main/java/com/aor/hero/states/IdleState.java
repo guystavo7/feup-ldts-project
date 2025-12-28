@@ -12,14 +12,14 @@ public class IdleState implements HeroState {
     private final HeroModel model;
     public static final StateTag tag = StateTag.IDLE;
 
-    public IdleState(GenericModel model, double delta) {
+    public IdleState(GenericModel model) {
         this.model = (HeroModel) model;
     }
 
     @Override
     public void transition(HeroController controller, double delta) {
         if (model.getDirection().getX() != 0) {
-            model.setState(new GroundedState(model, delta));
+            model.setState(new GroundedState(model));
 
         } else if (controller.getJumpBufferTimer().isRunning()) {
             model.setState(new JumpingState(model, controller, delta));

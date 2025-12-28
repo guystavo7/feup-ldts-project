@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class TestSlidingState {
+class TestSlidingState {
     SlidingState slidingState;
     HeroModel mockedHeroModel;
     HeroController mockedHeroController;

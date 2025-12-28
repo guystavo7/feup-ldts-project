@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestHeroController {
+class TestHeroController {
     HeroModel mockedModel;
     Arena mockedArena;
     HeroController heroController;
@@ -189,6 +189,4 @@ public class TestHeroController {
         Mockito.verify(mockedState, Mockito.times(1)).update(Mockito.anyDouble());
         Mockito.verify(mockedState, Mockito.times(1)).transition(Mockito.any(HeroController.class), Mockito.anyDouble());
     }
-
-
 }

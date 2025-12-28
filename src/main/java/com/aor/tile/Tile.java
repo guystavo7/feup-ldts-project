@@ -33,10 +33,7 @@ public class Tile implements GameElement {
         tileView = new TileView(tileModel);
         tileController = new TileController(tileModel, this.tileModel.getTag());
     }
-    public Tile(TileView tileView,TileModel tileModel, TileController tileController) throws IOException {
-        assert tileView.getTileModel().equals(tileModel);
-        assert tileController.getTileModel().equals(tileModel);
-
+    public Tile(TileView tileView,TileModel tileModel, TileController tileController) {
         this.tileModel =tileModel ;
         this.tileView = tileView;
         this.tileController = tileController;

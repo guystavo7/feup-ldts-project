@@ -30,7 +30,7 @@ public class SlidingState implements HeroState, EnterableState {
     @Override
     public void transition(HeroController controller, double delta) {
         if (controller.checkIfGrounded()) {
-            model.setState(new GroundedState(model, delta));
+            model.setState(new GroundedState(model));
             model.setCanDash(true);
 
         } else if (controller.getJumpBufferTimer().isRunning()) {
@@ -41,7 +41,7 @@ public class SlidingState implements HeroState, EnterableState {
             controller.getJumpBufferTimer().interrupt();
 
         } else if (!(controller.checkIfRightSliding() || controller.checkIfLeftSliding())) {
-            model.setState(new FallingState(model, delta));
+            model.setState(new FallingState(model));
         }
     }
 

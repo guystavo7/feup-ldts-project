@@ -18,8 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class TestElements {
+class TestElements {
     public class StubHero extends Hero{
         public StubHero(Vector2d pos,Arena arena){
             super(pos,arena);
@@ -40,19 +39,19 @@ public class TestElements {
     StubHero mockedHero;
     double delta=1d/60d;
     TextGraphics mockedGraphics=Mockito.mock(TextGraphics.class);
-    ArenaLoader arenaLoader=new ArenaLoader();;
-    String TilesLoaderFile="src/test/java/com/aor/elements/testing_map.txt";
+    ArenaLoader arenaLoader=new ArenaLoader();
+    String tilesLoaderFile = "src/test/java/com/aor/elements/testing_map.txt";
 
 
     @Test
-    public void BerryIsTaken() throws IOException {
+    void BerryIsTaken() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8);  //Hero occupies the tile coordinate (3,14)
 
 
         berry=new Strawberry(new Vector2d((4%14+1)*8,(13%14+1)*8)); //Berry occupies the tile coordinate (5,14)
 
-        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(TilesLoaderFile), List.of(berry),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(tilesLoaderFile), List.of(berry),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         mockedHero=new StubHero(heroPos,arena);
         arena.setHero(mockedHero);
 
@@ -66,14 +65,14 @@ public class TestElements {
     }
 
     @Test
-    public void SpikeIsDeadly() throws IOException {
+    void SpikeIsDeadly() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
         Vector2d spikePos=new Vector2d((4%14+1)*8,(13%14+1)*8); //Spike occupies the tile coordinate (5,14)
 
         GroundedSpike spike=new GroundedSpike(spikePos);
 
-        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(TilesLoaderFile), new ArrayList<>(),new ArrayList<>(),List.of(spike),new ArrayList<>(),new ArrayList<>());
+        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(tilesLoaderFile), new ArrayList<>(),new ArrayList<>(),List.of(spike),new ArrayList<>(),new ArrayList<>());
         mockedHero=new StubHero(heroPos,arena);
         arena.setHero(mockedHero);
 
@@ -88,13 +87,13 @@ public class TestElements {
     }
 
     @Test
-    public void VoidBlockIsDeadly() throws IOException {
+    void VoidBlockIsDeadly() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
 
         GroundVoidBlock voidBlock=new GroundVoidBlock(new Vector2d((4%14+1)*8,(12%14+1)*8)); //voidBlock occupies the tile coordinate (5,13) , just a note: the y-axis points downwards
 
-        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(TilesLoaderFile), new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),List.of(voidBlock),new ArrayList<>());
+        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(tilesLoaderFile), new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),List.of(voidBlock),new ArrayList<>());
         mockedHero=new StubHero(heroPos,arena);
         arena.setHero(mockedHero);
 
@@ -109,13 +108,13 @@ public class TestElements {
     }
 
     @Test
-    public void EndBlockCompletesArena() throws IOException {
+    void EndBlockCompletesArena() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
 
         EndBlock endBlock =new EndBlock(new Vector2d((4%14+1)*8,(13%14+1)*8+4)); //endBlock occupies the tile coordinate (5,14)
 
-        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(TilesLoaderFile), new ArrayList<>(),List.of(endBlock),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(tilesLoaderFile), new ArrayList<>(),List.of(endBlock),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         mockedHero=new StubHero(heroPos,arena);
         arena.setHero(mockedHero);
         InputHandler.getInstance().readKeys(KeyEvent.VK_RIGHT,true); // Hero is walking towards the endBlock
@@ -129,13 +128,13 @@ public class TestElements {
     }
 
     @Test
-    public void BackgroundDontCollideWithHero() throws IOException {
+    void BackgroundDontCollideWithHero() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
 
         BackgroundBlock backgroundBlock =new BackgroundBlock(new Vector2d((4%14+1)*8,(13%14+1)*8), GameData.getTileImgPath().get("flower")); //backgroundBlock occupies the tile coordinate (5,14)
 
-        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(TilesLoaderFile), new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),List.of(backgroundBlock));
+        Arena arena=new Arena(null,arenaLoader.loadTile16x16file(tilesLoaderFile), new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),List.of(backgroundBlock));
         mockedHero=new StubHero(heroPos,arena);
         arena.setHero(mockedHero);
         InputHandler.getInstance().readKeys(KeyEvent.VK_RIGHT,true); // Hero is walking towards the backgroundBlock
@@ -151,12 +150,12 @@ public class TestElements {
 
 
     @Test
-    public void NormalTileCollideWithHero() throws IOException {
+    void NormalTileCollideWithHero() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
         Vector2d tilePos=new Vector2d((4%14+1)*8,(13%14+1)*8);
         Tile tile =new Tile(tilePos, GameData.getTileImgPath().get("T11"),GameData.TILE_TAG); //tile occupies the tile coordinate (5,14)
-        List<Tile> tiles=arenaLoader.loadTile16x16file(TilesLoaderFile);
+        List<Tile> tiles=arenaLoader.loadTile16x16file(tilesLoaderFile);
         tiles.add(tile);
         Arena arena=new Arena(null,tiles, new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         mockedHero=new StubHero(heroPos,arena);

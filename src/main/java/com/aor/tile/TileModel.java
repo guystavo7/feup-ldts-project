@@ -28,7 +28,6 @@ public class TileModel implements GenericModel {
         this.height = height;
     }
 
-
     public TileModel(Vector2d position, String filePath, String tag){
         this.position = position;
         this.offset = new Vector2d(0, 0);
@@ -64,11 +63,12 @@ public class TileModel implements GenericModel {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj.getClass()!=this.getClass() )return false;
-        if(obj==this)return true;
-        TileModel o=(TileModel) obj;
+        if (obj == null) return false;
+        if(obj.getClass() != this.getClass())return false;
+        if(obj == this)return true;
+        TileModel o = (TileModel) obj;
 
-        return o.hashCode()==hashCode();
+        return o.hashCode() == hashCode();
     }
 
     @Override

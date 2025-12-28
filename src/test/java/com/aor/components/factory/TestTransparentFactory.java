@@ -1,6 +1,5 @@
 package com.aor.components.factory;
 
-import com.aor.components.sprites.SolidSprite;
 import com.aor.components.sprites.TransparentSprite;
 import com.aor.utils.Vector2d;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class TestTransparentFactory {
+class TestTransparentFactory {
     TransparentSpriteFactory factory = new TransparentSpriteFactory();
 
     @Test

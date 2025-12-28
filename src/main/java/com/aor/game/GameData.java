@@ -53,6 +53,8 @@ public class GameData {
     public static final double STRAWBERRY_SPEED = 0.1d;
     public static final double STRAWBERRY_TIME = 0.5d;
 
+    public static final double HAIR_VELOCITY = 50d;
+
     public static Map<String ,String> getTileImgPath(){
         if (tilesImgPath != null) return tilesImgPath;
 

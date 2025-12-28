@@ -2,7 +2,6 @@ package com.aor.hero.mvc;
 
 import com.aor.components.BoxCollider;
 import com.aor.components.RigidBody;
-import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.game.GenericArena;
 import com.aor.game.InputHandler;
@@ -72,7 +71,6 @@ public class HeroController implements GenericController {
 
             sound = new MusicPlayer(jumpClip, false, false);
         } catch (Exception e) {
-            System.err.println("Cannot open jump SFX");
             sound = null;
         }
 
@@ -85,7 +83,6 @@ public class HeroController implements GenericController {
 
             sound = new MusicPlayer(dashClip, false, false);
         } catch (Exception e) {
-            System.err.println("Cannot open dash SFX");
             sound = null;
         }
 
@@ -120,7 +117,6 @@ public class HeroController implements GenericController {
 
     private void dash(double delta) {
         model.setState(new DashingState(model, this, model.getState().getTag(), delta));
-
         model.setCanDash(false);
 
         dashTimer.start();
@@ -196,9 +192,11 @@ public class HeroController implements GenericController {
     }
 
     public void playDashSFX() {
+        if (dashSFX == null) return;
         this.dashSFX.start();
     }
     public void playJumpSFX() {
+        if (jumpSFX == null) return;
         this.jumpSFX.start();
     }
     public Timer getCoyoteTimer() {

@@ -9,9 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.io.IOException;
-
-public class TestSolidSprite {
+class TestSolidSprite {
     SolidSprite sprite;
     SolidSprite spriteWithOffset;
     TextGraphics graphicsStub;

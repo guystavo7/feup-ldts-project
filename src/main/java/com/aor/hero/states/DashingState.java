@@ -41,7 +41,7 @@ public class DashingState implements HeroState, EnterableState {
     @Override
     public void transition(HeroController controller, double delta) {
         if (!controller.getDashTimer().isRunning()) {
-            model.setState(new FallingState(model, delta));
+            model.setState(new FallingState(model));
         }
     }
 

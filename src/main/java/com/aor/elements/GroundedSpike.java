@@ -14,6 +14,7 @@ public class GroundedSpike extends Tile {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) return false;
         if( this.getClass()!=o.getClass()){return false;}
         return super.equals(o);
     }

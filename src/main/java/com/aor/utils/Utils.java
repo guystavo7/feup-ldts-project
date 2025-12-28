@@ -98,10 +98,7 @@ public class Utils {
         return loadPixels(path);
     }
     public static List<List<Pixel>> loadXFlippedTransparentImage(String path) throws IOException {
-        List<List<Pixel>> p=loadTransparentImage(path);
-        p= xFlipPixels(p);
-
-        return p;
+        return xFlipPixels(loadTransparentImage(path));
     }
 
     public static TextImage loadImage(String path) throws IOException {

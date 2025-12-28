@@ -6,14 +6,13 @@ import com.aor.components.BoxCollider;
 import com.aor.components.sprites.TransparentSprite;
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 
-public class TestTileView {
+class TestTileView {
     TileView tileView;
     BoxCollider mockedBoxCollider;
     TileModel mockedModel;
@@ -27,7 +26,7 @@ public class TestTileView {
         graphics=Mockito.mock(TextGraphics.class);
     }
     @Test
-    void TestUpdate() throws IOException {
+    void TestUpdate() {
         Mockito.when(mockedModel.getPosition()).thenReturn(new Vector2d(0,0));
         tileView=new TileView(mockedModel,sprite);
         tileView.update(graphics,1);
@@ -35,6 +34,4 @@ public class TestTileView {
         Mockito.verify(sprite,Mockito.times(1)).draw(Mockito.any(TextGraphics.class));
         Mockito.verify(sprite,Mockito.times(1)).update(Mockito.any(Vector2d.class));
     }
-
-
 }

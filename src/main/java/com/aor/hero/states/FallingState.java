@@ -12,7 +12,7 @@ public class FallingState implements HeroState{
     private final HeroModel model;
     public static final StateTag tag = StateTag.FALLING;
 
-    public FallingState(GenericModel model, double delta) {
+    public FallingState(GenericModel model) {
         this.model = (HeroModel) model;
     }
 
@@ -29,7 +29,7 @@ public class FallingState implements HeroState{
             model.setState(new SlidingState(model, delta));
 
         } else if (controller.checkIfGrounded()) {
-            model.setState(new GroundedState(model, delta));
+            model.setState(new GroundedState(model));
             model.setCanDash(true);
         }
     }

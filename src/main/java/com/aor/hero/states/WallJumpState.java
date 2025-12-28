@@ -6,8 +6,6 @@ import com.aor.hero.mvc.HeroController;
 import com.aor.hero.mvc.HeroModel;
 import com.aor.mvc.GenericController;
 import com.aor.mvc.GenericModel;
-import com.aor.utils.Utils;
-import com.aor.utils.Vector2d;
 
 public class WallJumpState implements HeroState, EnterableState {
     private final HeroModel model;
@@ -34,7 +32,7 @@ public class WallJumpState implements HeroState, EnterableState {
     @Override
     public void transition(HeroController controller, double delta) {
         if (!controller.getWallJumpTimer().isRunning()) {
-            model.setState(new FallingState(model, delta));
+            model.setState(new FallingState(model));
         }
     }
 

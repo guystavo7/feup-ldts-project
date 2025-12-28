@@ -58,12 +58,12 @@ class TestAnimatedSprite {
     @Test
     void testGetterAndFrameTransition() {
         Assertions.assertEquals(0, animatedSprite.getCurrentFrame());
-        Assertions.assertEquals(sprites.get(0), animatedSprite.getCurrentFrameSprite());
+        Assertions.assertEquals(sprites.getFirst(), animatedSprite.getCurrentFrameSprite());
         Assertions.assertEquals(animatedSpritePos, animatedSprite.getPosition());
 
         //time passes but the frame is still the same and the position is changed
         animatedSprite.update(new Vector2d(0,0), 0.5f);
-        Assertions.assertEquals(sprites.get(0), animatedSprite.getCurrentFrameSprite());
+        Assertions.assertEquals(sprites.getFirst(), animatedSprite.getCurrentFrameSprite());
         Assertions.assertEquals(animatedSpritePos, animatedSprite.getPosition());
 
         //time passes, the frame is changed and the position is the same

@@ -18,7 +18,7 @@ public class TileController implements GenericController {
         speed = new Vector2d(0, 0);
     }
 
-    public TileController(GenericModel tileModel, String tag, BoxCollider boxCollider){
+    public TileController(GenericModel tileModel, BoxCollider boxCollider){
         this.tileModel = (TileModel) tileModel;
         this.boxCollider = boxCollider;
         speed = new Vector2d(0, 0);
@@ -43,5 +43,4 @@ public class TileController implements GenericController {
     public TileModel getTileModel(){
         return tileModel;
     }
-
 }
