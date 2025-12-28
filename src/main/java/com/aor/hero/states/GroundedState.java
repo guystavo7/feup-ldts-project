@@ -30,7 +30,7 @@ public class GroundedState implements HeroState {
             controller.getCoyoteTimer().start();
             model.setState(new FallingState(model));
 
-        } else if (model.getDirection().getX() == 0 && model.getDirection().getY() == 0) {
+        } else if (model.getDirection().getX() == 0) {
             model.setState(new IdleState(model));
         }
     }

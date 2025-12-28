@@ -152,7 +152,7 @@ Assim, criamos MVCs para duas grandes entidades:
   <img src="misc/MVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 4 UML do MVC</i></b>
+  <b><i>Fig. 6 UML do MVC genérico</i></b>
 </p>
 
 E com essa estrutura, a criação do *Hero* ficou assim (este MVC é bem extenso, então só vou apresentar os atributos e métodos mais importantes):
@@ -160,7 +160,7 @@ E com essa estrutura, a criação do *Hero* ficou assim (este MVC é bem extenso
   <img src="misc/heroMVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 5 MVC aplicado no Hero</i></b>
+  <b><i>Fig. 7 MVC aplicado no Hero</i></b>
 </p>
 
 E com essa estrutura, a criação do *Tile* ficou assim:
@@ -168,7 +168,7 @@ E com essa estrutura, a criação do *Tile* ficou assim:
   <img src="misc/tileMVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 5 MVC aplicado no Hero</i></b>
+  <b><i>Fig. 8 MVC aplicado no Tile</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -222,7 +222,7 @@ Por fim, para qualquer objeto que necessite de saber se um certo *input* foi pre
   <img src="misc/inputHandlerUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 6 UML do Inputhandler</i></b>
+  <b><i>Fig. 9 UML do Inputhandler</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -261,10 +261,17 @@ Com base nessa base, implementamos os seguintes estados:
 - EndState: um estado que representa o fim do jogo.
 
 <p align="center" justify="center">
-  <img src="misc/inputHandlerUML.png"/>
+  <img src="misc/gameStateUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 6 UML do Inputhandler</i></b>
+  <b><i>Fig. 10 UML do GameState</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="misc/gameFSM.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 11 State diagram do GameState</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -310,10 +317,17 @@ Com base nisso, criamos os seguintes estados:
 Assim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroController* e pelo *HeroView*.
 
 <p align="center" justify="center">
-  <img src="misc/inputHandlerUML.png"/>
+  <img src="misc/heroStateUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 6 UML do Inputhandler</i></b>
+  <b><i>Fig. 12 UML do HeroState</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="misc/heroStateFSM.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 13 Diagrama de estados do HeroState</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -339,8 +353,6 @@ O uso dessa estratégia teve os seguintes benefícios:
 - Facilidade em adicionar um novo estado do *player* ao respeitar o *open-closed principle*.
 
 ------
-
-
 
 #### KNOWN CODE SMELLS
 
