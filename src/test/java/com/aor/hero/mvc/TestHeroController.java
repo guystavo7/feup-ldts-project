@@ -2,6 +2,7 @@ package com.aor.hero.mvc;
 
 import com.aor.components.BoxCollider;
 import com.aor.game.Arena;
+import com.aor.game.InputHandler;
 import com.aor.hero.states.HeroState;
 import com.aor.utils.Vector2d;
 import org.junit.jupiter.api.Assertions;
@@ -9,10 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestHeroController {
+class TestHeroController {
     HeroModel mockedModel;
     Arena mockedArena;
     HeroController heroController;
@@ -169,7 +171,8 @@ public class TestHeroController {
     }
 
     @Test
-    void testUpdate() {
+    void testUpdate1() {
+        //While pressing to left
         HeroState mockedState = Mockito.mock(HeroState.class);
         Mockito.when(mockedModel.getState()).thenReturn(mockedState);
 
@@ -178,6 +181,58 @@ public class TestHeroController {
 
         Mockito.when(mockedModel.getVelocity()).thenReturn(new Vector2d(0, 0));
         Mockito.doNothing().when(mockedModel).setPosition(Mockito.any(Vector2d.class));
+        InputHandler.getInstance().readKeys(KeyEvent.VK_LEFT, true);
+        InputHandler.getInstance().readKeys(KeyEvent.VK_RIGHT, true);
+
+        heroController.update(1);
+
+        Mockito.verify(mockedModel, Mockito.times(3)).getState();
+        Mockito.verify(mockedModel, Mockito.times(1)).getVelocity();
+        Mockito.verify(mockedModel, Mockito.times(1)).setPosition(Mockito.any(Vector2d.class));
+        Mockito.verify(mockedModel, Mockito.times(8)).getPosition();
+
+        Mockito.verify(mockedState, Mockito.times(1)).update(Mockito.anyDouble());
+        Mockito.verify(mockedState, Mockito.times(1)).transition(Mockito.any(HeroController.class), Mockito.anyDouble());
+    }
+
+    @Test
+    void testUpdate2() {
+        //While pressing to right
+        HeroState mockedState = Mockito.mock(HeroState.class);
+        Mockito.when(mockedModel.getState()).thenReturn(mockedState);
+
+        Mockito.doNothing().when(mockedState).update(Mockito.anyDouble());
+        Mockito.doNothing().when(mockedState).transition(Mockito.any(HeroController.class), Mockito.anyDouble());
+
+        Mockito.when(mockedModel.getVelocity()).thenReturn(new Vector2d(0, 0));
+        Mockito.doNothing().when(mockedModel).setPosition(Mockito.any(Vector2d.class));
+        InputHandler.getInstance().readKeys(KeyEvent.VK_LEFT, false);
+        InputHandler.getInstance().readKeys(KeyEvent.VK_RIGHT, true);
+
+        heroController.update(1);
+
+        Mockito.verify(mockedModel, Mockito.times(3)).getState();
+        Mockito.verify(mockedModel, Mockito.times(1)).getVelocity();
+        Mockito.verify(mockedModel, Mockito.times(1)).setPosition(Mockito.any(Vector2d.class));
+        Mockito.verify(mockedModel, Mockito.times(8)).getPosition();
+
+        Mockito.verify(mockedState, Mockito.times(1)).update(Mockito.anyDouble());
+        Mockito.verify(mockedState, Mockito.times(1)).transition(Mockito.any(HeroController.class), Mockito.anyDouble());
+    }
+
+    @Test
+    void testUpdate3() {
+        //While pressing nothing
+        HeroState mockedState = Mockito.mock(HeroState.class);
+        Mockito.when(mockedModel.getState()).thenReturn(mockedState);
+
+        Mockito.doNothing().when(mockedState).update(Mockito.anyDouble());
+        Mockito.doNothing().when(mockedState).transition(Mockito.any(HeroController.class), Mockito.anyDouble());
+
+        Mockito.when(mockedModel.getVelocity()).thenReturn(new Vector2d(0, 0));
+        Mockito.doNothing().when(mockedModel).setPosition(Mockito.any(Vector2d.class));
+        InputHandler.getInstance().readKeys(KeyEvent.VK_LEFT, false);
+        InputHandler.getInstance().readKeys(KeyEvent.VK_RIGHT, false);
 
         heroController.update(1);
 
@@ -189,6 +244,4 @@ public class TestHeroController {
         Mockito.verify(mockedState, Mockito.times(1)).update(Mockito.anyDouble());
         Mockito.verify(mockedState, Mockito.times(1)).transition(Mockito.any(HeroController.class), Mockito.anyDouble());
     }
-
-
 }

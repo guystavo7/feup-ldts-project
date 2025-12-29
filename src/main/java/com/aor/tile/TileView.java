@@ -16,9 +16,9 @@ public class TileView implements GenericView {
         sprite = new TransparentSprite(this.tileModel.getPosition(), this.tileModel.getOffset(), this.tileModel.getFilePath());
     }
 
-    public TileView(GenericModel tileModel,TransparentSprite sprite) throws IOException {
+    public TileView(GenericModel tileModel,TransparentSprite sprite) {
         this.tileModel = (TileModel) tileModel;
-        this.sprite =sprite;
+        this.sprite = sprite;
     }
 
     @Override

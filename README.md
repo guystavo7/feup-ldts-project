@@ -1,16 +1,18 @@
 ## LDTS_t02g04 - <Celeste Pico 8>
 
-O projeto pretende recriar o jogo de plataforma Celeste na versão feita no Pico 8 (uma engine de jogos 8 bits).
-O objetivo do jogo é controlar Madeline (personagem principal) a escalar a montanha Celeste enquanto coleta morangos. O personagem consegue andar, pular e dar *dashes* para ultrapassar obstáculos e chegar no pico da montanha. 
+O projeto pretende recriar o jogo de plataforma Celeste na versão feita no Pico 8 (uma *engine* de jogos 8 bits).
+O objetivo do jogo é controlar Madeline (personagem principal) a escalar a montanha Celeste enquanto coleta morangos. O personagem consegue andar, pular e dar *dashes* para ultrapassar obstáculos e chegar no pico da montanha.
 
 Este projeto foi desenvolvido pelo Pedro Manuel Cerqueira Gonçalves (up202305057@up.pt), Gustavo Pereira da Cunha Bastos (up202403874@up.pt) e pelo *Tiago Su* (up202403468@up.pt) para a cadeira LDTS 2025/2026
 
 ### IMPLEMENTED FEATURES
 
-- **Player Controller** - O *user* consegue mover o personagem utilizando as setas do teclado e pular com a seta para cima;
-- **Gravidade** - O *player* é afetado por uma gravidade básica;
-- **Animações** - O personagem tem um *sprite* animado;
-- **Colisões** - O personagem consegue colidir com objetos, assim, impedindo de ter *overlaps* entre objetos.
+- **Player Controller** - O *player* consegue controlar o personagem usando as setas do teclado para mover o personagem, usar o botão C para pular e o botão X e com as setas para dar um *dash* na direção pressionada, além disso, ao tocar uma parede é possível deslizar e executar um *wall jump* se pressionar o botão do pulo enquanto desliza;
+- **Animações** - O jogo contêm *sprites* animados;
+- **Colisões** - O jogo contêm colisões funcionais, de modo a impedir *overlaps* de objetos;
+- **Arena loader** - Dado um ficheiro .csv com as notações corretas, é possível gerar um *level*;
+- **Estados do jogo** - Existe um menu inicial, uma tela de finalização do jogo e é possível pausar o jogo, ao apertar o botão ESCAPE;
+- **Níveis produzidos** - O jogo contêm 5 níveis possíveis de vencer.
 
 ### GIF demonstrando a física básica
 <p align="center" justify="center">
@@ -18,24 +20,6 @@ Este projeto foi desenvolvido pelo Pedro Manuel Cerqueira Gonçalves (up20230505
 </p>
 <p align="center">
   <b><i>Fig. 1 Demonstração da gravidade e do pulo</i></b>
-</p>
-
-
-### PLANNED FEATURES
-
-- **Tiles** - Planeamos criar *tiles* para serem paredes e o chão;
-- **Morangos** - Planeamos adicionar os colecionáveis/moedas do jogo;
-- **Levels** - Planeamos recriar alguns *levels* do jogo original;
-- **Dash** - Planeamos adicionar o dash clássico do personagem;
-- **Better movement** - Planeamos melhorar o movimento do personagem e a física do jogo;
-- **Machine state** - Máquina de estados para representar o estado do *player* e do jogo.
-
-### Mockup do estado proposto final do projeto
-<p align="center" justify="center">
-  <img src="misc/Mockup.jpeg"/>
-</p>
-<p align="center">
-  <b><i>Fig. 2 Estado final do jogo</i></b>
 </p>
 
 ### DESIGN
@@ -48,17 +32,19 @@ Um jogo é composto por muitos objetos com funcionalidades semelhantes, como des
 
 **The Pattern**
 
-Para resolver isso, decidimos usar como referência componentes das engines como Unity e Godot, ou seja, utilizamos o *Composite Pattern*, de modo, a criar componentes básicos capazes de executar uma única funcionalidade, e devem ser independentes do objeto que os contêm.
+Para resolver isso, decidimos usar como referência os componentes das *engines* como Unity e Godot, ou seja, utilizamos o *Composite Pattern*, de modo, a criar componentes básicos capazes de executar uma única funcionalidade, e devem ser independentes do objeto que os contêm.
 Assim, qualquer objeto é composto por esses componentes, facilitando a implementação de vários objetos com comportamentos parecidos e evitando repetir o mesmo código.
 Este *design* tem como ideia de promover ao máximo o *Single Responsibility Principle*.
 
 **Implementation**
 
-Para implementar, criamos uma classe abstrata *Node* que contêm, por enquanto, uma posição e um método *update* para atualizar a sua posição. E a partir dessa classe será criada subclasses que serão os componentes.
-Os componentes necessários são:
-- Sprite e AnimatedSprite: um componente capaz de desenhar uma imagem ou animação, respetivamente
-- BoxCollider: um componente que representa um *collider*
-- RigidBody: um componente responsável por calcular a próxima posição válida dada uma velocidade
+Para implementar esta solução, criamos uma classe abstrata *Node* que contêm, uma posição, um valor *offset* para a sua posição e um método *update* que atualiza a sua posição. E a partir dessa classe será criada subclasses que serão os componentes.
+Os componentes criados para o projeto foram:
+- *SolidSprite*: um componente para desenhar um *sprite* usando o *TextImage* do *lanterna*, o que considera pixeis invisiveis como pixeis pretos;
+- *TransparentSprite*: um componente para desenhar um *sprite* considerando apenas pixeis não transparentes;
+- *AnimatedSprite*: um componente capaz de desenhar uma animação;
+- *BoxCollider*: um componente que representa um *collider*, responsável para verificar colisões entre objetos;
+- RigidBody: um componente responsável por calcular a próxima posição válida dada uma velocidade.
 
 <p align="center" justify="center">
   <img src="misc/ComponentsUML.png"/>
@@ -68,10 +54,10 @@ Os componentes necessários são:
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
-
 - [Node](src/main/java/com/aor/components/Node.java)
-- [Sprite](src/main/java/com/aor/components/Sprite.java)
-- [AnimatedSprite](src/main/java/com/aor/components/AnimatedSprite.java)
+- [SolidSprite](src/main/java/com/aor/components/sprites/SolidSprite.java)
+- [TransparentSprite](src/main/java/com/aor/components/sprites/TransparentSprite.java)
+- [AnimatedSprite](src/main/java/com/aor/components/sprites/AnimatedSprite.java)
 - [BoxCollider](src/main/java/com/aor/components/BoxCollider.java)
 - [RigidBody](src/main/java/com/aor/components/RigidBody.java)
 
@@ -79,9 +65,63 @@ As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
 O uso dessa estratégia teve os seguintes benefícios:
 - Uma vez implementado a funcionalidade não será necessária preocupar-se com a implementação de novo;
-- Facilidade em criar objetos como, por exemplo, a classe Hero em que é composto por um RigidBody, AnimatedSprite e BoxCollider;
+- Facilidade em criar objetos como, por exemplo, a classe HeroController composto por um *RigidBody* e vários *BoxColliders*;
 - O *design* de blackbox ajuda em não se preocupar com detalhes particulares do funcionamento;
+- Permite uma ótima flexibilidade na criação de objetos específicos;
 - Boa organização respeitando o *Single Responsibility Principle*.
+
+------
+
+#### Como decidir quais dos *sprites* criar
+
+**Problem in Context**
+
+Por razões de otimização, o *lanterna* tem *TextImages* para desenhar imagens no terminal, mas essa alternativa tem um grande problema em tentar desenhar imagens que contêm pixeis invisiveis, ou seja, só é possível representar imagens retangulares totalmente preenchidas, no entanto, maioritariamente dos *sprites* usados no jogo não respeitam essa condição.
+Por essa razão, como citado anteriormente, criamos duas versões de componentes capazes de desenhar. A questão é como utilizar, de forma eficiente,  as duas versões.
+
+**The Pattern**
+
+Para resolver este dilema, optamos no uso de *design pattern factory method*.
+Assim, podemos criar *factories* capazes de criar o tipo desejado de *sprite* sem precisar modificar ou criar classes.
+
+**Implementation**
+
+Para implementar esta solução, criamos uma interface chamada *GenericSpriteFactory* com os métodos para criar *sprites*.
+Dessa forma, esta interface é implementada por classes chamadas *SolidSpriteFactory* e *TransparentSpriteFactory*, de modo, a criar *SolidSprites* e *TransparentSprites*, respetivamente. Assim, quando precisarmos de criar um objeto que não se sabe quais dos *sprites* usar no momento, podemos usar o *Factory*.
+
+Neste projeto, o uso *factory* só ficou relacionado com a classe *AnimatedSprite* que só é utilizada pelo *HeroView*, uma vez que todos os *sprites* do jogo têm transparência em alguns pixeis, o que tornou uma complexidade desnecessária no projeto e por isso, optamos por não utilizar no resto do projeto.
+
+Com base nisso, a estrutura dos *sprites* ficou a seguinte:
+<p align="center" justify="center">
+  <img src="misc/genericSpriteUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 4 UML dos sprites</i></b>
+</p>
+
+E a organização em *method factory* ficou assim:
+<p align="center" justify="center">
+  <img src="misc/spriteFactoryUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 5 UML do method factory</i></b>
+</p>
+
+As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
+
+- [GenericSprite](src/main/java/com/aor/components/sprites/GenericSprite.java)
+- [SolidSprite](src/main/java/com/aor/components/sprites/SolidSprite.java)
+- [TransparentSprite](src/main/java/com/aor/components/sprites/TransparentSprite.java)
+- [GenericSpriteFactory](src/main/java/com/aor/components/factory/GenericSpriteFactory.java)
+- [SolidSpriteFactory](src/main/java/com/aor/components/factory/SolidSpriteFactory.java)
+- [TransparentSpriteFactory](src/main/java/com/aor/components/factory/TransparentSpriteFactory.java)
+- [AnimatedSprite](src/main/java/com/aor/components/sprites/AnimatedSprite.java)
+
+**Consequences**
+
+O uso desta estratégia teve os seguintes benefícios:
+- Qualquer objeto que pode ter as duas variantes do *sprite* torna-se mais simples implementar, uma vez que não é necessário criar duas classes para o mesmo objeto;
+- Permite uma adaptabilidade no código.
 
 ------
 
@@ -103,31 +143,47 @@ Para implementar cada classe do MVC, decidimos criar as seguintes interfaces:
 - GenericView
 - GenericController
 
+E para cada objeto do jogo com necessidade de ter comportamentos mais complexos, cria-se um MVC para cada um.
+Assim, criamos MVCs para duas grandes entidades:
+- *Hero*
+- *Tile*
+
 <p align="center" justify="center">
   <img src="misc/MVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 4 UML do MVC</i></b>
+  <b><i>Fig. 6 UML do MVC genérico</i></b>
 </p>
 
-E com essa estrutura, a criação do *Hero* ficou assim:
+E com essa estrutura, a criação do *Hero* ficou assim (este MVC é bem extenso, então só vou apresentar os atributos e métodos mais importantes):
 <p align="center" justify="center">
   <img src="misc/heroMVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 5 MVC aplicado no Hero</i></b>
+  <b><i>Fig. 7 MVC aplicado no Hero</i></b>
 </p>
 
+E com essa estrutura, a criação do *Tile* ficou assim:
+<p align="center" justify="center">
+  <img src="misc/tileMVC.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 8 MVC aplicado no Tile</i></b>
+</p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
 - [GenericModel](src/main/java/com/aor/mvc/GenericModel.java)
 - [GenericView](src/main/java/com/aor/mvc/GenericView.java)
 - [GenericController](src/main/java/com/aor/mvc/GenericController.java)
-- [Hero](src/main/java/com/aor/hero/Hero.java)
-- [HeroModel](src/main/java/com/aor/hero/HeroModel.java)
-- [HeroView](src/main/java/com/aor/hero/HeroView.java)
-- [HeroController](src/main/java/com/aor/hero/HeroController.java)
+- [Hero](src/main/java/com/aor/hero/mvc/Hero.java)
+- [HeroModel](src/main/java/com/aor/hero/mvc/HeroModel.java)
+- [HeroView](src/main/java/com/aor/hero/mvc/HeroView.java)
+- [HeroController](src/main/java/com/aor/hero/mvc/HeroController.java)
+- [Tile](src/main/java/com/aor/tile/Tile.java)
+- [TileModel](src/main/java/com/aor/tile/TileModel.java)
+- [TileView](src/main/java/com/aor/tile/TileView.java)
+- [TileController](src/main/java/com/aor/tile/TileController.java)
 
 **Consequences**
 
@@ -138,7 +194,7 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 ------
 
-#### Como os objetos captar *inputs*
+#### Como os objetos captar e ler *inputs*
 
 **Problem in Context**
 
@@ -146,20 +202,27 @@ Durante o jogo, muitos objetos precisam captar e ler diversos *inputs*. E o prob
 
 **The Pattern**
 
-Este problema foi resolvido usando dois *design patterns* que são Singleton e Observers. O uso de Singleton vai permitir centralizar os dados dos *inputs* numa só instância e evitar a passagem por argumentos de valores entre objetos.
+Este problema foi resolvido usando dois *design patterns* que são *Singleton* e *Observers*. O uso de Singleton vai permitir centralizar os dados dos *inputs* numa só instância e evitar a passagem por argumentos de valores entre objetos.
 E para ler os *inputs*, decidimos utilizar observers que vão enviar um sinal quando existe um *input* feito pelo *player*.
 
 **Implementation**
 
-No projeto, criamos uma classe chamada InputHandler em que tem armazenado um hashmap com os pares <Integer, Boolean>, que representam o *input* e se a tecla foi pressionado.
-A leitura de *inputs* foi implementada ao utilizar os eventsListeners do Java (KeyListerner), em que fizemos *override* nas funções *keyPressed* e *keyRealeased* em que ambas envião um sinal para o Singleton atualizar o hashmap.
-Por fim, para qualquer objeto que necessite de ler um *input*, só precisa chamar a função isPressed para verificar se a tecla foi pressionada.
+No projeto, para representar o estado dos *inputs* criamos um enumerator chamado KeyState, que contêm o estado:
+- UP: qualquer botão que não foi pressionado;
+- DOWN: qualquer botão que está a ser pressionado, mas ainda não lido;
+- CONSUMED: qualquer botão que está a ser pressionado, mas já foi lido;
+
+Esta distinção de estados servirá para casos de necessidade de distinguir se um botão está a ser pressionado ou foi pressionado naquele instante.
+
+Para armazenar os estados dos botões, criamos uma classe chamada *InputHandler* em que tem armazenado um *hashmap* com os pares <*Integer*, *KeyState*>, em que o *Integer* é o identificador do botão pressionado.
+A leitura de *inputs* foi implementada ao utilizar os *eventsListeners* do Java (*KeyListener*), em que fizemos *override* nas funções *keyPressed* e *keyReleased* em que ambas envião um sinal para o Singleton atualizar o *hashmap*.
+Por fim, para qualquer objeto que necessite de saber se um certo *input* foi pressionado, podemos usar *getKeyDown* ou *getKeyPressed* para ler uma única vez se o botão é pressionado ou para ler quando o botão está a ser pressionado.
 
 <p align="center" justify="center">
   <img src="misc/inputHandlerUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 6 UML do Inputhandler</i></b>
+  <b><i>Fig. 9 UML do Inputhandler</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -173,13 +236,133 @@ O uso dessa estratégia teve os seguintes benefícios:
 - Não é preciso ser preocupar em enviar os *inputs* de objeto para objeto;
 - Informação centralizada.
 
-Com o uso de Singleton, existe um grande problema no contexto de testar código.
+Com o uso de *Singleton*, existe um grande problema no contexto de testar código.
+
+------
+
+#### Como representar o estado do jogo
+
+**Problem in Context**
+
+Enquanto o jogo executa, o mesmo pode estar no menu inicial, numa fase do jogo, pausado ou com a tela final. Dessa forma, como podemos programar esses estados, de forma eficaz:
+
+**The Pattern**
+
+Para facilitar a implementação de diversos possiveis estados do jogo, decidimos criar um *finite state machines*. Esta implementação, vai permitir facilidades em executar transições e executar os *updates* necessários no *gameloop*.
+
+**Implementation**
+
+Para implementar esse *design pattern*, criamos uma interface *GameState* com um método *update*, responsável por executar a parte de necessária do *gameloop* do respetivo estado e um método *transition* que analisa se é possível fazer uma transição e se for possível mudar de estado.
+
+Com base nessa base, implementamos os seguintes estados:
+- MenuState: que representa o menu inicial;
+- RunningState: que representa o jogo durante os níveis do jogo;
+- PausedState: um estado em que o jogo deve ficar pausado;
+- EndState: um estado que representa o fim do jogo.
+
+<p align="center" justify="center">
+  <img src="misc/gameStateUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 10 UML do GameState</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="misc/gameFSM.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 11 State diagram do GameState</i></b>
+</p>
+
+As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
+
+- [Game](src/main/java/com/aor/game/Game.java)
+- [GameState](src/main/java/com/aor/game/state/GameState.java)
+- [MenuState](src/main/java/com/aor/game/state/MenuState.java)
+- [RunningState](src/main/java/com/aor/game/state/RunningState.java)
+- [PausedState](src/main/java/com/aor/game/state/PausedState.java)
+- [EndState](src/main/java/com/aor/game/state/EndState.java)
+
+**Consequences**
+
+O uso dessa estratégia teve os seguintes benefícios:
+- Facilidade em decidir quais partes do projeto devem ser executadas no *gameloop*;
+- Uso de um *Design pattern* que respeita o *Open-closed principle*, de modo que para adicionar um novo estado só é necessário implementar a interface;
+- Facilidade em visualizar e dividir os estados do jogo.
+
+------
+
+#### Como decidir quais *sprites* usar no *Hero* e qual física devo aplicar em cada momento
+
+**Problem in Context**
+
+No jogo, a parte visual e física do *Hero* dependem de várias condições como, por exemplo, se o *player* está no ar ou no chão para decidir qual atrito usar ou se o *hero* está a cair ou no chão para decidir quais *sprites* usar. Assim, com o aumento da complexidade da lógica do *player*, essas condições podem tornar-se bem problemático.
+
+**The Pattern**
+
+Para resolver esse problema, utilizamos, novamente, uma máquina de estados em que cada estado representa um conjunto de condições, com cada estado com capacidade de mudar para outro estado.
+
+**Implementation**
+
+Similarmente com a máquina de estados do *Game*, criamos uma interface chamada *HeroState* com um método *getVelocity* para executar a parte física do *player*, outro método *transition* para analisar e mudar de estado se for possível e outro método *update* para encapsular os dois métodos anteriores e uma função getTag para saber qual estado o *player* está.
+Além disso, para estados que precisam de executar algo após entrar no estado, foi implementado outra interface chamada *EnterableState* com o método onEnter.
+Com base nisso, criamos os seguintes estados:
+- GroundedState: estado para o *Hero* a mover-se no chão;
+- IdleState: estado para o *Hero* parado no chão;
+- JumpingState: estado quando o *Hero* pula;
+- FallingState: estado quando o *Hero* está em queda livre;
+- SlidingState: estado quando o *Hero* desliza numa parede;
+- WallJumpState: estado qunado o *Hero* faz um *wall jump*.
+
+Assim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroController* e pelo *HeroView*.
+
+<p align="center" justify="center">
+  <img src="misc/heroStateUML.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 12 UML do HeroState</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="misc/heroStateFSM.png"/>
+</p>
+<p align="center">
+  <b><i>Fig. 13 Diagrama de estados do HeroState</i></b>
+</p>
+
+As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
+- [StateTag](src/main/java/com/aor/hero/StateTag.java)
+- [HeroModel](src/main/java/com/aor/hero/mvc/HeroModel.java)
+- [HeroController](src/main/java/com/aor/hero/mvc/HeroController.java)
+- [HeroView](src/main/java/com/aor/hero/mvc/HeroView.java)
+- [HeroState](src/main/java/com/aor/hero/states/HeroState.java)
+- [EnterableState](src/main/java/com/aor/hero/states/EnterableState.java)
+- [GroundedState](src/main/java/com/aor/hero/states/GroundedState.java)
+- [IdleState](src/main/java/com/aor/hero/states/IdleState.java)
+- [JumpingState](src/main/java/com/aor/hero/states/JumpingState.java)
+- [WallJumpState](src/main/java/com/aor/hero/states/WallJumpState.java)
+- [SlidingState](src/main/java/com/aor/hero/states/SlidingState.java)
+- [DashingState](src/main/java/com/aor/hero/states/DashingState.java)
+- [FallingState](src/main/java/com/aor/hero/states/FallingState.java)
+
+**Consequences**
+
+O uso dessa estratégia teve os seguintes benefícios:
+- Facilidade em decidir como deve a física comportar-se no momento;
+- Facilidade em escolher quais dos *sprites* usar;
+- Facilidade em adicionar um novo estado do *player* ao respeitar o *open-closed principle*.
 
 ------
 
 #### KNOWN CODE SMELLS
 
-Todos os objetos complexos dependem dos componentes que são subclasses do Node, por isso qualquer alteração na classe Node pode causar muitos problemas 
+1º Devido a restrições de tempo, a lógica do cabelo do personagem presente no *HeroView* tornou-se demasiado complicado de compreender devido à abundância de argumentos para a classe *HairComponent*.
+
+2º Como dito anteriormente, a criação de duas versões de componentes para desenhar *sprites* com o *method factory* criado tornou-se, totalmente, desnecessário porque todos *assets* do jogo tinham pixeis transparentes, o que só aumentou a complexidade do projeto.
+
+3º Criar uma Arena requer um *Hero*, contudo, a classe *Hero* necessita de uma Arena, dessa forma, existe um momento nas transições de cada fase do jogo em que o *Hero* é *null* e Arena fica a espera pela criação do *Hero*, o que pode levar a possibilidade de *NullPointerExceptions*.
+
+4º Ao longo do projeto, usamos *paths* dos ficheiros da pasta *resources* para processar esses ficheiros por essa razão, para obter o .jar funcional tivemos que antes de utilizar o ficheiro, criar um ficheiro temporário para utilizar os *paths*. Essa solução não é eficiente, contundo a outra solução necessitaria de refraturar o projeto por completo. 
 
 ### TESTING
 
@@ -191,7 +374,7 @@ Só foi testado as classes nas package *components* e *utils*.
   <b><i>Fig. 7 Test Coverage</i></b>
 </p>
 
-Link para o relatório do *pitest*:
+*Link* para o relatório do *pitest*:
 [Mutation Test](misc/pitestReport1/index.html)
 
 ### SELF-EVALUATION

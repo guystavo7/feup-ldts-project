@@ -1,6 +1,7 @@
 package com.aor.components.sprites;
 
 import com.aor.components.Node;
+import com.aor.game.GameData;
 import com.aor.utils.Utils;
 import com.aor.utils.Vector2d;
 
@@ -11,11 +12,11 @@ public class HairPosition extends Node implements Positionable {
     private final Vector2d xLimits;
     private final Vector2d yLimits;
 
-    public HairPosition(Vector2d position, Vector2d offset, Positionable chainedNode, Vector2d relativeTarget, Vector2d xLimits, Vector2d yLimits, double velocity) {
+    public HairPosition(Vector2d position, Vector2d offset, Positionable chainedNode, Vector2d relativeTarget, Vector2d xLimits, Vector2d yLimits) {
         super(position, offset);
         this.chainedNode = chainedNode;
         this.relTarget = relativeTarget;
-        this.velocity = velocity;
+        this.velocity = GameData.HAIR_VELOCITY;
         this.xLimits = xLimits;
         this.yLimits = yLimits;
     }

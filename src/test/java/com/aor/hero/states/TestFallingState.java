@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class TestFallingState {
+class TestFallingState {
     FallingState fallingState;
     HeroModel mockedHeroModel;
     HeroController mockedHeroController;
@@ -46,7 +46,7 @@ public class TestFallingState {
         Mockito.when(mockedHeroModel.isFacingRight()).thenReturn(true);
         Mockito.doNothing().when(mockedHeroModel).setFacingRight(Mockito.anyBoolean());
 
-        fallingState = new FallingState(mockedHeroModel, 1);
+        fallingState = new FallingState(mockedHeroModel);
     }
 
     @Test

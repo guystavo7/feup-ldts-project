@@ -35,7 +35,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
         Vector2d newPos = rb.move(1);
 
-        Assertions.assertEquals(newPos, new Vector2d(5, 5));
+        Assertions.assertEquals(new Vector2d(5, 5), newPos);
     }
 
     @Test
@@ -46,7 +46,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
 
         Vector2d newPos = rb.move(1);
-        Assertions.assertEquals(newPos, new Vector2d(-5, -5));
+        Assertions.assertEquals(new Vector2d(-5, -5), newPos);
     }
 
     @Test
@@ -57,7 +57,7 @@ class TestRigidBody {
         rb.setVelocity(newVelocity);
 
         Vector2d newPos = rb.move(1);
-        Assertions.assertEquals(newPos, new Vector2d(0, 0));
+        Assertions.assertEquals(new Vector2d(0, 0), newPos);
     }
 
     @Test
@@ -73,7 +73,7 @@ class TestRigidBody {
 
         //Should move and his topleft should be (2, 0)
         Vector2d newPos = rb.move(1);
-        Assertions.assertEquals(newPos, new Vector2d(7 - 5, 0));
+        Assertions.assertEquals(new Vector2d(7 - 5, 0), newPos);
     }
 
     @Test
@@ -89,7 +89,7 @@ class TestRigidBody {
 
         //Should move and his topleft should (-2, 0)
         Vector2d newPos = rb.move(1);
-        Assertions.assertEquals(newPos, new Vector2d(-5 + 3, 0));
+        Assertions.assertEquals(new Vector2d(-5 + 3, 0), newPos);
     }
 
     @Test
@@ -105,7 +105,7 @@ class TestRigidBody {
 
         //Should move and his topleft should (0, -2)
         Vector2d newPos = rb.move(1);
-        Assertions.assertEquals(newPos, new Vector2d(0, -5 + 3));
+        Assertions.assertEquals(new Vector2d(0, -5 + 3), newPos);
     }
 
     @Test
@@ -121,7 +121,7 @@ class TestRigidBody {
 
         //Should move and his topleft should (0, 2)
         Vector2d newPos = rb.move(1);
-        Assertions.assertEquals(newPos, new Vector2d(0, 7 - 5));
+        Assertions.assertEquals(new Vector2d(0, 7 - 5), newPos);
     }
 
     @Test

@@ -2,7 +2,6 @@ package com.aor.components;
 
 import java.util.List;
 
-import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.game.GenericArena;
 import com.aor.utils.Utils;

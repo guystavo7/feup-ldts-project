@@ -1,6 +1,5 @@
 package com.aor.game;
 
-import com.googlecode.lanterna.input.KeyType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

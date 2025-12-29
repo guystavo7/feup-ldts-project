@@ -4,9 +4,6 @@ import com.aor.utils.Vector2d;
 import net.jqwik.api.*;
 import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 
 public class TestTileModel {
 
@@ -38,7 +35,7 @@ public class TestTileModel {
 
     @Provide
     Arbitrary<Vector2d> TVector2d(){
-        return Combinators.combine(Arbitraries.doubles(),Arbitraries.doubles()).as((v1,v2)->new Vector2d(v1,v2));
+        return Combinators.combine(Arbitraries.doubles(),Arbitraries.doubles()).as(Vector2d::new);
     }
 }
 

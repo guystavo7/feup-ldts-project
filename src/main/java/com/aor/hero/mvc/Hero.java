@@ -1,7 +1,6 @@
 package com.aor.hero.mvc;
 
 import com.aor.elements.GameElement;
-import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.game.GenericArena;
 import com.aor.hero.StateTag;

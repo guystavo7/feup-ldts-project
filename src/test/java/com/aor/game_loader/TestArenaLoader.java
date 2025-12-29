@@ -1,16 +1,13 @@
 package com.aor.game_loader;
 
 import com.aor.elements.*;
-import com.aor.game.Arena;
 import com.aor.game.GameData;
 import com.aor.game.GenericArena;
 import com.aor.hero.mvc.Hero;
 import com.aor.tile.Tile;
 import com.aor.utils.Vector2d;
-import net.jqwik.api.Arbitrary;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
-import net.jqwik.api.Provide;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
@@ -19,19 +16,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 interface GameElementGenerator{
     GameElement gen(String data,Vector2d pos) throws IOException;
 }
 
-public class TestArenaLoader {
+class TestArenaLoader {
     String testLoaderFilename="src/test/java/com/aor/game_loader/TestLoaderFile.txt";
     ArenaLoader arenaLoader;
     GenericArena arena;
-    Map<String,String> TileImagePaths= GameData.getTileImgPath();
+    Map<String,String> tileImagePaths= GameData.getTileImgPath();
     List<String> tileCodes;
     List<String> spikeCodes;
     List<String> endBlockCodes;
@@ -40,18 +35,17 @@ public class TestArenaLoader {
     List<String> strawberryCodes;
     List<String> heroCodes;
 
+    List<String> backgroundCodes;
 
-    List<String> BackgroundCodes;
-
-    Map<String,GameElementGenerator> BackgroundMaker;
+    Map<String,GameElementGenerator> backgroundMaker;
 
     boolean setupOnce=false;
     @BeforeEach
     void setup(){
         if(!setupOnce) {
             tileCodes = new ArrayList<>();
-            BackgroundCodes= new ArrayList<>();
-            BackgroundCodes.addAll(List.of("G00","G01","A00","A01","C"));
+            backgroundCodes= new ArrayList<>();
+            backgroundCodes.addAll(List.of("G00","G01","A00","A01","C"));
 
             endBlockCodes=List.of("E");
             spikeCodes=List.of("S");
@@ -60,25 +54,23 @@ public class TestArenaLoader {
             strawberryCodes=List.of("B");
             heroCodes=List.of("H");
 
+            backgroundMaker=new HashMap<>();
+            backgroundMaker.put("F", (String data, Vector2d pos)->new BackgroundBlock(pos,tileImagePaths.get(data)));
+            backgroundMaker.put("G",(String data, Vector2d pos)->new BackgroundBlock(pos, (data.equals("G01")?new Vector2d(1, 4):new Vector2d(1, 2)), 6, (data.equals("G01")?4:6), GameData.getTileImgPath().get(data)));
 
-
-            BackgroundMaker=new HashMap<>();
-            BackgroundMaker.put("F", (String data, Vector2d pos)->new BackgroundBlock(pos,TileImagePaths.get(data)));
-            BackgroundMaker.put("G",(String data, Vector2d pos)->new BackgroundBlock(pos, (data.equals("G01")?new Vector2d(1, 4):new Vector2d(1, 2)), 6, (data.equals("G01")?4:6), GameData.getTileImgPath().get(data)));
-
-            BackgroundMaker.put("A",(String data, Vector2d pos)->new BackgroundBlock(pos,TileImagePaths.get(data)));
-            BackgroundMaker.put("C",(String data, Vector2d pos)-> new BackgroundBlock(pos, new Vector2d(1, 1), 5, 7, GameData.getTileImgPath().get("flower")) );
+            backgroundMaker.put("A",(String data, Vector2d pos)->new BackgroundBlock(pos,tileImagePaths.get(data)));
+            backgroundMaker.put("C",(String data, Vector2d pos)-> new BackgroundBlock(pos, new Vector2d(1, 1), 5, 7, GameData.getTileImgPath().get("flower")) );
 
 
             arenaLoader = new ArenaLoader();
             arena= Mockito.mock(GenericArena.class);
 
-            for (String s : TileImagePaths.keySet()) {
+            for (String s : tileImagePaths.keySet()) {
                 if (s.startsWith("T")) {
                     tileCodes.add(s);
                 }
                 if (s.startsWith("F")) {
-                    BackgroundCodes.add(s);
+                    backgroundCodes.add(s);
                 }
 
             }
@@ -105,7 +97,8 @@ public class TestArenaLoader {
         random.setSeed(seed);
         StringBuilder encodingStringBuilder=new StringBuilder();
 
-        boolean endEarly=false;// in case of hero, we just want to generate it once;
+        //in case of hero, we just want to generate it once
+        boolean endEarly=false;
         for(int j=0;j<16 ;j++){
             for(int i=0;i<16 ;i++){
                 int randomId=random.nextInt();
@@ -114,7 +107,6 @@ public class TestArenaLoader {
                     String elementCode=elementCodes.get(randomId);
                     gameElements.add(generator.gen(elementCode,new Vector2d(i * 8, j * 8)));
 
-                    //tiles.add(new Tile(new Vector2d(i * 8, j * 8), TileImagePaths.get(tileCode), GameData.TILE_TAG));
                     encodingStringBuilder.append(elementCode+",");
                     if(elementCodes.contains("H")){
                         endEarly=true;
@@ -149,7 +141,7 @@ public class TestArenaLoader {
     void TestTileLoader(@ForAll int seed ) throws IOException {
         setup();
 
-        List<Tile> expectedTiles = convert(ExpectedGameElementListAndFileGenerator(seed,(String data,Vector2d pos)->new Tile(pos, TileImagePaths.get(data), GameData.TILE_TAG),tileCodes));
+        List<Tile> expectedTiles = convert(ExpectedGameElementListAndFileGenerator(seed,(String data,Vector2d pos)->new Tile(pos, tileImagePaths.get(data), GameData.TILE_TAG),tileCodes));
         List<Tile> tiles= arenaLoader.loadTile16x16file(testLoaderFilename);
          Assertions.assertEquals( tiles,expectedTiles);
     }
@@ -183,13 +175,13 @@ public class TestArenaLoader {
         setup();
         List<Hero> expectedHeros = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new Hero(pos,arena),heroCodes));
         List<Hero> heros= arenaLoader.loadHero16x16file(testLoaderFilename,arena);
-        Assertions.assertEquals(heros,expectedHeros);
+        Assertions.assertEquals(heros, expectedHeros);
     }
 
     @Property(tries=100)
     void TestBackgroundLoader(@ForAll int seed ) throws IOException {
         setup();
-        List<BackgroundBlock> expectedBackground = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->BackgroundMaker.get(data.substring(0,1)).gen(data,pos),BackgroundCodes));
+        List<BackgroundBlock> expectedBackground = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->backgroundMaker.get(data.substring(0,1)).gen(data,pos),backgroundCodes));
         List<BackgroundBlock> background= arenaLoader.loadBackground16x16file(testLoaderFilename);
         Assertions.assertEquals(new HashSet<>(background),new HashSet<>(expectedBackground));
     }

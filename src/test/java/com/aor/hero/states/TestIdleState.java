@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class TestIdleState {
+class TestIdleState {
     IdleState idleState;
     HeroModel mockedHeroModel;
     HeroController mockedHeroController;
@@ -46,7 +46,7 @@ public class TestIdleState {
         Mockito.when(mockedHeroModel.isFacingRight()).thenReturn(true);
         Mockito.doNothing().when(mockedHeroModel).setFacingRight(Mockito.anyBoolean());
 
-        idleState = new IdleState(mockedHeroModel, 1);
+        idleState = new IdleState(mockedHeroModel);
     }
 
     @Test

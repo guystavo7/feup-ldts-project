@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class TestGroundedState {
+class TestGroundedState {
     GroundedState groundedState;
     HeroModel mockedHeroModel;
     HeroController mockedHeroController;
@@ -44,7 +44,7 @@ public class TestGroundedState {
         Mockito.when(mockedHeroModel.isFacingRight()).thenReturn(true);
         Mockito.doNothing().when(mockedHeroModel).setFacingRight(Mockito.anyBoolean());
 
-        groundedState = new GroundedState(mockedHeroModel, 1);
+        groundedState = new GroundedState(mockedHeroModel);
     }
 
     @Test

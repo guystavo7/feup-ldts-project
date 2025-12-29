@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestHeroModel {
+class TestHeroModel {
     HeroModel heroModel;
 
     @BeforeEach
@@ -31,7 +31,7 @@ public class TestHeroModel {
         heroModel.setDirectionY(1);
         Assertions.assertEquals(new Vector2d(-1, 1), heroModel.getDirection());
 
-        heroModel.setState(new FallingState(heroModel, 0));
+        heroModel.setState(new FallingState(heroModel));
         Assertions.assertEquals(StateTag.FALLING, heroModel.getState().getTag());
 
         heroModel.setCanDash(false);

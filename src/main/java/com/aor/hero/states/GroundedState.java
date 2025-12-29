@@ -13,7 +13,7 @@ public class GroundedState implements HeroState {
     private final HeroModel model;
     public static final StateTag tag = StateTag.GROUNDED;
 
-    public GroundedState(GenericModel model, double delta) {
+    public GroundedState(GenericModel model) {
         this.model = (HeroModel) model;
     }
 
@@ -28,10 +28,10 @@ public class GroundedState implements HeroState {
 
         } else if (!controller.checkIfGrounded()) {
             controller.getCoyoteTimer().start();
-            model.setState(new FallingState(model, delta));
+            model.setState(new FallingState(model));
 
-        } else if (model.getDirection().getX() == 0 && model.getDirection().getY() == 0) {
-            model.setState(new IdleState(model, delta));
+        } else if (model.getDirection().getX() == 0) {
+            model.setState(new IdleState(model));
         }
     }
 

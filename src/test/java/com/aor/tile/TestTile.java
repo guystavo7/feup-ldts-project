@@ -2,15 +2,11 @@ package com.aor.tile;
 
 import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import net.jqwik.api.*;
-import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.io.IOException;
-
-public class TestTile {
+class TestTile {
     Tile tile;
     TileController mockedController;
     TileView mockedView;
@@ -19,13 +15,12 @@ public class TestTile {
     boolean setupOnce;
 
     @BeforeEach
-    void setup() throws IOException {
+    void setup() {
         if(!setupOnce){
             mockedController= Mockito.mock(TileController.class);
             mockedModel=Mockito.mock(TileModel.class);
             mockedView=Mockito.mock(TileView.class);
             graphics=Mockito.mock(TextGraphics.class);
-
 
             Mockito.when(mockedView.getTileModel()).thenReturn(mockedModel);
             Mockito.when(mockedController.getTileModel()).thenReturn(mockedModel);
@@ -36,7 +31,7 @@ public class TestTile {
 
     }
     @Test
-    void TestUpdate() throws IOException {
+    void TestUpdate() {
         double delta=1;
         tile.update(graphics,delta);
         Mockito.verify(mockedController,Mockito.times(1)).update(delta);
@@ -50,11 +45,9 @@ public class TestTile {
     }
 
     @Test
-    void  TestSetSpeed() throws IOException {
+    void  TestSetSpeed() {
         Vector2d speed=new Vector2d(0,0);
         tile.setSpeed(speed);
         Mockito.verify(mockedController,Mockito.times(1)).setSpeed(speed);
     }
-
-
 }

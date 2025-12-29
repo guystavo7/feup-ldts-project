@@ -1,10 +1,8 @@
 package com.aor.hero.mvc;
 
 import com.aor.components.sprites.Positionable;
-import com.aor.hero.states.FallingState;
 import com.aor.hero.states.GroundedState;
 import com.aor.hero.states.HeroState;
-import com.aor.hero.states.IdleState;
 import com.aor.mvc.GenericModel;
 import com.aor.utils.Vector2d;
 
@@ -22,7 +20,7 @@ public class HeroModel implements GenericModel, Positionable {
         this.velocity = velocity;
         this.direction = direction;
 
-        state = new GroundedState(this, 0);
+        state = new GroundedState(this);
     }
 
     public Vector2d getPosition() {

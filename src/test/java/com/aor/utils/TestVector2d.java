@@ -88,16 +88,16 @@ class TestVector2d {
 
     @Test
     void testEquals1() {
-        Assertions.assertTrue(v1.equals(v1));
+        Assertions.assertEquals(v1, v1);
     }
 
     @Test
     void testEquals2() {
-        Assertions.assertFalse(v1.equals(null));
+        Assertions.assertNotEquals(null, v1);
     }
 
     @Test
     void testEquals3() {
-        Assertions.assertFalse(v1.equals(new Object()));
+        Assertions.assertNotEquals(new Object(), v1);
     }
 }
