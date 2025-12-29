@@ -55,7 +55,7 @@ Este *design* tem como ideia de promover ao máximo o *Single Responsibility Pri
 
 Para implementar esta solução, criamos uma classe abstrata *Node* que contêm, uma posição, um valor *offset* para a sua posição e um método *update* que atualiza a sua posição. E a partir dessa classe será criada subclasses que serão os componentes.
 Os componentes criados para o projeto foram:
-- *SolidSprite*: um componente para desenhar um *sprite* usando o *TextImage* do *lanterna*, o que considera pixeis invisiveis como pixeis pretos;
+- *SolidSprite*: um componente para desenhar um *sprite* usando o *TextImage* do *lanterna*, o que considera pixeis invisíveis como pixeis pretos;
 - *TransparentSprite*: um componente para desenhar um *sprite* considerando apenas pixeis não transparentes;
 - *AnimatedSprite*: um componente capaz de desenhar uma animação;
 - *BoxCollider*: um componente que representa um *collider*, responsável para verificar colisões entre objetos;
@@ -275,6 +275,8 @@ Com base nessa base, implementamos os seguintes estados:
 - PausedState: um estado em que o jogo deve ficar pausado;
 - EndState: um estado que representa o fim do jogo.
 
+**Nota: transition() no diagrama de estados representa o método que é chamado para mudar de estado.**
+
 <p align="center" justify="center">
   <img src="misc/gameStateUML.png"/>
 </p>
@@ -330,6 +332,8 @@ Com base nisso, criamos os seguintes estados:
 - WallJumpState: estado qunado o *Hero* faz um *wall jump*.
 
 Assim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroController* e pelo *HeroView*.
+
+**Nota: transition() no diagrama de estados representa o método chamado para mudar de estado. Além disso, qualquer estado pode mudar para o estado *DashingState*, por isso, decidimos representar todos os estados exceto o *DashingState* como *SuperState* para representar a transição para o *dash*.**
 
 <p align="center" justify="center">
   <img src="misc/heroStateUML.png"/>
