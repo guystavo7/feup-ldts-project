@@ -11,6 +11,7 @@ import com.aor.utils.Vector2d;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.mockito.Mockito;
 
 import java.awt.event.KeyEvent;
@@ -44,6 +45,7 @@ class TestElements {
 
 
     @Test
+    @Timeout(10)
     void BerryIsTaken() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8);  //Hero occupies the tile coordinate (3,14)
@@ -65,6 +67,7 @@ class TestElements {
     }
 
     @Test
+    @Timeout(10)
     void SpikeIsDeadly() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
@@ -87,6 +90,7 @@ class TestElements {
     }
 
     @Test
+    @Timeout(10)
     void VoidBlockIsDeadly() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
@@ -108,6 +112,7 @@ class TestElements {
     }
 
     @Test
+    @Timeout(10)
     void EndBlockCompletesArena() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
@@ -128,6 +133,7 @@ class TestElements {
     }
 
     @Test
+    @Timeout(10)
     void BackgroundDontCollideWithHero() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)
@@ -150,6 +156,7 @@ class TestElements {
 
 
     @Test
+    @Timeout(10)
     void NormalTileCollideWithHero() throws IOException {
 
         Vector2d heroPos= new Vector2d((2%14+1)*8,(13%14+1)*8); //Hero occupies the tile coordinate (3,14)

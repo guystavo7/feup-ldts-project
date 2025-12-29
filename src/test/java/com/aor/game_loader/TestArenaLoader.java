@@ -10,7 +10,6 @@ import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Timeout;
 import org.mockito.Mockito;
 
 import java.io.BufferedWriter;

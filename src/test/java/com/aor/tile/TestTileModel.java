@@ -4,7 +4,6 @@ import com.aor.utils.Vector2d;
 import net.jqwik.api.*;
 import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Timeout;
 
 public class TestTileModel {
 
