@@ -18,6 +18,8 @@ repositories {
 
 pitest {
     junit5PluginVersion = '1.0.0'
+    jvmArgs = ['-Xmx2048m']
+    threads = 4
 }
 
 dependencies {

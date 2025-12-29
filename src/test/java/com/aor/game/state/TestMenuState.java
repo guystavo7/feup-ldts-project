@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-public class TestMenuState {
+class TestMenuState {
     Game mockedGame;
     MenuState menuState;
     TextGraphics mockedGraphics;

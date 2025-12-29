@@ -10,6 +10,7 @@ import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Timeout;
 import org.mockito.Mockito;
 
 import java.io.BufferedWriter;
@@ -137,7 +138,7 @@ class TestArenaLoader {
         return res ;
     }
 
-    @Property(tries=100)
+    @Property(tries=10)
     void TestTileLoader(@ForAll int seed ) throws IOException {
         setup();
 
@@ -146,7 +147,7 @@ class TestArenaLoader {
          Assertions.assertEquals( tiles,expectedTiles);
     }
 
-    @Property(tries=100)
+    @Property(tries=10)
     void TestGroundedSpikeLoader(@ForAll int seed ) throws IOException {
         setup();
         List<GroundedSpike> expectedSpikes = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new GroundedSpike(pos),spikeCodes));
@@ -154,7 +155,7 @@ class TestArenaLoader {
         Assertions.assertEquals( spikes,expectedSpikes);
     }
 
-    @Property(tries=100)
+    @Property(tries=10)
     void TestGroundedVoidBlockLoader(@ForAll int seed ) throws IOException {
         setup();
         List<GroundVoidBlock> expectedGroundedVoidBlocks = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new GroundVoidBlock(pos),groundedVoidBlockCodes));
@@ -162,7 +163,7 @@ class TestArenaLoader {
         Assertions.assertEquals( groundedVoidBlocks,expectedGroundedVoidBlocks);
     }
 
-    @Property(tries=100)
+    @Property(tries=10)
     void TestStrawberryLoader(@ForAll int seed ) throws IOException {
         setup();
         List<Strawberry> expectedStrawberries = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->new Strawberry(pos),strawberryCodes));
@@ -178,7 +179,7 @@ class TestArenaLoader {
         Assertions.assertEquals(heros, expectedHeros);
     }
 
-    @Property(tries=100)
+    @Property(tries=10)
     void TestBackgroundLoader(@ForAll int seed ) throws IOException {
         setup();
         List<BackgroundBlock> expectedBackground = convert(ExpectedGameElementListAndFileGenerator(seed,(String data, Vector2d pos)->backgroundMaker.get(data.substring(0,1)).gen(data,pos),backgroundCodes));

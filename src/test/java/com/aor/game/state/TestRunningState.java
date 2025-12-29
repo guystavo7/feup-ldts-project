@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-public class TestRunningState {
+class TestRunningState {
     Game mockedGame;
     RunningState runningState;
     TextGraphics mockedGraphics;

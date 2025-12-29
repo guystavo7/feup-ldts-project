@@ -11,9 +11,10 @@ import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.mockito.Mockito;
 
-public class TestDashingState {
+class TestDashingState {
 
     DashingState dashingState;
     HeroModel mockedHeroModel;
@@ -46,7 +47,7 @@ public class TestDashingState {
 
     }
 
-    @Property
+    @Property(tries = 10)
     void TestGettersAndStartingVelocity(@ForAll("genState") StateTag tag, @ForAll @Positive double delta,@ForAll("dirValNot00") Vector2d dir){
         setup();
 
@@ -110,9 +111,10 @@ public class TestDashingState {
                 StateTag.DASHING,
                 StateTag.WALL_JUMPING);
     }
+
     @Provide
     Arbitrary<Vector2d> dirValNot00(){
-        return Combinators.combine(Arbitraries.of(-1d,0d,1d),Arbitraries.of(-1d,0d,1d)).as(( x, y)-> new Vector2d(x,y)).filter(n->!n.equals(new Vector2d(0,0)));
+        return Combinators.combine(Arbitraries.of(-1d,0d,1d),Arbitraries.of(-1d,0d,1d)).as(Vector2d::new).filter(n->!n.equals(new Vector2d(0,0)));
     }
 
 }

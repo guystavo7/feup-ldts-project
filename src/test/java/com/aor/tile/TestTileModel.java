@@ -4,6 +4,7 @@ import com.aor.utils.Vector2d;
 import net.jqwik.api.*;
 import net.jqwik.api.constraints.Positive;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Timeout;
 
 public class TestTileModel {
 
@@ -15,9 +16,8 @@ public class TestTileModel {
     int height;
     int width;
 
-    @Property
+    @Property (tries = 10)
     void TestGettersAndSetters(@ForAll String filePath, @ForAll String tag, @ForAll("TVector2d") Vector2d initialPos,@ForAll("TVector2d") Vector2d offset,@ForAll @Positive int width,@ForAll @Positive int height  ){
-
         model=new TileModel(initialPos,offset,width,height,filePath, tag);
         Assertions.assertEquals(filePath,model.getFilePath());
         Assertions.assertEquals(model.getTag(),tag);

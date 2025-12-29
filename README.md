@@ -12,14 +12,29 @@ Este projeto foi desenvolvido pelo Pedro Manuel Cerqueira Gonçalves (up20230505
 - **Colisões** - O jogo contêm colisões funcionais, de modo a impedir *overlaps* de objetos;
 - **Arena loader** - Dado um ficheiro .csv com as notações corretas, é possível gerar um *level*;
 - **Estados do jogo** - Existe um menu inicial, uma tela de finalização do jogo e é possível pausar o jogo, ao apertar o botão ESCAPE;
-- **Níveis produzidos** - O jogo contêm 5 níveis possíveis de vencer.
+- **Níveis produzidos** - O jogo contêm 5 níveis possíveis de vencer;
+- **Efeitos sonoros** - O jogo tem uma música de *background* e efeitos sonoros para o pulo e o *dash*.
 
-### GIF demonstrando a física básica
+### *Gameplay* do jogo
 <p align="center" justify="center">
-  <img src="misc/FisicaBasica.gif"/>
+  <img src="misc/gameplay1.gif"/>
 </p>
 <p align="center">
-  <b><i>Fig. 1 Demonstração da gravidade e do pulo</i></b>
+  <b><i>Fig. 1 Menu inicial e fase 1 e 2</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="misc/gameplay2.gif"/>
+</p>
+<p align="center">
+  <b><i>Fig. 2 Fase 3 e 4</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="misc/gameplay3.gif"/>
+</p>
+<p align="center">
+  <b><i>Fig. 3 Fase 5</i></b>
 </p>
 
 ### DESIGN
@@ -50,7 +65,7 @@ Os componentes criados para o projeto foram:
   <img src="misc/ComponentsUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 3 UML dos componentes</i></b>
+  <b><i>Fig. 6 UML dos componentes</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -96,7 +111,7 @@ Com base nisso, a estrutura dos *sprites* ficou a seguinte:
   <img src="misc/genericSpriteUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 4 UML dos sprites</i></b>
+  <b><i>Fig. 7 UML dos sprites</i></b>
 </p>
 
 E a organização em *method factory* ficou assim:
@@ -104,7 +119,7 @@ E a organização em *method factory* ficou assim:
   <img src="misc/spriteFactoryUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 5 UML do method factory</i></b>
+  <b><i>Fig. 8 UML do method factory</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -152,7 +167,7 @@ Assim, criamos MVCs para duas grandes entidades:
   <img src="misc/MVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 6 UML do MVC genérico</i></b>
+  <b><i>Fig. 9 UML do MVC genérico</i></b>
 </p>
 
 E com essa estrutura, a criação do *Hero* ficou assim (este MVC é bem extenso, então só vou apresentar os atributos e métodos mais importantes):
@@ -160,7 +175,7 @@ E com essa estrutura, a criação do *Hero* ficou assim (este MVC é bem extenso
   <img src="misc/heroMVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 7 MVC aplicado no Hero</i></b>
+  <b><i>Fig. 10 MVC aplicado no Hero</i></b>
 </p>
 
 E com essa estrutura, a criação do *Tile* ficou assim:
@@ -168,7 +183,7 @@ E com essa estrutura, a criação do *Tile* ficou assim:
   <img src="misc/tileMVC.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 8 MVC aplicado no Tile</i></b>
+  <b><i>Fig. 11 MVC aplicado no Tile</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -222,7 +237,7 @@ Por fim, para qualquer objeto que necessite de saber se um certo *input* foi pre
   <img src="misc/inputHandlerUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 9 UML do Inputhandler</i></b>
+  <b><i>Fig. 12 UML do Inputhandler</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -264,14 +279,14 @@ Com base nessa base, implementamos os seguintes estados:
   <img src="misc/gameStateUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 10 UML do GameState</i></b>
+  <b><i>Fig. 13 UML do GameState</i></b>
 </p>
 
 <p align="center" justify="center">
   <img src="misc/gameFSM.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 11 State diagram do GameState</i></b>
+  <b><i>Fig. 14 State diagram do GameState</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -320,14 +335,14 @@ Assim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroCo
   <img src="misc/heroStateUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 12 UML do HeroState</i></b>
+  <b><i>Fig. 15 UML do HeroState</i></b>
 </p>
 
 <p align="center" justify="center">
   <img src="misc/heroStateFSM.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 13 Diagrama de estados do HeroState</i></b>
+  <b><i>Fig. 16 Diagrama de estados do HeroState</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -366,12 +381,13 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 ### TESTING
 
-Só foi testado as classes nas package *components* e *utils*.
+Infelizmente, a classe *Game* e *Application* não são possíveis de testar porque são o ponto de partida do jogo.
+
 <p align="center" justify="center">
   <img src="misc/Coverage1.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 7 Test Coverage</i></b>
+  <b><i>Fig. 17 Test Coverage</i></b>
 </p>
 
 *Link* para o relatório do *pitest*:
