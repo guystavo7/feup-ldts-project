@@ -114,12 +114,12 @@ Com base nisso, a estrutura dos *sprites* ficou a seguinte:
   <b><i>Fig. 7 UML dos sprites</i></b>
 </p>
 
-E a organização em *method factory* ficou assim:
+E a organização em *factory method* ficou assim:
 <p align="center" justify="center">
   <img src="misc/spriteFactoryUML.png"/>
 </p>
 <p align="center">
-  <b><i>Fig. 8 UML do method factory</i></b>
+  <b><i>Fig. 8 UML do factory method</i></b>
 </p>
 
 As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
@@ -377,7 +377,7 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 1º Devido a restrições de tempo, a lógica do cabelo do personagem presente no *HeroView* tornou-se demasiado complicado de compreender devido à abundância de argumentos para a classe *HairComponent*.
 
-2º Como dito anteriormente, a criação de duas versões de componentes para desenhar *sprites* com o *method factory* criado tornou-se, totalmente, desnecessário porque todos *assets* do jogo tinham pixeis transparentes, o que só aumentou a complexidade do projeto.
+2º Como dito anteriormente, a criação de duas versões de componentes para desenhar *sprites* com o *factory method* criado tornou-se, totalmente, desnecessário porque todos *assets* do jogo tinham pixeis transparentes, o que só aumentou a complexidade do projeto.
 
 3º Criar uma Arena requer um *Hero*, contudo, a classe *Hero* necessita de uma Arena, dessa forma, existe um momento nas transições de cada fase do jogo em que o *Hero* é *null* e Arena fica a espera pela criação do *Hero*, o que pode levar a possibilidade de *NullPointerExceptions*.
 
