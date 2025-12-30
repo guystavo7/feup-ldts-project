@@ -136,7 +136,7 @@ As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 
 O uso desta estratégia teve os seguintes benefícios:
 - Qualquer objeto que pode ter as duas variantes do *sprite* torna-se mais simples implementar, uma vez que não é necessário criar duas classes para o mesmo objeto;
-- Permite uma adaptabilidade no código.
+- Permite uma melhor adaptabilidade no código.
 
 ------
 
@@ -217,14 +217,14 @@ Durante o jogo, muitos objetos precisam captar e ler diversos *inputs*. E o prob
 
 **The Pattern**
 
-Este problema foi resolvido usando dois *design patterns* que são *Singleton* e *Observers*. O uso de Singleton vai permitir centralizar os dados dos *inputs* numa só instância e evitar a passagem por argumentos de valores entre objetos.
+Este problema foi resolvido usando dois *design patterns* que são *Singleton* e *Observers*. O uso de *Singleton* vai permitir centralizar os dados dos *inputs* numa só instância e evitar a passagem por argumentos de valores entre objetos.
 E para ler os *inputs*, decidimos utilizar observers que vão enviar um sinal quando existe um *input* feito pelo *player*.
 
 **Implementation**
 
-No projeto, para representar o estado dos *inputs* criamos um enumerator chamado KeyState, que contém o estado:
+No projeto, para representar o estado dos *inputs*, criamos um enumerator chamado KeyState, que contém o estado:
 - UP: qualquer botão que não foi pressionado;
-- DOWN: qualquer botão que está a ser pressionado, mas ainda não lido;
+- DOWN: qualquer botão que está a ser pressionado, mas ainda não foi lido;
 - CONSUMED: qualquer botão que está a ser pressionado, mas já foi lido;
 
 Esta distinção de estados servirá para casos de necessidade de distinguir se um botão está a ser pressionado ou foi pressionado naquele instante.
@@ -263,7 +263,7 @@ Enquanto o jogo executa, o mesmo pode estar no menu inicial, numa fase do jogo, 
 
 **The Pattern**
 
-Para facilitar a implementação de diversos possíveis estados do jogo, decidimos criar um *finite state machines*. Esta implementação, vai permitir facilidades em executar transições e executar os *updates* necessários no *game loop*.
+Para facilitar a implementação de diversos possíveis estados do jogo, decidimos criar um *finite state machine*. Esta implementação, vai permitir facilidades em executar transições e executar os *updates* necessários no *game loop*.
 
 **Implementation**
 
@@ -323,6 +323,7 @@ Para resolver esse problema, utilizamos, novamente, uma máquina de estados em q
 
 Similarmente com a máquina de estados do *Game*, criamos uma interface chamada *HeroState* com um método *getVelocity* para executar a parte física do *player*, outro método *transition* para analisar e mudar de estado se for possível e outro método *update* para encapsular os dois métodos anteriores e uma função getTag para saber qual estado o *player* está.
 Além disso, para estados que precisam de executar algo após entrar no estado, foi implementado outra interface chamada *EnterableState* com o método onEnter.
+
 Com base nisso, criamos os seguintes estados:
 - GroundedState: estado para o *Hero* a mover-se no chão;
 - IdleState: estado para o *Hero* parado no chão;
@@ -331,7 +332,7 @@ Com base nisso, criamos os seguintes estados:
 - SlidingState: estado quando o *Hero* desliza numa parede;
 - WallJumpState: estado quando o *Hero* faz um *wall jump*.
 
-Assim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroController* e pelo *HeroView*.
+Por fim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroController* e pelo *HeroView*.
 
 **Nota: transition() no diagrama de estados representa o método chamado para mudar de estado. Além disso, qualquer estado pode mudar para o estado *DashingState*, por isso, decidimos representar todos os estados exceto o *DashingState* como *SuperState* para representar a transição para o *dash*.**
 
@@ -381,7 +382,7 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 3º Criar uma Arena requer um *Hero*, contudo, a classe *Hero* necessita de uma Arena, dessa forma, existe um momento nas transições de cada fase do jogo em que o *Hero* é *null* e Arena fica a espera pela criação do *Hero*, o que pode levar a possibilidade de *NullPointerExceptions*.
 
-4º Ao longo do projeto, usamos *paths* dos ficheiros da pasta *resources* para processar esses ficheiros por essa razão, para obter o .jar funcional tivemos que antes de utilizar o ficheiro, criar um ficheiro temporário para utilizar os *paths*. Essa solução não é eficiente, contundo a outra solução necessitaria de refatorar o projeto por completo. 
+4º Ao longo do projeto, usamos *paths* dos ficheiros da pasta *resources* para processar esses ficheiros por essa razão, para obter o .jar funcional tivemos que antes de utilizar o ficheiro criar um ficheiro temporário para utilizar os *paths*. Essa solução não é eficiente, contundo a outra solução necessitaria de refatorar o projeto por completo. 
 
 ### TESTING
 
