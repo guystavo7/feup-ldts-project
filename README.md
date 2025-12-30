@@ -396,7 +396,7 @@ Infelizmente, a classe *Game* e *Application* não são possíveis de testar por
 </p>
 
 *Link* para o relatório do *pitest*:
-[Mutation Test](misc/pitestReport1/index.html)
+[Mutation Test](misc/pitest/index.html)
 
 ### SELF-EVALUATION
 
