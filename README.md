@@ -1,18 +1,18 @@
 ## LDTS_t02g04 - <Celeste Pico 8>
 
 O projeto pretende recriar o jogo de plataforma Celeste na versão feita no Pico 8 (uma *engine* de jogos 8 bits).
-O objetivo do jogo é controlar Madeline (personagem principal) a escalar a montanha Celeste enquanto coleta morangos. O personagem consegue andar, pular e dar *dashes* para ultrapassar obstáculos e chegar no pico da montanha.
+O objetivo do jogo é controlar Madeline (personagem principal) a escalar a montanha Celeste enquanto coleta morangos. O personagem consegue andar, pular e dar *dashes* para ultrapassar obstáculos e chegar ao pico da montanha.
 
 Este projeto foi desenvolvido pelo Pedro Manuel Cerqueira Gonçalves (up202305057@up.pt), Gustavo Pereira da Cunha Bastos (up202403874@up.pt) e pelo *Tiago Su* (up202403468@up.pt) para a cadeira LDTS 2025/2026
 
 ### IMPLEMENTED FEATURES
 
 - **Player Controller** - O *player* consegue controlar o personagem usando as setas do teclado para mover o personagem, usar o botão C para pular e o botão X e com as setas para dar um *dash* na direção pressionada, além disso, ao tocar uma parede é possível deslizar e executar um *wall jump* se pressionar o botão do pulo enquanto desliza;
-- **Animações** - O jogo contêm *sprites* animados;
-- **Colisões** - O jogo contêm colisões funcionais, de modo a impedir *overlaps* de objetos;
+- **Animações** - O jogo contém *sprites* animados;
+- **Colisões** - O jogo contém colisões funcionais, de modo a impedir *overlaps* de objetos;
 - **Arena loader** - Dado um ficheiro .csv com as notações corretas, é possível gerar um *level*;
 - **Estados do jogo** - Existe um menu inicial, uma tela de finalização do jogo e é possível pausar o jogo, ao apertar o botão ESCAPE;
-- **Níveis produzidos** - O jogo contêm 5 níveis possíveis de vencer;
+- **Níveis produzidos** - O jogo contém 5 níveis possíveis de vencer;
 - **Efeitos sonoros** - O jogo tem uma música de *background* e efeitos sonoros para o pulo e o *dash*.
 
 ### *Gameplay* do jogo
@@ -47,18 +47,18 @@ Um jogo é composto por muitos objetos com funcionalidades semelhantes, como des
 
 **The Pattern**
 
-Para resolver isso, decidimos usar como referência os componentes das *engines* como Unity e Godot, ou seja, utilizamos o *Composite Pattern*, de modo, a criar componentes básicos capazes de executar uma única funcionalidade, e devem ser independentes do objeto que os contêm.
+Para resolver isso, decidimos usar como referência os componentes das *engines* como Unity e Godot, ou seja, utilizamos o *Composite Pattern*, de modo, a criar componentes básicos capazes de executar uma única funcionalidade, e devem ser independentes do objeto que os contém.
 Assim, qualquer objeto é composto por esses componentes, facilitando a implementação de vários objetos com comportamentos parecidos e evitando repetir o mesmo código.
 Este *design* tem como ideia de promover ao máximo o *Single Responsibility Principle*.
 
 **Implementation**
 
-Para implementar esta solução, criamos uma classe abstrata *Node* que contêm, uma posição, um valor *offset* para a sua posição e um método *update* que atualiza a sua posição. E a partir dessa classe será criada subclasses que serão os componentes.
+Para implementar esta solução, criamos uma classe abstrata *Node* que contém, uma posição, um valor *offset* para a sua posição e um método *update* que atualiza a sua posição. A partir dessa classe serão criadas subclasses que serão os componentes.
 Os componentes criados para o projeto foram:
-- *SolidSprite*: um componente para desenhar um *sprite* usando o *TextImage* do *lanterna*, o que considera pixeis invisíveis como pixeis pretos;
-- *TransparentSprite*: um componente para desenhar um *sprite* considerando apenas pixeis não transparentes;
+- *SolidSprite*: um componente para desenhar um *sprite* usando o *TextImage* do *lanterna*, o que considera píxeis invisíveis como píxeis pretos;
+- *TransparentSprite*: um componente para desenhar um *sprite* considerando apenas píxeis não transparentes;
 - *AnimatedSprite*: um componente capaz de desenhar uma animação;
-- *BoxCollider*: um componente que representa um *collider*, responsável para verificar colisões entre objetos;
+- *BoxCollider*: um componente que representa um *collider*, responsável por verificar colisões entre objetos;
 - RigidBody: um componente responsável por calcular a próxima posição válida dada uma velocidade.
 
 <p align="center" justify="center">
@@ -87,16 +87,16 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 ------
 
-#### Como decidir quais dos *sprites* criar
+#### Como decidir quais *sprites* criar
 
 **Problem in Context**
 
-Por razões de otimização, o *lanterna* tem *TextImages* para desenhar imagens no terminal, mas essa alternativa tem um grande problema em tentar desenhar imagens que contêm pixeis invisiveis, ou seja, só é possível representar imagens retangulares totalmente preenchidas, no entanto, maioritariamente dos *sprites* usados no jogo não respeitam essa condição.
-Por essa razão, como citado anteriormente, criamos duas versões de componentes capazes de desenhar. A questão é como utilizar, de forma eficiente,  as duas versões.
+Por razões de otimização, o *lanterna* tem *TextImages* para desenhar imagens no terminal, em contraposição ao desenho feito caracter a caracter (píxel a píxel), mas essa alternativa tem um grande problema em tentar desenhar imagens que contêm píxeis invisiveis, ou seja, só é possível representar imagens retangulares totalmente preenchidas. No entanto, a maioria dos *sprites* usados no jogo não respeitam essa condição.
+Por essa razão, como citado anteriormente, criamos duas versões de componentes capazes de desenhar. A questão é como utilizar, de forma eficiente, as duas versões.
 
 **The Pattern**
 
-Para resolver este dilema, optamos no uso de *design pattern factory method*.
+Para resolver este dilema, optamos pelo uso do *design pattern factory method*.
 Assim, podemos criar *factories* capazes de criar o tipo desejado de *sprite* sem precisar modificar ou criar classes.
 
 **Implementation**
@@ -104,7 +104,7 @@ Assim, podemos criar *factories* capazes de criar o tipo desejado de *sprite* se
 Para implementar esta solução, criamos uma interface chamada *GenericSpriteFactory* com os métodos para criar *sprites*.
 Dessa forma, esta interface é implementada por classes chamadas *SolidSpriteFactory* e *TransparentSpriteFactory*, de modo, a criar *SolidSprites* e *TransparentSprites*, respetivamente. Assim, quando precisarmos de criar um objeto que não se sabe quais dos *sprites* usar no momento, podemos usar o *Factory*.
 
-Neste projeto, o uso *factory* só ficou relacionado com a classe *AnimatedSprite* que só é utilizada pelo *HeroView*, uma vez que todos os *sprites* do jogo têm transparência em alguns pixeis, o que tornou uma complexidade desnecessária no projeto e por isso, optamos por não utilizar no resto do projeto.
+Neste projeto, o uso da *factory* só ficou relacionado com a classe *AnimatedSprite* que só é utilizada pelo *HeroView*, uma vez que todos os *sprites* do jogo têm transparência em alguns píxeis, o que trouxe uma complexidade desnecessária no projeto e por isso, optamos por não utilizar no resto do projeto.
 
 Com base nisso, a estrutura dos *sprites* ficou a seguinte:
 <p align="center" justify="center">
@@ -144,7 +144,7 @@ O uso desta estratégia teve os seguintes benefícios:
 
 **Problem in Context**
 
-Um grande problema no projeto, é como organizamos de forma estruturada as nossas classes, de forma, a evitar incongruências nos dados e melhor a capacidade de manutenção do código.
+Um grande problema no projeto, é como organizamos de forma estruturada as nossas classes, de forma, a evitar incongruências nos dados e melhorar a capacidade de manutenção do código.
 
 **The Pattern**
 
@@ -209,7 +209,7 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 ------
 
-#### Como os objetos captar e ler *inputs*
+#### Como os objetos captam e leem *inputs*
 
 **Problem in Context**
 
@@ -222,7 +222,7 @@ E para ler os *inputs*, decidimos utilizar observers que vão enviar um sinal qu
 
 **Implementation**
 
-No projeto, para representar o estado dos *inputs* criamos um enumerator chamado KeyState, que contêm o estado:
+No projeto, para representar o estado dos *inputs* criamos um enumerator chamado KeyState, que contém o estado:
 - UP: qualquer botão que não foi pressionado;
 - DOWN: qualquer botão que está a ser pressionado, mas ainda não lido;
 - CONSUMED: qualquer botão que está a ser pressionado, mas já foi lido;
@@ -230,7 +230,7 @@ No projeto, para representar o estado dos *inputs* criamos um enumerator chamado
 Esta distinção de estados servirá para casos de necessidade de distinguir se um botão está a ser pressionado ou foi pressionado naquele instante.
 
 Para armazenar os estados dos botões, criamos uma classe chamada *InputHandler* em que tem armazenado um *hashmap* com os pares <*Integer*, *KeyState*>, em que o *Integer* é o identificador do botão pressionado.
-A leitura de *inputs* foi implementada ao utilizar os *eventsListeners* do Java (*KeyListener*), em que fizemos *override* nas funções *keyPressed* e *keyReleased* em que ambas envião um sinal para o Singleton atualizar o *hashmap*.
+A leitura de *inputs* foi implementada ao utilizar os *eventsListeners* do Java (*KeyListener*), em que fizemos *override* nas funções *keyPressed* e *keyReleased* em que ambas enviam um sinal para o Singleton atualizar o *hashmap*.
 Por fim, para qualquer objeto que necessite de saber se um certo *input* foi pressionado, podemos usar *getKeyDown* ou *getKeyPressed* para ler uma única vez se o botão é pressionado ou para ler quando o botão está a ser pressionado.
 
 <p align="center" justify="center">
@@ -263,11 +263,11 @@ Enquanto o jogo executa, o mesmo pode estar no menu inicial, numa fase do jogo, 
 
 **The Pattern**
 
-Para facilitar a implementação de diversos possiveis estados do jogo, decidimos criar um *finite state machines*. Esta implementação, vai permitir facilidades em executar transições e executar os *updates* necessários no *gameloop*.
+Para facilitar a implementação de diversos possíveis estados do jogo, decidimos criar um *finite state machines*. Esta implementação, vai permitir facilidades em executar transições e executar os *updates* necessários no *game loop*.
 
 **Implementation**
 
-Para implementar esse *design pattern*, criamos uma interface *GameState* com um método *update*, responsável por executar a parte de necessária do *gameloop* do respetivo estado e um método *transition* que analisa se é possível fazer uma transição e se for possível mudar de estado.
+Para implementar esse *design pattern*, criamos uma interface *GameState* com um método *update*, responsável por executar a parte de necessária do *game loop* do respetivo estado e um método *transition* que analisa se é possível fazer uma transição e se for possível mudar de estado.
 
 Com base nessa base, implementamos os seguintes estados:
 - MenuState: que representa o menu inicial;
@@ -303,7 +303,7 @@ As classes relacionadas com o tópico podem ser achadas nos seguintes ficheiros:
 **Consequences**
 
 O uso dessa estratégia teve os seguintes benefícios:
-- Facilidade em decidir quais partes do projeto devem ser executadas no *gameloop*;
+- Facilidade em decidir quais partes do projeto devem ser executadas no *game loop*;
 - Uso de um *Design pattern* que respeita o *Open-closed principle*, de modo que para adicionar um novo estado só é necessário implementar a interface;
 - Facilidade em visualizar e dividir os estados do jogo.
 
@@ -313,7 +313,7 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 **Problem in Context**
 
-No jogo, a parte visual e física do *Hero* dependem de várias condições como, por exemplo, se o *player* está no ar ou no chão para decidir qual atrito usar ou se o *hero* está a cair ou no chão para decidir quais *sprites* usar. Assim, com o aumento da complexidade da lógica do *player*, essas condições podem tornar-se bem problemático.
+No jogo, a parte visual e física do *Hero* dependem de várias condições como, por exemplo, se o *player* está no ar ou no chão para decidir qual atrito usar ou se o *hero* está a cair ou no chão para decidir quais *sprites* usar. Assim, com o aumento da complexidade da lógica do *player*, essas condições podem tornar-se bem problemáticas.
 
 **The Pattern**
 
@@ -329,7 +329,7 @@ Com base nisso, criamos os seguintes estados:
 - JumpingState: estado quando o *Hero* pula;
 - FallingState: estado quando o *Hero* está em queda livre;
 - SlidingState: estado quando o *Hero* desliza numa parede;
-- WallJumpState: estado qunado o *Hero* faz um *wall jump*.
+- WallJumpState: estado quando o *Hero* faz um *wall jump*.
 
 Assim, o estado atual é guardado no *HeroModel* para ser utilizado pelo *HeroController* e pelo *HeroView*.
 
@@ -375,13 +375,13 @@ O uso dessa estratégia teve os seguintes benefícios:
 
 #### KNOWN CODE SMELLS
 
-1º Devido a restrições de tempo, a lógica do cabelo do personagem presente no *HeroView* tornou-se demasiado complicado de compreender devido à abundância de argumentos para a classe *HairComponent*.
+1º Devido a restrições de tempo, a lógica do cabelo do personagem presente no *HeroView* tornou-se demasiado complicada de compreender devido à abundância de argumentos para a classe *HairComponent*.
 
-2º Como dito anteriormente, a criação de duas versões de componentes para desenhar *sprites* com o *factory method* criado tornou-se, totalmente, desnecessário porque todos *assets* do jogo tinham pixeis transparentes, o que só aumentou a complexidade do projeto.
+2º Como dito anteriormente, a criação de duas versões de componentes para desenhar *sprites* com o *factory method* criado tornou-se, totalmente, desnecessária porque todos *assets* do jogo tinham píxeis transparentes, o que só aumentou a complexidade do projeto.
 
 3º Criar uma Arena requer um *Hero*, contudo, a classe *Hero* necessita de uma Arena, dessa forma, existe um momento nas transições de cada fase do jogo em que o *Hero* é *null* e Arena fica a espera pela criação do *Hero*, o que pode levar a possibilidade de *NullPointerExceptions*.
 
-4º Ao longo do projeto, usamos *paths* dos ficheiros da pasta *resources* para processar esses ficheiros por essa razão, para obter o .jar funcional tivemos que antes de utilizar o ficheiro, criar um ficheiro temporário para utilizar os *paths*. Essa solução não é eficiente, contundo a outra solução necessitaria de refraturar o projeto por completo. 
+4º Ao longo do projeto, usamos *paths* dos ficheiros da pasta *resources* para processar esses ficheiros por essa razão, para obter o .jar funcional tivemos que antes de utilizar o ficheiro, criar um ficheiro temporário para utilizar os *paths*. Essa solução não é eficiente, contundo a outra solução necessitaria de refatorar o projeto por completo. 
 
 ### TESTING
 
